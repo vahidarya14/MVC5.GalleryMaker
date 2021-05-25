@@ -1,0 +1,229 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Security.Claims;
+using System.Threading.Tasks;
+using System.Web;
+using System.Web.Mvc;
+using GalleryMaker._1.DAL;
+using GalleryMaker._2.BLL;
+using GalleryMaker.Models;
+using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security;
+
+namespace GalleryMaker.Controllers
+{
+    public class HomeController : Controller
+    {
+        AppDbContext _db = new AppDbContext();
+
+        public long UserId => long.Parse(User.Identity.GetUserId());
+
+        public static List<Layout> AllLayout = new List<Layout>();
+        private string path;
+        public HomeController()
+        {
+
+            TempLists.Init();
+
+
+        }
+
+        private void InitViews()
+        {
+
+
+            var cats = new List<CatGroupedModel>();
+            foreach (var cat in TempLists.Cats)
+            {
+                var ls = TempLists.Layouts.Where(a => a.Cat.Id == cat.Id);
+                var cg = new CatGroupedModel();
+                cg.CatName = cat.Name;
+                cg.Layouts = ls.ToList();
+                cats.Add(cg);
+            }
+            ViewData["AllLayout"] = cats;
+            ViewData["Projects"] = _db.Projects.Where(a => a.UserId == UserId).ToList();
+            ViewData["SlidShowImages"] = new Uploader(_db).LoadImages(UserId);
+        }
+
+        [Authorize]
+        public ActionResult Index(int? id)
+        {
+            InitViews();
+
+
+            var model = new Project();
+            if (id.HasValue && id != 0)
+                model = _db.Projects.FirstOrDefault(b => b.Id == id) ?? new Project();
+            return View("Index2", model);
+        }
+
+        public ActionResult LoadLayOut(int id)
+        {
+            InitViews();
+
+            var model = new Project();
+            model.HtmlString = TempLists.Layouts.First(a => a.Id == id).HtmlString;
+            return View("Index2", model);
+        }
+
+        [Authorize]
+        [Route("PhotoMgmt")]
+        public ActionResult PhotoMgmt()
+        {
+            ViewData["SlidShowImages"] = new Uploader(_db).LoadImages(UserId);
+            return View();
+        }
+
+        [Authorize]
+        [HttpPost]
+        [ValidateInput(false)]
+        public async Task<JsonResult> SaveLayout(Project a)
+        {
+            if (a.Id == 0)
+            {
+                a.UserId = UserId;
+                _db.Projects.Add(a);
+            }
+            else
+            {
+                var olsP = _db.Projects.FirstOrDefault(b => b.Id == a.Id) ?? new Project { };
+                olsP.HtmlString = a.HtmlString;
+            }
+
+
+            await _db.SaveChangesAsync();
+            return Json(a);
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult> UploadImages(ICollection<HttpPostedFileBase> files)
+        {
+
+            var iii = await new Uploader(_db).AddFileToSlideShow(files);
+
+            var imgs = new Uploader(_db).LoadImages(UserId);
+            ViewData["SlidShowImages"] = imgs;
+
+
+            _db.Images.AddRange(iii.ConvertAll(a => new Image { UserId = UserId, Name = a }).ToList());
+            await _db.SaveChangesAsync();
+
+            return RedirectToAction("PhotoMgmt");
+        }
+
+        [Authorize]
+        [HttpPost]
+        public async Task<ActionResult> RemoveImage(string name)
+        {
+
+            await new Uploader(_db).DeleteFileFromSlideShow(name, UserId);
+
+
+
+
+            return RedirectToAction("PhotoMgmt");
+        }
+
+
+        [Authorize]
+        [HttpPost]
+        public async Task<JsonResult> RemoveProj(long id)
+        {
+            var p = _db.Projects.FirstOrDefault(a => a.Id == id);
+            if (p.UserId == UserId)
+            {
+                _db.Projects.Remove(p);
+                await _db.SaveChangesAsync();
+            }
+
+            return Json(new { });
+        }
+
+
+
+        #region login
+        private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
+
+        public ActionResult Login()
+        {
+            return View(new LoginModel { UserName="a",Password="123456"});
+        }
+
+        [HttpPost]
+        public ActionResult Login(LoginModel model)
+        {
+            model.Password = model.Password.HashSHA1();
+            var user = _db.Users.FirstOrDefault(a => a.UserName == model.UserName && a.Password == model.Password);
+            if (user != null)
+            {
+                IdentitySignin(user, user.Id + "_" + user.UserName, true);
+                return RedirectToAction("Index");
+            }
+
+            ModelState.AddModelError("", "نام کاربری یا رمز اشتباه");
+            model.Password = "";
+            return View(model);
+        }
+        void IdentitySignin(User appUserState, string providerKey = null, bool isPersistent = false)
+        {
+            var claims = new List<Claim>
+            {
+                // create required claims
+                new Claim(ClaimTypes.NameIdentifier, appUserState.Id + ""),
+                new Claim(ClaimTypes.Name, appUserState.UserName),
+
+                // custom – my serialized AppUserState object
+                new Claim("userState", appUserState.ToString())
+            };
+
+            var identity = new ClaimsIdentity(claims, DefaultAuthenticationTypes.ApplicationCookie);
+
+            AuthenticationManager.SignIn(new AuthenticationProperties
+            {
+                AllowRefresh = true,
+                IsPersistent = isPersistent,
+                ExpiresUtc = DateTime.UtcNow.AddMinutes(30)
+            }, identity);
+        }
+
+        public ActionResult LogOut()
+        {
+            AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie,
+                                           DefaultAuthenticationTypes.ExternalCookie);
+            return RedirectToAction("Index");
+        }
+
+
+
+        #endregion
+
+
+        #region register
+
+        public ActionResult Register()
+        {
+            return View(new RegisterModel());
+        }
+
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public ActionResult Register(RegisterModel model)
+        {
+            if (_db.Users.Any(a => a.UserName == model.UserName))
+            {
+                ModelState.AddModelError("", "چنین نام کاربری قبلا ثبت شده است");
+                return View(model);
+            }
+            model.Password = model.Password.HashSHA1();
+            _db.Users.Add(new User { UserName = model.UserName, Password = model.Password });
+            _db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        #endregion
+    }
+}

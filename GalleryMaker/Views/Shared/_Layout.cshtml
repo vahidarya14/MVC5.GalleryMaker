@@ -1,0 +1,95 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/site.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body>
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                @*@Html.ActionLink("App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
+            </div>
+            <div class="navbar-collapse collapse">
+                <ul class="nav navbar-nav">
+                    <li><a href="/Home">ساختن گالری  </a></li>
+                    <li><a href="/Home/PhotoMgmt">آپلود عکس</a></li>
+                    <li>
+                        @using Microsoft.AspNet.Identity
+                        @if (Request.IsAuthenticated)
+                        {
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  @User.Identity.GetUserName() <b class="caret"></b></a>
+                            <ul class="dropdown-menu" style="width: 223px;">
+                                @*<li onclick="user.changePasswordForm($('#chgPassForm'));">
+
+                                    @using (Html.BeginForm("ChangePasswordForm", "Acl", FormMethod.Post, new { id = "chgPassForm" }))
+                                    {
+                                        @Html.AntiForgeryToken()
+                                        <span><i class="fa fa-fw fa-gear"></i> Chage Password</span>
+                                    }
+
+                                </li>*@
+
+                                <li class="divider"></li>
+                                <li onclick="javascript:document.getElementById('logoutForm').submit()">
+                                    <a>
+                                        @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <span><i class="fa fa-fw fa-power-off"></i> خروج </span>
+                                        }
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        }
+                        else
+                        {
+                        }
+                    </li>
+                </ul>
+
+                <div style="display:table;margin-left:auto;margin-right:auto;">
+                    <img src="~/images/logo.png" style="height: 45px;margin-top: 4px;" />
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="container body-content" >
+        @RenderBody()
+        
+        <footer>
+            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        </footer>
+    </div>
+
+<script src="~/lib/jquery/dist/jquery.js"></script>
+<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
+   
+    <!-- JavaScript Includes -->
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
+    <script src="/lib/mini-upload-form/assets/js/jquery.knob.js"></script>
+
+    <!-- jQuery File Upload Dependencies -->
+    <script src="/lib/mini-upload-form/assets/js/jquery.ui.widget.js"></script>
+    <script src="/lib/mini-upload-form/assets/js/jquery.iframe-transport.js"></script>
+    <script src="/lib/mini-upload-form/assets/js/jquery.fileupload.js"></script>
+
+    <!-- Our main JS file -->
+    <script src="/lib/mini-upload-form/assets/js/script.js"></script>
+    <link href="~/lib/mini-upload-form/assets/css/style.css" rel="stylesheet" />
+    @*@Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
+</html>

@@ -1,0 +1,32 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - My ASP.NET Application</title>
+    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/lib/site.css" rel="stylesheet" />
+    @Scripts.Render("~/bundles/modernizr")
+</head>
+<body style=" background: #222; color: white;">
+    <div class="navbar navbar-inverse navbar-fixed-top">
+        <div class="container">
+
+                <div style="display:table;margin-left:auto;margin-right:auto;">
+                    <img src="~/images/logo.png" style="height: 45px;margin-top: 4px;" />
+                </div>
+          
+        </div>
+    </div>
+    <div class="container body-content" style="margin-top: 15%; ">
+        @RenderBody()
+       
+    </div>
+   
+    <footer>
+        
+    </footer>
+  
+    @RenderSection("scripts", required: false)
+</body>
+</html>
