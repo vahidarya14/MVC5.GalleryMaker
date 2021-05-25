@@ -6,7 +6,7 @@
 
 
 <div id="mainContainer" class="row " style="min-height: 90vh; margin-right: 0px;">
-    <div class="col-md-2 text-center">
+    <div class="col-md-2 col-sm-3 text-center">
         <div class="card">
             <a href="/Gallery"> گالری جدید </a>
         </div>
@@ -14,7 +14,7 @@
     </div>
     @foreach (var p in ((List<Project>)ViewData["Projects"]))
     {
-        <div class="col-md-2 text-center" id="proj_@p.Id">
+        <div class="col-md-2 col-sm-3 text-center" id="proj_@p.Id">
             <div class="card">
                 <a href="/Gallery/Index/@p.Id"> @p.Name </a>
 

@@ -295,12 +295,6 @@
     <Content Include="wwwroot\images\banner3.svg" />
     <Content Include="wwwroot\images\banner4.svg" />
     <Content Include="wwwroot\images\logo.png" />
-    <Content Include="wwwroot\images\upload\09362200-6879-471e-b288-27ee26df46b0IMG_20141220_230155.jpg" />
-    <Content Include="wwwroot\images\upload\18de04f5-d250-41d5-9ed2-b5e62abd52b4241e8376-c8ff-4513-bfe9-f4a9b30a86cfd399852e-f789-444b-935a-2061803ba0120,,17604635_303,00_edit.jpg" />
-    <Content Include="wwwroot\images\upload\1f1dc5af-6619-4375-a518-0bfcdb33cd4at2.png" />
-    <Content Include="wwwroot\images\upload\2ec0fbff-2448-42c7-8733-1f586d3c7d03t3.png" />
-    <Content Include="wwwroot\images\upload\39dc5c31-00b4-4caf-995e-c9207d7d889cIMG_20141220_230200.jpg" />
-    <Content Include="wwwroot\images\upload\41b25e5a-5989-45f4-8968-8d1ba137616cIMG_20141220_230202.jpg" />
     <Content Include="wwwroot\Scripts\bootstrap.js" />
     <Content Include="wwwroot\Scripts\bootstrap.min.js" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map">
@@ -375,6 +369,7 @@
     <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="wwwroot\images\upload\" />
     <Folder Include="wwwroot\lib\jquery.contextMenu\icons\" />
     <Folder Include="wwwroot\lib\mini-upload-form\uploads\" />
   </ItemGroup>
