@@ -5,15 +5,16 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
+using GalleryMaker._1.DAL;
 
 namespace GalleryMaker._2.BLL
 {
     public class Uploader
     {
 
-        private const string SlidShowPath = "\\images\\upload";
-        private _1.DAL.AppDbContext _db;
-        public Uploader(_1.DAL.AppDbContext env)
+        private const string SlidShowPath = @"/wwwroot/images/upload";
+        private AppDbContext _db;
+        public Uploader(AppDbContext env)
         {
             _db = env;
         }
@@ -21,16 +22,16 @@ namespace GalleryMaker._2.BLL
         public List<string> LoadImages(long userId)
         {
 
-            return _db.Images.Where(a => a.UserId == userId).Select(a => SlidShowPath.Replace("\\","/") + "/" + a.Name).ToList();
+            return _db.Images.Where(a => a.UserId == userId).Select(a => SlidShowPath+ "/" + a.Name).ToList();
 
-            var filePath = HostingEnvironment.MapPath("~" + SlidShowPath);
-            if (filePath == null) return new List<string>();
+            //var filePath = HostingEnvironment.MapPath("~" + SlidShowPath);
+            //if (filePath == null) return new List<string>();
 
 
-            var di1 = Directory.GetFiles(filePath).ToList();
-            var di = di1.Select(a => SlidShowPath + "\\" + a.Split(new[] { "images\\upload\\" }, StringSplitOptions.None)[1]).ToList();
+            //var di1 = Directory.GetFiles(filePath).ToList();
+            //var di = di1.Select(a => SlidShowPath + "\\" + a.Split(new[] { "images\\upload\\" }, StringSplitOptions.None)[1]).ToList();
 
-            return di;
+            //return di;
         }
 
 

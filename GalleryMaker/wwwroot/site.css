@@ -1,0 +1,17 @@
+﻿.body-content {
+    margin-top: 55px;
+    /*min-height: 80vh;*/
+}
+
+
+@font-face {
+    font-family: 'IRANsans';
+    src: url('/wwwroot/fonts/A Iranian Sans.ttf') format('truetype'), /* FF3.6+, IE9, Chrome6+, Saf5.1+*/
+         url('/wwwroot/fonts/A Iranian Sans.ttf') format('truetype'); /* Saf3—5, Chrome4+, FF3.5, Opera 10+ */
+}
+
+*:not(.glyphicon):not(.mdtp__digit):not(.mdtp__time_holder):not(.mce-ico):not(.la):not( .flowchart-operator-inputs-outputs) {
+    font-family: IRANsans !important;
+    /*direction: rtl !important;*/
+    /*font-size: 12px;*/
+}

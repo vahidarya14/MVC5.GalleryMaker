@@ -4,8 +4,8 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
-    <link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
-    <link href="~/lib/site.css" rel="stylesheet" />
+    <link href="~/wwwroot/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />
+    <link href="~/wwwroot/site.css" rel="stylesheet" />
     @Scripts.Render("~/bundles/modernizr")
 </head>
 <body>
@@ -21,8 +21,9 @@
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li><a href="/Home">ساختن گالری  </a></li>
-                    <li><a href="/Home/PhotoMgmt">آپلود عکس</a></li>
+                    <li><a href="/Home">کارتها</a></li>
+                    <li><a href="/Gallery">کارت جدید</a></li>
+                    <li><a href="/Gallery/PhotoMgmt">عکسها</a></li>
                     <li>
                         @using Microsoft.AspNet.Identity
                         @if (Request.IsAuthenticated)
@@ -32,13 +33,13 @@
                             <ul class="dropdown-menu" style="width: 223px;">
                                 @*<li onclick="user.changePasswordForm($('#chgPassForm'));">
 
-                                    @using (Html.BeginForm("ChangePasswordForm", "Acl", FormMethod.Post, new { id = "chgPassForm" }))
-                                    {
-                                        @Html.AntiForgeryToken()
-                                        <span><i class="fa fa-fw fa-gear"></i> Chage Password</span>
-                                    }
+                                        @using (Html.BeginForm("ChangePasswordForm", "Acl", FormMethod.Post, new { id = "chgPassForm" }))
+                                        {
+                                            @Html.AntiForgeryToken()
+                                            <span><i class="fa fa-fw fa-gear"></i> Chage Password</span>
+                                        }
 
-                                </li>*@
+                                    </li>*@
 
                                 <li class="divider"></li>
                                 <li onclick="javascript:document.getElementById('logoutForm').submit()">
@@ -52,44 +53,41 @@
                                 </li>
                             </ul>
                         </li>
-                        }
-                        else
-                        {
-                        }
-                    </li>
-                </ul>
+                    }
+                        </li>
+                    </ul>
 
-                <div style="display:table;margin-left:auto;margin-right:auto;">
-                    <img src="~/images/logo.png" style="height: 45px;margin-top: 4px;" />
+                    <div style="display:table;margin-left:auto;margin-right:auto;">
+                        <img src="/wwwroot/images/logo.png" style="height: 45px;margin-top: 4px;" />
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-    <div class="container body-content" >
-        @RenderBody()
-        
-        <footer>
-            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
-        </footer>
-    </div>
+        <div class="container body-content">
+            @RenderBody()
 
-<script src="~/lib/jquery/dist/jquery.js"></script>
-<script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
-   
-    <!-- JavaScript Includes -->
-    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
-    <script src="/lib/mini-upload-form/assets/js/jquery.knob.js"></script>
+            <footer>
+                @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+            </footer>
+        </div>
 
-    <!-- jQuery File Upload Dependencies -->
-    <script src="/lib/mini-upload-form/assets/js/jquery.ui.widget.js"></script>
-    <script src="/lib/mini-upload-form/assets/js/jquery.iframe-transport.js"></script>
-    <script src="/lib/mini-upload-form/assets/js/jquery.fileupload.js"></script>
+        <script src="~/wwwroot/lib/jquery/dist/jquery.js"></script>
+        <script src="~/wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
 
-    <!-- Our main JS file -->
-    <script src="/lib/mini-upload-form/assets/js/script.js"></script>
-    <link href="~/lib/mini-upload-form/assets/css/style.css" rel="stylesheet" />
-    @*@Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")*@
-    @RenderSection("scripts", required: false)
-</body>
+        <!-- JavaScript Includes -->
+        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
+        <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.knob.js"></script>
+
+        <!-- jQuery File Upload Dependencies -->
+        <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.ui.widget.js"></script>
+        <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.iframe-transport.js"></script>
+        <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.fileupload.js"></script>
+
+        <!-- Our main JS file -->
+        <script src="/wwwroot/lib/mini-upload-form/assets/js/script.js"></script>
+        <link href="~/wwwroot/lib/mini-upload-form/assets/css/style.css" rel="stylesheet" />
+        @*@Scripts.Render("~/bundles/jquery")
+            @Scripts.Render("~/bundles/bootstrap")*@
+        @RenderSection("scripts", required: false)
+    </body>
 </html>

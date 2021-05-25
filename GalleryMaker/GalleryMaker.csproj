@@ -156,10 +156,7 @@
     <Compile Include="1.DAL\User.cs" />
     <Compile Include="2.BLL\ext.cs" />
     <Compile Include="2.BLL\Uploader.cs" />
-    <Compile Include="App_Start\BundleConfig.cs" />
-    <Compile Include="App_Start\FilterConfig.cs" />
-    <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Views\Gallery\GalleryController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -168,200 +165,196 @@
     <Compile Include="AlsHandler.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
+    <Compile Include="Views\Home\HomeController.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="favicon.ico" />
-    <Content Include="fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
-    <Content Include="images\banner1.svg" />
-    <Content Include="images\banner2.svg" />
-    <Content Include="images\banner3.svg" />
-    <Content Include="images\banner4.svg" />
-    <Content Include="images\logo.png" />
-    <Content Include="images\upload\0.401432001370327351_pixnaz_ir.jpg" />
-    <Content Include="images\upload\0517.jpg" />
-    <Content Include="images\upload\1.jpg" />
-    <Content Include="images\upload\2.jpg" />
-    <Content Include="images\upload\223193_WkthKNUU.jpg" />
-    <Content Include="images\upload\280659_957.jpg" />
-    <Content Include="images\upload\3.jpg" />
-    <Content Include="images\upload\4.jpg" />
-    <Content Include="images\upload\593244_132.jpg" />
-    <Content Include="images\upload\autumn_colorfull_nature.jpg" />
-    <Content Include="images\upload\jootix.ir--1725581786.jpg" />
-    <Content Include="images\upload\عکس-طبیعت-25.jpg" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-theme.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap-theme.min.css">
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css">
       <DependentUpon>bootstrap-theme.css</DependentUpon>
     </Content>
-    <Content Include="lib\bootstrap\dist\css\bootstrap.css" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.min.css">
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
-    <Content Include="lib\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.js" />
-    <Content Include="lib\bootstrap\dist\js\bootstrap.min.js">
+    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.svg" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.js" />
+    <Content Include="wwwroot\lib\bootstrap\dist\js\bootstrap.min.js">
       <DependentUpon>bootstrap.js</DependentUpon>
     </Content>
-    <Content Include="lib\bootstrap\dist\js\npm.js" />
-    <Content Include="lib\FileSaver\FileSaver.js" />
-    <Content Include="lib\html2canvas\html2canvas.js" />
-    <Content Include="lib\html2canvas\html2canvas.min.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.fileupload-audio.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.fileupload-image.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.fileupload-jquery-ui.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.fileupload-process.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.fileupload-ui.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.fileupload-validate.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.fileupload-video.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.fileupload.js" />
-    <Content Include="lib\jQuery-File-Upload-9.17.0\jquery.iframe-transport.js" />
-    <Content Include="lib\jquery-migrate-3.0.0\jquery-migrate-3.0.0.js" />
-    <Content Include="lib\jquery-ui-1.12.1\AUTHORS.txt" />
-    <Content Include="lib\jquery-ui-1.12.1\external\jquery\jquery.js" />
-    <Content Include="lib\jquery-ui-1.12.1\images\ui-icons_444444_256x240.png" />
-    <Content Include="lib\jquery-ui-1.12.1\images\ui-icons_555555_256x240.png" />
-    <Content Include="lib\jquery-ui-1.12.1\images\ui-icons_777620_256x240.png" />
-    <Content Include="lib\jquery-ui-1.12.1\images\ui-icons_777777_256x240.png" />
-    <Content Include="lib\jquery-ui-1.12.1\images\ui-icons_cc0000_256x240.png" />
-    <Content Include="lib\jquery-ui-1.12.1\images\ui-icons_ffffff_256x240.png" />
-    <Content Include="lib\jquery-ui-1.12.1\index.html" />
-    <Content Include="lib\jquery-ui-1.12.1\jquery-ui.css" />
-    <Content Include="lib\jquery-ui-1.12.1\jquery-ui.js" />
-    <Content Include="lib\jquery-ui-1.12.1\jquery-ui.min.css">
+    <Content Include="wwwroot\lib\bootstrap\dist\js\npm.js" />
+    <Content Include="wwwroot\lib\FileSaver\FileSaver.js" />
+    <Content Include="wwwroot\lib\html2canvas\html2canvas.js" />
+    <Content Include="wwwroot\lib\html2canvas\html2canvas.min.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.fileupload-audio.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.fileupload-image.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.fileupload-jquery-ui.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.fileupload-process.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.fileupload-ui.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.fileupload-validate.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.fileupload-video.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.fileupload.js" />
+    <Content Include="wwwroot\lib\jQuery-File-Upload-9.17.0\jquery.iframe-transport.js" />
+    <Content Include="wwwroot\lib\jquery-migrate-3.0.0\jquery-migrate-3.0.0.js" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\AUTHORS.txt" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\external\jquery\jquery.js" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\images\ui-icons_444444_256x240.png" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\images\ui-icons_555555_256x240.png" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\images\ui-icons_777620_256x240.png" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\images\ui-icons_777777_256x240.png" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\images\ui-icons_cc0000_256x240.png" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\images\ui-icons_ffffff_256x240.png" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\index.html" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\jquery-ui.css" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\jquery-ui.js" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\jquery-ui.min.css">
       <DependentUpon>jquery-ui.css</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-ui-1.12.1\jquery-ui.min.js">
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\jquery-ui.min.js">
       <DependentUpon>jquery-ui.js</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-ui-1.12.1\jquery-ui.structure.css">
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\jquery-ui.structure.css">
       <DependentUpon>jquery-ui.css</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-ui-1.12.1\jquery-ui.structure.min.css">
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\jquery-ui.structure.min.css">
       <DependentUpon>jquery-ui.structure.css</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-ui-1.12.1\jquery-ui.theme.css">
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\jquery-ui.theme.css">
       <DependentUpon>jquery-ui.css</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-ui-1.12.1\jquery-ui.theme.min.css">
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\jquery-ui.theme.min.css">
       <DependentUpon>jquery-ui.theme.css</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-ui-1.12.1\LICENSE.txt" />
-    <Content Include="lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
-    <Content Include="lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js">
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\LICENSE.txt" />
+    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.js" />
+    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\jquery.validate.unobtrusive.min.js">
       <DependentUpon>jquery.validate.unobtrusive.js</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-validation\dist\additional-methods.js" />
-    <Content Include="lib\jquery-validation\dist\additional-methods.min.js">
+    <Content Include="wwwroot\lib\jquery-validation\dist\additional-methods.js" />
+    <Content Include="wwwroot\lib\jquery-validation\dist\additional-methods.min.js">
       <DependentUpon>additional-methods.js</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-validation\dist\jquery.validate.js" />
-    <Content Include="lib\jquery-validation\dist\jquery.validate.min.js">
+    <Content Include="wwwroot\lib\jquery-validation\dist\jquery.validate.js" />
+    <Content Include="wwwroot\lib\jquery-validation\dist\jquery.validate.min.js">
       <DependentUpon>jquery.validate.js</DependentUpon>
     </Content>
-    <Content Include="lib\jquery.contextMenu\jquery.contextMenu.css" />
-    <Content Include="lib\jquery.contextMenu\jquery.contextMenu.js" />
-    <Content Include="lib\jquery.contextMenu\jquery.contextMenu.min.css">
+    <Content Include="wwwroot\lib\jquery.contextMenu\jquery.contextMenu.css" />
+    <Content Include="wwwroot\lib\jquery.contextMenu\jquery.contextMenu.js" />
+    <Content Include="wwwroot\lib\jquery.contextMenu\jquery.contextMenu.min.css">
       <DependentUpon>jquery.contextMenu.css</DependentUpon>
     </Content>
-    <Content Include="lib\jquery.contextMenu\jquery.contextMenu.min.js">
+    <Content Include="wwwroot\lib\jquery.contextMenu\jquery.contextMenu.min.js">
       <DependentUpon>jquery.contextMenu.js</DependentUpon>
     </Content>
-    <Content Include="lib\jquery.contextMenu\jquery.ui.position.js" />
-    <Content Include="lib\jquery.contextMenu\jquery.ui.position.min.js">
+    <Content Include="wwwroot\lib\jquery.contextMenu\jquery.ui.position.js" />
+    <Content Include="wwwroot\lib\jquery.contextMenu\jquery.ui.position.min.js">
       <DependentUpon>jquery.ui.position.js</DependentUpon>
     </Content>
-    <Content Include="lib\jQuery.FileUpload\canvas-to-blob.min.js" />
-    <Content Include="lib\jQuery.FileUpload\cors\jquery.postmessage-transport.js" />
-    <Content Include="lib\jQuery.FileUpload\cors\jquery.xdr-transport.js" />
-    <Content Include="lib\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
-    <Content Include="lib\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
-    <Content Include="lib\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
-    <Content Include="lib\jQuery.FileUpload\css\jquery.fileupload.css" />
-    <Content Include="lib\jQuery.FileUpload\img\loading.gif" />
-    <Content Include="lib\jQuery.FileUpload\img\progressbar.gif" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload-angular.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload-audio.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload-image.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload-jquery-ui.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload-process.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload-ui.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload-validate.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload-video.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.fileupload.js" />
-    <Content Include="lib\jQuery.FileUpload\jquery.iframe-transport.js" />
-    <Content Include="lib\jQuery.FileUpload\load-image.all.min.js" />
-    <Content Include="lib\jQuery.FileUpload\tmpl.min.js" />
-    <Content Include="lib\jQuery.FileUpload\vendor\jquery.ui.widget.js" />
-    <Content Include="lib\jquery\dist\jquery.js" />
-    <Content Include="lib\jquery\dist\jquery.min.js">
+    <Content Include="wwwroot\lib\jQuery.FileUpload\canvas-to-blob.min.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\cors\jquery.postmessage-transport.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\cors\jquery.xdr-transport.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\css\jquery.fileupload-noscript.css" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\css\jquery.fileupload-ui-noscript.css" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\css\jquery.fileupload-ui.css" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\css\jquery.fileupload.css" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\img\loading.gif" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\img\progressbar.gif" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload-angular.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload-audio.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload-image.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload-jquery-ui.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload-process.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload-ui.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload-validate.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload-video.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.fileupload.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\jquery.iframe-transport.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\load-image.all.min.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\tmpl.min.js" />
+    <Content Include="wwwroot\lib\jQuery.FileUpload\vendor\jquery.ui.widget.js" />
+    <Content Include="wwwroot\lib\jquery\dist\jquery.js" />
+    <Content Include="wwwroot\lib\jquery\dist\jquery.min.js">
       <DependentUpon>jquery.js</DependentUpon>
     </Content>
-    <Content Include="lib\jquery\LICENSE.txt" />
-    <Content Include="lib\mini-upload-form\assets\css\style.css" />
-    <Content Include="lib\mini-upload-form\assets\img\border-image.png" />
-    <Content Include="lib\mini-upload-form\assets\img\icons.png" />
-    <Content Include="lib\mini-upload-form\assets\js\jquery.fileupload.js" />
-    <Content Include="lib\mini-upload-form\assets\js\jquery.iframe-transport.js" />
-    <Content Include="lib\mini-upload-form\assets\js\jquery.knob.js" />
-    <Content Include="lib\mini-upload-form\assets\js\jquery.ui.widget.js" />
-    <Content Include="lib\mini-upload-form\assets\js\script.js" />
-    <Content Include="lib\mini-upload-form\index.html" />
-    <Content Include="lib\resizable-rotation.patch.js" />
-    <Content Include="lib\site.css" />
-    <Content Include="Scripts\bootstrap.js" />
-    <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="lib\bootstrap\dist\css\bootstrap.css.map">
+    <Content Include="wwwroot\lib\jquery\LICENSE.txt" />
+    <Content Include="wwwroot\lib\mini-upload-form\assets\css\style.css" />
+    <Content Include="wwwroot\lib\mini-upload-form\assets\img\border-image.png" />
+    <Content Include="wwwroot\lib\mini-upload-form\assets\img\icons.png" />
+    <Content Include="wwwroot\lib\mini-upload-form\assets\js\jquery.fileupload.js" />
+    <Content Include="wwwroot\lib\mini-upload-form\assets\js\jquery.iframe-transport.js" />
+    <Content Include="wwwroot\lib\mini-upload-form\assets\js\jquery.knob.js" />
+    <Content Include="wwwroot\lib\mini-upload-form\assets\js\jquery.ui.widget.js" />
+    <Content Include="wwwroot\lib\mini-upload-form\assets\js\script.js" />
+    <Content Include="wwwroot\lib\mini-upload-form\index.html" />
+    <Content Include="wwwroot\lib\resizable-rotation.patch.js" />
+    <Content Include="wwwroot\site.css" />
+    <Content Include="wwwroot\images\banner1.svg" />
+    <Content Include="wwwroot\images\banner2.svg" />
+    <Content Include="wwwroot\images\banner3.svg" />
+    <Content Include="wwwroot\images\banner4.svg" />
+    <Content Include="wwwroot\images\logo.png" />
+    <Content Include="wwwroot\images\upload\09362200-6879-471e-b288-27ee26df46b0IMG_20141220_230155.jpg" />
+    <Content Include="wwwroot\images\upload\18de04f5-d250-41d5-9ed2-b5e62abd52b4241e8376-c8ff-4513-bfe9-f4a9b30a86cfd399852e-f789-444b-935a-2061803ba0120,,17604635_303,00_edit.jpg" />
+    <Content Include="wwwroot\images\upload\1f1dc5af-6619-4375-a518-0bfcdb33cd4at2.png" />
+    <Content Include="wwwroot\images\upload\2ec0fbff-2448-42c7-8733-1f586d3c7d03t3.png" />
+    <Content Include="wwwroot\images\upload\39dc5c31-00b4-4caf-995e-c9207d7d889cIMG_20141220_230200.jpg" />
+    <Content Include="wwwroot\images\upload\41b25e5a-5989-45f4-8968-8d1ba137616cIMG_20141220_230202.jpg" />
+    <Content Include="wwwroot\Scripts\bootstrap.js" />
+    <Content Include="wwwroot\Scripts\bootstrap.min.js" />
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.css.map">
       <DependentUpon>bootstrap.css</DependentUpon>
     </Content>
-    <Content Include="lib\bootstrap\dist\css\bootstrap.min.css.map">
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap.min.css.map">
       <DependentUpon>bootstrap.min.css</DependentUpon>
     </Content>
-    <Content Include="lib\bootstrap\dist\css\bootstrap-theme.css.map">
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css.map">
       <DependentUpon>bootstrap-theme.css</DependentUpon>
     </Content>
-    <Content Include="lib\bootstrap\dist\css\bootstrap-theme.min.css.map">
+    <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css.map">
       <DependentUpon>bootstrap-theme.min.css</DependentUpon>
     </Content>
-    <Content Include="lib\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
-    <Content Include="lib\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
-    <Content Include="lib\bootstrap\.bower.json" />
-    <Content Include="lib\bootstrap\LICENSE" />
-    <Content Include="lib\jquery\dist\jquery.min.map">
+    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\lib\bootstrap\dist\fonts\glyphicons-halflings-regular.woff2" />
+    <Content Include="wwwroot\lib\bootstrap\.bower.json" />
+    <Content Include="wwwroot\lib\bootstrap\LICENSE" />
+    <Content Include="wwwroot\lib\jquery\dist\jquery.min.map">
       <DependentUpon>jquery.min.js</DependentUpon>
     </Content>
-    <Content Include="lib\jquery\.bower.json" />
-    <Content Include="lib\jquery.contextMenu\font\context-menu-icons.eot" />
-    <Content Include="lib\jquery.contextMenu\font\context-menu-icons.ttf" />
-    <Content Include="lib\jquery.contextMenu\font\context-menu-icons.woff" />
-    <Content Include="lib\jquery.contextMenu\font\context-menu-icons.woff2" />
-    <Content Include="lib\jquery.contextMenu\jquery.contextMenu.min.css.map">
+    <Content Include="wwwroot\lib\jquery\.bower.json" />
+    <Content Include="wwwroot\lib\jquery.contextMenu\font\context-menu-icons.eot" />
+    <Content Include="wwwroot\lib\jquery.contextMenu\font\context-menu-icons.ttf" />
+    <Content Include="wwwroot\lib\jquery.contextMenu\font\context-menu-icons.woff" />
+    <Content Include="wwwroot\lib\jquery.contextMenu\font\context-menu-icons.woff2" />
+    <Content Include="wwwroot\lib\jquery.contextMenu\jquery.contextMenu.min.css.map">
       <DependentUpon>jquery.contextMenu.min.css</DependentUpon>
     </Content>
-    <Content Include="lib\jquery.contextMenu\jquery.contextMenu.min.js.map">
+    <Content Include="wwwroot\lib\jquery.contextMenu\jquery.contextMenu.min.js.map">
       <DependentUpon>jquery.contextMenu.min.js</DependentUpon>
     </Content>
-    <Content Include="lib\jquery-ui-1.12.1\package.json" />
-    <Content Include="lib\jquery-validation\.bower.json" />
-    <Content Include="lib\jquery-validation\LICENSE.md" />
-    <Content Include="lib\jquery-validation-unobtrusive\.bower.json" />
-    <Content Include="lib\mini-upload-form\mini-upload-form - Shortcut.lnk" />
-    <Content Include="lib\mini-upload-form\upload.php" />
+    <Content Include="wwwroot\lib\jquery-ui-1.12.1\package.json" />
+    <Content Include="wwwroot\lib\jquery-validation\.bower.json" />
+    <Content Include="wwwroot\lib\jquery-validation\LICENSE.md" />
+    <Content Include="wwwroot\lib\jquery-validation-unobtrusive\.bower.json" />
+    <Content Include="wwwroot\lib\mini-upload-form\mini-upload-form - Shortcut.lnk" />
+    <Content Include="wwwroot\lib\mini-upload-form\upload.php" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
-    <None Include="Scripts\jquery-1.10.2.intellisense.js" />
-    <Content Include="Scripts\jquery-1.10.2.js" />
-    <Content Include="Scripts\jquery-1.10.2.min.js" />
-    <None Include="Scripts\jquery.validate-vsdoc.js" />
-    <Content Include="Scripts\jquery.validate.js" />
-    <Content Include="Scripts\jquery.validate.min.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.js" />
-    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
-    <Content Include="Scripts\respond.js" />
-    <Content Include="Scripts\respond.min.js" />
-    <Content Include="Scripts\_references.js" />
+    <Content Include="wwwroot\fonts\A Iranian Sans.ttf" />
+    <None Include="wwwroot\Scripts\jquery-1.10.2.intellisense.js" />
+    <Content Include="wwwroot\Scripts\jquery-1.10.2.js" />
+    <Content Include="wwwroot\Scripts\jquery-1.10.2.min.js" />
+    <None Include="wwwroot\Scripts\jquery.validate-vsdoc.js" />
+    <Content Include="wwwroot\Scripts\jquery.validate.js" />
+    <Content Include="wwwroot\Scripts\jquery.validate.min.js" />
+    <Content Include="wwwroot\Scripts\jquery.validate.unobtrusive.js" />
+    <Content Include="wwwroot\Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="wwwroot\Scripts\modernizr-2.6.2.js" />
+    <Content Include="wwwroot\Scripts\respond.js" />
+    <Content Include="wwwroot\Scripts\respond.min.js" />
+    <Content Include="wwwroot\Scripts\_references.js" />
     <Content Include="Web.config" />
     <Content Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
@@ -374,25 +367,23 @@
     <Content Include="Views\Shared\Error.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
     <Content Include="Views\Home\About.cshtml" />
-    <Content Include="Views\Home\Contact.cshtml" />
-    <Content Include="Views\Home\Index2.cshtml" />
+    <Content Include="Views\Gallery\Index.cshtml" />
     <Content Include="Views\Home\Login.cshtml" />
     <Content Include="Views\Home\Register.cshtml" />
-    <Content Include="Views\Home\PhotoMgmt.cshtml" />
+    <Content Include="Views\Gallery\PhotoMgmt.cshtml" />
     <Content Include="Views\Shared\_LayoutEmpty.cshtml" />
+    <Content Include="Views\Home\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
-    <Folder Include="lib\jquery.contextMenu\icons\" />
-    <Folder Include="lib\mini-upload-form\uploads\" />
+    <Folder Include="wwwroot\lib\jquery.contextMenu\icons\" />
+    <Folder Include="wwwroot\lib\mini-upload-form\uploads\" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="fonts\glyphicons-halflings-regular.woff" />
-    <Content Include="fonts\glyphicons-halflings-regular.ttf" />
-    <Content Include="fonts\glyphicons-halflings-regular.eot" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.woff" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.ttf" />
+    <Content Include="wwwroot\fonts\glyphicons-halflings-regular.eot" />
     <Content Include="packages.config" />
-    <None Include="Project_Readme.html" />
-    <Content Include="Scripts\jquery-1.10.2.min.map" />
+    <Content Include="wwwroot\Scripts\jquery-1.10.2.min.map" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

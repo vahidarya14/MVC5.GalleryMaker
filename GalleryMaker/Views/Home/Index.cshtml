@@ -1,0 +1,74 @@
+﻿﻿
+@{
+    ViewData["Title"] = "گالری عکس";
+}
+@using GalleryMaker._1.DAL
+
+
+<div id="mainContainer" class="row " style="min-height: 90vh; margin-right: 0px;">
+    <div class="col-md-2 text-center">
+        <div class="card">
+            <a href="/Gallery"> گالری جدید </a>
+        </div>
+
+    </div>
+    @foreach (var p in ((List<Project>)ViewData["Projects"]))
+    {
+        <div class="col-md-2 text-center" id="proj_@p.Id">
+            <div class="card">
+                <a href="/Gallery/Index/@p.Id"> @p.Name </a>
+
+                <button type="submit" name="id" value="@p.Id" onclick="api.removeProj(@p.Id)" class="btn btn-danger pull-right btn-xs trans-bg no-border">
+                    <span class="glyphicon glyphicon glyphicon-trash"></span>
+                </button>
+            </div>
+
+        </div>
+    }
+</div>
+
+
+
+@section scripts{
+
+    <script type="text/javascript">
+
+        var api =
+        {
+            removeProj: function (id) {
+
+                $.ajax({
+                    url: '/Home/RemoveProj',
+                    data: { id: id },
+                    method: 'post',
+                    success: function (res) {
+                        $("#proj_" + id).remove();
+
+                    }
+                });
+
+            },
+
+            renameProject: function (id, name) {
+            }
+        }
+    </script>
+
+}
+<style>
+    .text-center{
+        text-align: -webkit-center;
+    }
+    .card {
+        padding: 40px;
+        border: 1px solid #b5b5b5;
+        width: 75%;
+        height: 183px;
+        -webkit-box-shadow: 3px 3px 5px 6px #ccc;
+        -moz-box-shadow: 3px 3px 5px 6px #ccc;
+        box-shadow: 3px 3px 5px 6px #ccc;
+    }
+</style>
+
+
+

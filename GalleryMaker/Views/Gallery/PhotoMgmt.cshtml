@@ -35,7 +35,7 @@
 
 
              
-                    <form id="upload" method="post" action="/Home/UploadImages" enctype="multipart/form-data" style="width: 100%; margin: 0px;">
+                    <form id="upload" method="post" action="/Gallery/UploadImages" enctype="multipart/form-data" style="width: 100%; margin: 0px;">
                         <div id="drop">
                             فایلها را بکشید اینجا و رها کنید
                             <br/>
@@ -80,7 +80,7 @@
                 foreach (var img in slidShowImages)
                 {
                     <div class="col-xs-4 col-sm-3 col-md-2" style="padding: 2px;">
-                        @using (Html.BeginForm("RemoveImage", "Home", FormMethod.Post, new { id = "logoutForm" }))
+                        @using (Html.BeginForm("RemoveImage", "Gallery", FormMethod.Post, new { id = "logoutForm" }))
                         {
                             @Html.AntiForgeryToken()
                             <button class="btn pull-left btn-danger" name="name" value="@img" style="border-radius: 20px;position: absolute;">X</button>

@@ -2,22 +2,22 @@
 @{
     ViewData["Title"] = "گالری عکس";
 }
-@using GalleryMaker._1.DAL
+
 @model GalleryMaker._1.DAL.Project
 
 
-<link href="~/lib/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
-<link href="~/lib/jquery.contextMenu/jquery.contextMenu.css" rel="stylesheet" />
+<link href="~/wwwroot/lib/jquery-ui-1.12.1/jquery-ui.css" rel="stylesheet" />
+<link href="~/wwwroot/lib/jquery.contextMenu/jquery.contextMenu.css" rel="stylesheet" />
 @*<link href="~/lib/bootstrap/dist/css/bootstrap.css" rel="stylesheet" />*@
 @section scripts{
 
 
-    <script src="~/lib/jquery-ui-1.12.1/jquery-ui.js"></script>
-    <script src="~/lib/resizable-rotation.patch.js"></script>
-    <script src="~/lib/jquery.contextMenu/jquery.ui.position.js"></script>
-    <script src="~/lib/jquery.contextMenu/jquery.contextMenu.js"></script>
-    <script src="~/lib/html2canvas/html2canvas.js"></script>
-    <script src="~/lib/FileSaver/FileSaver.js"></script>
+    <script src="~/wwwroot/lib/jquery-ui-1.12.1/jquery-ui.js"></script>
+    <script src="~/wwwroot/lib/resizable-rotation.patch.js"></script>
+    <script src="~/wwwroot/lib/jquery.contextMenu/jquery.ui.position.js"></script>
+    <script src="~/wwwroot/lib/jquery.contextMenu/jquery.contextMenu.js"></script>
+    <script src="~/wwwroot/lib/html2canvas/html2canvas.js"></script>
+    <script src="~/wwwroot/lib/FileSaver/FileSaver.js"></script>
     <script type="text/javascript">
 
         //var sharedObject.selectedelement = null;
@@ -923,7 +923,7 @@
 
                 var name=("@Model.Id"==0)?$("#projName").val():"@Model.Name";
                 $.ajax({
-                    url: '/Home/SaveLayout',
+                    url: '/Gallery/SaveLayout',
                     method: 'POST',
                     data: {id:"@Model.Id", htmlString: $('#mainPnl').html(),Name:name },
                     success:function (res) {
@@ -1512,28 +1512,6 @@
     <div class="row" style="min-height: 90vh; margin-right: 0px;">
 
         <aside class="control-aside" style="">
-
-
-
-            <ul class="list-group" id="projectUlList">
-                <li class="list-group-item text-center"> پروژهها <i class="glyphicon glyphicon-circle-arrow-down"></i> </li>
-                @foreach (var p in ((List<Project>)ViewData["Projects"]))
-                {
-                    var active = (Model.Id == p.Id) ? "active" : "";
-                    <li class="list-group-item @active" id="proj_@p.Id">
-                        <a href="/Home/Index/@p.Id"> @p.Name </a>
-
-                        <button type="submit" name="id" value="@p.Id" onclick="api.removeProj(@p.Id)" class="btn btn-danger pull-right btn-xs trans-bg no-border">
-                            <span class="glyphicon glyphicon glyphicon-trash"></span>
-                        </button>
-                        @*<form asp-action="RemoveProj" asp-controller="Home" asp-area="Ninjas" method="post">
-                            </form>*@
-
-                    </li>
-                }
-
-            </ul>
-
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" data-target="#home">عکسها</a></li>
                 <li><a data-toggle="tab" data-target="#menu1">پسزمینه</a></li>
