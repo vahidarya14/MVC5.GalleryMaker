@@ -74,7 +74,6 @@ namespace GalleryMaker.Views.Gallery
         [ValidateInput(false)]
         public async Task<JsonResult> SaveLayout(Project a)
         {
-            this.
             a.HtmlString = a.HtmlString.Replace("\n\n", "").Trim();
             if (a.Id == 0)
             {
