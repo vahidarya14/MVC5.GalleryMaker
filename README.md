@@ -1,1 +1,2 @@
 # MVC5.GalleryMaker
+![](https://octodex.github.com/images/yaktocat.png)
