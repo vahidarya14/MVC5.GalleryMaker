@@ -1,6 +1,6 @@
 ﻿﻿
 @{
-    ViewData["Title"] =Model.Id==0?"طراحی کارت جدید": "ویرایش کارت";
+    ViewData["Title"] = Model.Id == 0 ? "طراحی کارت جدید" : "ویرایش کارت";
 }
 
 @model GalleryMaker._1.DAL.Project
@@ -49,7 +49,7 @@
                     });
             },
             makeSelected: function(el) {
-
+                console.log(el);
                 common.removeAllSelected();
                 $(el).addClass("activeEleman");
                 $(el).resizable({
@@ -310,7 +310,7 @@
                 $("#bgColorBtn").css("background-color", elm.css("background-color"));
                 $("#fontSizeBtn").text(elm.css("font-size"));
 
-                common.setActiveTab('menu2');
+                /*common.setActiveTab('menu2');*/
             },
             makeNewText: function() {
                 var div = document.createElement("div"); // Create with DOM
@@ -664,16 +664,16 @@
         }
 
         var mainPnl = {
-            makeSelected: function(elm) {
+            makeSelected: function() {
                 // common.removeAllSelected();
-                common.makeSelected();
+                common.makeSelected($("#mainPnl"));
                 // common.setActiveTab('menu1');
             },
             initEvent: function() {
 
                 $("#mainPnl").draggable({ /*containment: "#mainPnl2"*/
                     start: function() {
-                        mainPnl.makeSelected();
+                        //mainPnl.makeSelected();
                     }
                 });
 
@@ -695,14 +695,14 @@
                 });
 
                 $("#mainPnl").click(function(e) {
-
-                    if ($(e.target).parent().hasClass("testLdiv"))
-                        mainPnl.makeSelected();
+                    common.removeAllSelected();
+                    //if ($(e.target).parent().hasClass("testLdiv"))
+                    //    mainPnl.makeSelected();
 
                     if (e.target !== this)
                         return;
 
-                    mainPnl.makeSelected();
+                    //mainPnl.makeSelected();
                 });
 
                 $("#mainPnl").dblclick(function(e) {
@@ -886,16 +886,14 @@
         {
             saveToServer: function() {
 
-
                 // $(".draggable").resizable('destroy');
                 common.removeAllSelected();
-
 
                 var name = ("@Model.Id" == 0) ? $("#projName").val() : "@Model.Name";
                 $.ajax({
                     url: '/Gallery/SaveLayout',
                     method: 'POST',
-                    data: { id: "@Model.Id", htmlString: $('#mainPnl').html(), Name: name },
+                    data: { id: "@Model.Id", htmlString: $('#mainPnl').html(), mainPnlCss: $('#mainPnl').attr('style'), Name: name },
                     success: function(res) {
                         //  $(".draggable").resizable({handles: 'n, e, s, w, ne, se, sw, nw'});
                         $("#projectNameModal").modal("hide");
@@ -1051,7 +1049,7 @@
     /*--------------------------------------------------------------------- */
     .text {
         z-index: 100;
-     /*   -webkit-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
+        /*   -webkit-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
         box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);*/
         /*direction: rtl;*/
@@ -1094,7 +1092,7 @@
 
 
         .text:hover, .testLdiv:hover {
-             /*border:1px white dashed;*/
+            /*border:1px white dashed;*/
             cursor: pointer;
         }
 
@@ -1168,20 +1166,19 @@
     }
 
     .activeEleman {
-   /*     -webkit-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
+        /*     -webkit-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
         box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);*/
     }
 
         .activeEleman img {
             opacity: .5;
-         
         }
-    /**/
-    /**/
-    /**/
-     .activeEleman::before {
-      /*      margin-left: 16px;
+        /**/
+        /**/
+        /**/
+        .activeEleman::before {
+            /*      margin-left: 16px;
             margin-top: 16px;
             border-radius: 50px;
             display: block;
@@ -1338,7 +1335,7 @@
             bottom: -5px;
         }
     */
-     .ui-resizable-handle {
+    .ui-resizable-handle {
         position: absolute;
         display: block;
         content: "";
@@ -1361,13 +1358,13 @@
     .ui-resizable-ne {
         top: 0px;
         right: 0px;
-           border-radius: 0px;
+        border-radius: 0px;
         border: 0px solid #bababa;
         border-top: 5px solid white;
         border-right: 5px solid white;
-                background: transparent;
-                border-style: groove;
-                 -moz-box-shadow: none;
+        background: transparent;
+        border-style: groove;
+        -moz-box-shadow: none;
         -webkit-box-shadow: none;
         box-shadow: none;
     }
@@ -1379,25 +1376,23 @@
         border: 0px solid #bababa;
         border-top: 5px solid white;
         border-left: 5px solid white;
-                background: transparent;
-                border-style: groove;
-                -moz-box-shadow: none;
+        background: transparent;
+        border-style: groove;
+        -moz-box-shadow: none;
         -webkit-box-shadow: none;
         box-shadow: none;
-
-
     }
 
     .ui-resizable-se {
         bottom: 0px;
         right: 0px;
-             border-radius: 0px;
+        border-radius: 0px;
         border: 0px solid #bababa;
         border-bottom: 5px solid white;
         border-right: 5px solid white;
-                background: transparent;
-                border-style: groove;
-                -moz-box-shadow: none;
+        background: transparent;
+        border-style: groove;
+        -moz-box-shadow: none;
         -webkit-box-shadow: none;
         box-shadow: none;
     }
@@ -1405,16 +1400,15 @@
     .ui-resizable-sw {
         bottom: 0px;
         left: 0px;
-          border-radius: 0px;
+        border-radius: 0px;
         border: 0px solid #bababa;
         border-bottom: 5px solid white;
         border-left: 5px solid white;
-                background: transparent;
-                border-style: groove;
-                -moz-box-shadow: none;
+        background: transparent;
+        border-style: groove;
+        -moz-box-shadow: none;
         -webkit-box-shadow: none;
         box-shadow: none;
-
     }
 
     .ui-resizable-n {
@@ -1467,9 +1461,6 @@
     .ui-resizable-ne, .ui-resizable-w, .ui-resizable-s, .ui-resizable-e, .ui-resizable-n {
         z-index: 100001 !important;
     }
-
-
-       
 </style>
 <div id="loadingPnl" style="text-align: center;
         position: fixed;
@@ -1605,7 +1596,7 @@
         <div class="draw-pnl">
 
             <div class="text-center" style="background: gray; padding: 0px 5px; text-align: left; width: 100%; z-index: 5; position: absolute;">
-                
+
                 <div class="pull-left">
                     <button onclick="Save()" class="btn btn-sm text-center" title="ذخیره">
                         <span class="glyphicon glyphicon-floppy-disk"></span>
@@ -1648,18 +1639,14 @@
             </div>
 
             <div style="background: gray; padding: 5px; text-align: left; width: 100%;" id="mainPnl2">
-                <div style="position: relative; top: 10px;">
-                    <div class="row" id="mainPnl"
-                         style="position: absolute; overflow: hidden; background: white; width: 958px; z-index: 0; height: 448px; box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75); left: 24px; top: 50px;">
+                @*<div style="position: relative; top: 10px;">*@
 
-                        @*<div id="drag">
-                                <div id="resize"></div>
-                            </div>*@
-
-                        @Html.Raw(Model.HtmlString)
-
-                    </div>
+                <div class="row" id="mainPnl"
+                     style="position: absolute; overflow: hidden; background: white; width: 958px; z-index: 0; height: 448px; box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75); left: 24px; top: 50px;@Model.MainPnlCss">
+                    @Html.Raw(Model.HtmlString)
                 </div>
+
+                @*</div>*@
             </div>
 
         </div>
@@ -1707,8 +1694,8 @@
             </div>
             <div class="modal-body">
                 متن:
-                <input type="text" id="labelTextInput" class="form-control" style="direction: rtl;"/>
-                <hr/>
+                <input type="text" id="labelTextInput" class="form-control" style="direction: rtl;" />
+                <hr />
                 <button class="btn btn-md text-center btn-block btn-default" id="fontColorBtn" style="text-shadow: white 0px 1px 1px;">
                     رنگ متن <span class="glyphicon glyphicon-play-circle"></span>
                 </button>

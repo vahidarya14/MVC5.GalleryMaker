@@ -74,6 +74,7 @@ namespace GalleryMaker.Views.Gallery
         [ValidateInput(false)]
         public async Task<JsonResult> SaveLayout(Project a)
         {
+            this.
             a.HtmlString = a.HtmlString.Replace("\n\n", "").Trim();
             if (a.Id == 0)
             {
@@ -89,7 +90,10 @@ namespace GalleryMaker.Views.Gallery
                     _db.Projects.Add(a);
                 }
                 else
+                {
                     olsP.HtmlString = a.HtmlString;
+                    olsP.MainPnlCss = a.MainPnlCss;
+                }
             }
 
 
