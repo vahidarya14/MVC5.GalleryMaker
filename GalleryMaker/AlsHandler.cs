@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Diagnostics;
+using System.Linq;
 using System.Web;
 
 namespace GalleryMaker
@@ -38,8 +39,12 @@ namespace GalleryMaker
         void _EndRequest(object sender, EventArgs e)
         {
             HttpApplication app = (HttpApplication)sender;
-            string log = (DateTime.Now - DateTime.Parse(app.Context.Items["start"].ToString())).ToString();
+            if (app.Context.Items.Contains("start"))
+            {
+string log = (DateTime.Now - DateTime.Parse(app.Context.Items["start"].ToString())).ToString();
             Debugger.Log(0, "duration", "request took " + log + Environment.NewLine);
+            }
+                
 
         }
     }
@@ -73,7 +78,7 @@ namespace GalleryMaker
     //{
     //    public IHttpHandler GetHttpHandler(RequestContext requestContext)
     //    {
-            
+
     //    }
     //}
 }

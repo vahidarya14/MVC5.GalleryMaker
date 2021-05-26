@@ -20,27 +20,20 @@
                 @*@Html.ActionLink("App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a href="/Home">کارتها</a></li>
-                    <li><a href="/Gallery">کارت جدید</a></li>
-                    <li><a href="/Gallery/PhotoMgmt">عکسها</a></li>
-                    <li>
-                        @using Microsoft.AspNet.Identity
-                        @if (Request.IsAuthenticated)
-                        {
+                @using Microsoft.AspNet.Identity
+                @if (Request.IsAuthenticated)
+                {
+                    <ul class="nav navbar-nav navbar-right">
+
                         <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="fa fa-user"></i>  @User.Identity.GetUserName() <b class="caret"></b></a>
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                @User.Identity.GetUserName()  
+                                <i class="glyphicon glyphicon-user"></i><b class="caret"></b>
+                            </a>
                             <ul class="dropdown-menu" style="width: 223px;">
-                                @*<li onclick="user.changePasswordForm($('#chgPassForm'));">
-
-                                        @using (Html.BeginForm("ChangePasswordForm", "Acl", FormMethod.Post, new { id = "chgPassForm" }))
-                                        {
-                                            @Html.AntiForgeryToken()
-                                            <span><i class="fa fa-fw fa-gear"></i> Chage Password</span>
-                                        }
-
-                                    </li>*@
-
+                                <li onclick="user.changePasswordForm($('#chgPassForm'));">
+                                    <span><i class="glyphicon glyphicon-cog"></i> Chage Password</span>
+                                </li>
                                 <li class="divider"></li>
                                 <li onclick="javascript:document.getElementById('logoutForm').submit()">
                                     <a>
@@ -53,41 +46,54 @@
                                 </li>
                             </ul>
                         </li>
-                    }
-                        </li>
                     </ul>
 
-                    <div style="display:table;margin-left:auto;margin-right:auto;">
-                        <img src="/wwwroot/images/logo.png" style="height: 45px;margin-top: 4px;" />
-                    </div>
+                    <ul class="nav navbar-nav">
+
+                        @{
+                            var ctrl = ViewContext.RouteData.Values["controller"].ToString();
+                            var acti = ViewContext.RouteData.Values["action"].ToString();
+                            if (!(ctrl == "Home" && acti == "Index"))
+                            {
+                                <li><a href="/Home">کارتها</a></li>
+                                <li><a href="/Gallery">کارت جدید</a></li>
+                            }
+                            <li><a href="/Gallery/PhotoMgmt">عکسها</a></li>
+                        }
+
+                    </ul>
+                }
+                <div style="display: table; margin-left: auto; margin-right: auto;">
+                    <img src="/wwwroot/images/logo.png" style="height: 45px; margin-top:0;" />
                 </div>
             </div>
         </div>
-        <div class="container body-content">
-            @RenderBody()
+    </div>
+    <div class="container body-content">
+        @RenderBody()
 
-            <footer>
-                @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
-            </footer>
-        </div>
+        <footer>
+            @*<p>&copy; @DateTime.Now.Year - My ASP.NET Application</p>*@
+        </footer>
+    </div>
 
-        <script src="~/wwwroot/lib/jquery/dist/jquery.js"></script>
-        <script src="~/wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <script src="~/wwwroot/lib/jquery/dist/jquery.js"></script>
+    <script src="~/wwwroot/lib/bootstrap/dist/js/bootstrap.js"></script>
 
-        <!-- JavaScript Includes -->
-        @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
-        <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.knob.js"></script>
+    <!-- JavaScript Includes -->
+    @*<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>*@
+    <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.knob.js"></script>
 
-        <!-- jQuery File Upload Dependencies -->
-        <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.ui.widget.js"></script>
-        <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.iframe-transport.js"></script>
-        <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.fileupload.js"></script>
+    <!-- jQuery File Upload Dependencies -->
+    <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.ui.widget.js"></script>
+    <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.iframe-transport.js"></script>
+    <script src="/wwwroot/lib/mini-upload-form/assets/js/jquery.fileupload.js"></script>
 
-        <!-- Our main JS file -->
-        <script src="/wwwroot/lib/mini-upload-form/assets/js/script.js"></script>
-        <link href="~/wwwroot/lib/mini-upload-form/assets/css/style.css" rel="stylesheet" />
-        @*@Scripts.Render("~/bundles/jquery")
-            @Scripts.Render("~/bundles/bootstrap")*@
-        @RenderSection("scripts", required: false)
-    </body>
+    <!-- Our main JS file -->
+    <script src="/wwwroot/lib/mini-upload-form/assets/js/script.js"></script>
+    <link href="~/wwwroot/lib/mini-upload-form/assets/css/style.css" rel="stylesheet" />
+    @*@Scripts.Render("~/bundles/jquery")
+        @Scripts.Render("~/bundles/bootstrap")*@
+    @RenderSection("scripts", required: false)
+</body>
 </html>

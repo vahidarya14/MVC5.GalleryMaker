@@ -74,6 +74,7 @@ namespace GalleryMaker.Views.Gallery
         [ValidateInput(false)]
         public async Task<JsonResult> SaveLayout(Project a)
         {
+            a.HtmlString = a.HtmlString.Replace("\n\n", "").Trim();
             if (a.Id == 0)
             {
                 a.UserId = UserId;
@@ -81,12 +82,18 @@ namespace GalleryMaker.Views.Gallery
             }
             else
             {
-                var olsP = _db.Projects.FirstOrDefault(b => b.Id == a.Id) ?? new Project { };
-                olsP.HtmlString = a.HtmlString;
+                var olsP = _db.Projects.FirstOrDefault(b => b.Id == a.Id);
+                if (olsP == null)
+                {
+                    a.UserId = UserId;
+                    _db.Projects.Add(a);
+                }
+                else
+                    olsP.HtmlString = a.HtmlString;
             }
 
 
-            await _db.SaveChangesAsync();
+            var res = await _db.SaveChangesAsync();
             return Json(a);
         }
 
@@ -125,6 +132,6 @@ namespace GalleryMaker.Views.Gallery
 
 
 
-     
+
     }
 }

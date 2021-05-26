@@ -1,0 +1,31 @@
+﻿
+<div class="row" style="background: gray;padding: 5px 5px;">
+
+    <div class="col-xs-12 " >
+        <button onclick="$('.uploadDiv').toggle('display')" class="btn btn-sm text-center ">
+            upload
+            <span class="glyphicon glyphicon-plus"></span>
+        </button>
+    </div>
+    <div class="col-xs-10 col-xs-offset-1 text-center uploadDiv" style="padding: 0px; display: none; position: fixed;z-index: 1;">
+        <div id="qunit-fixture">
+
+            <form id="upload" method="post" action="/Gallery/UploadImages" enctype="multipart/form-data" style="width: 100%; margin: 0px;">
+                <div id="drop">
+                    فایلها را بکشید اینجا و رها کنید
+                    <br/>
+                    <a>انتخاب فایل</a>
+                    <input type="file" name="files" multiple accept="image/*"/>
+
+                    @*Match all image files (image/*)  =>  accept="image/*"
+                            Match all video files (video/*)    =>  accept="video/*"
+                            Match all audio files (audio/*)    => accept="audio/*"
+                            Match all image files (image/*) and files with the extension ".someext"  => accept=".someext,image/*"
+                            Match all image files (image/*) and video files (video/*)  => accept="image/*,video/*"*@
+                </div>
+            </form>
+
+        </div>
+
+    </div>
+</div>

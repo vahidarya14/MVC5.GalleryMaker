@@ -337,6 +337,7 @@
     <Content Include="wwwroot\lib\mini-upload-form\upload.php" />
     <None Include="Properties\PublishProfiles\1.pubxml" />
     <Content Include="wwwroot\fonts\A Iranian Sans.ttf" />
+    <Content Include="Views\Gallery\ImageUploader.cshtml" />
     <None Include="wwwroot\Scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="wwwroot\Scripts\jquery-1.10.2.js" />
     <Content Include="wwwroot\Scripts\jquery-1.10.2.min.js" />

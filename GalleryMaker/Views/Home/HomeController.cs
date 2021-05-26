@@ -25,7 +25,6 @@ namespace GalleryMaker.Views.Home
             return View();
         }
 
-        [Authorize]
         [HttpPost]
         public async Task<JsonResult> RemoveProj(long id)
         {
@@ -43,13 +42,14 @@ namespace GalleryMaker.Views.Home
 
         #region login
         private IAuthenticationManager AuthenticationManager => HttpContext.GetOwinContext().Authentication;
-
+        [AllowAnonymous]
         public ActionResult Login()
         {
             return View(new LoginModel { UserName = "a", Password = "123456" });
         }
 
         [HttpPost]
+        [AllowAnonymous]
         public ActionResult Login(LoginModel model)
         {
             model.Password = model.Password.HashSHA1();
@@ -99,7 +99,7 @@ namespace GalleryMaker.Views.Home
 
 
         #region register
-
+        [AllowAnonymous]
         public ActionResult Register()
         {
             return View(new RegisterModel());
@@ -108,6 +108,7 @@ namespace GalleryMaker.Views.Home
 
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [AllowAnonymous]
         public ActionResult Register(RegisterModel model)
         {
             if (_db.Users.Any(a => a.UserName == model.UserName))

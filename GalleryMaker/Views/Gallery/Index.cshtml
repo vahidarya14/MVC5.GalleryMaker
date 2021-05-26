@@ -1,6 +1,6 @@
 ﻿﻿
 @{
-    ViewData["Title"] = "گالری عکس";
+    ViewData["Title"] =Model.Id==0?"طراحی کارت جدید": "ویرایش کارت";
 }
 
 @model GalleryMaker._1.DAL.Project
@@ -21,50 +21,47 @@
     <script type="text/javascript">
 
         //var sharedObject.selectedelement = null;
-        var sharedObject={
-
-            selectedelement:null,
-            colorMustChange:"background-color",
-            elementOfColorPopOverId:""
+        var sharedObject = {
+            selectedelement: null,
+            colorMustChange: "background-color",
+            elementOfColorPopOverId: ""
 
         }
 
-        var common={
-            _tempStartSize:null
-            ,
-            generalClickHandler:function () {
+        var common = {
+            _tempStartSize: null,
+            generalClickHandler: function() {
 
-                $('[data-action]').on("click",function () {
+                $('[data-action]').on("click",
+                    function() {
 
-                    var action=$(this).attr("data-action");
-                    var prop=$(this).attr("data-prop");
-                    var target=$(this).attr("data-terget");
+                        var action = $(this).attr("data-action");
+                        var prop = $(this).attr("data-prop");
+                        var target = $(this).attr("data-terget");
 
-                    switch (action) {
-
+                        switch (action) {
                         case "close":
                             $("#" + target).css("display", "none");
                             break;
 
-                    }
+                        }
 
-                });
-            }
-            ,
-            makeSelected:function (el) {
+                    });
+            },
+            makeSelected: function(el) {
 
                 common.removeAllSelected();
                 $(el).addClass("activeEleman");
                 $(el).resizable({
-                    handles: 'ne, nw, se, sw, n, w, s, e' ,
+                    handles: 'ne, nw, se, sw, n, w, s, e',
                     start: function(event, ui) {
-                        common._tempStartSize = $(el).css("width") + "**" + $(el).css("height")+"**"+$(el).css("left") + "**" + $(el).css("top");
+                        common._tempStartSize = $(el).css("width") + "**" + $(el).css("height") + "**" + $(el).css("left") + "**" + $(el).css("top");
                     },
-                    stop: function( event, ui ) {
+                    stop: function(event, ui) {
 
                         //  if( $(el).is("label"))
-                        if( $(el).hasClass("text"))
-                            $(el).css("height",'auto');
+                        if ($(el).hasClass("text"))
+                            $(el).css("height", 'auto');
 
                         history2.add("resized", $(el), common._tempStartSize, $(el).css("width") + "**" + $(el).css("height"));
                         common._tempStartSize = null;
@@ -73,24 +70,34 @@
                 });
 
 
-                sharedObject.selectedelement=el;
-            }
-            ,
-            removeAllSelected:function () {
+                sharedObject.selectedelement = el;
+            },
+            removeAllSelected: function() {
                 $(".testLdiv").removeClass("activeEleman");
-                $(".testLdiv").css("overflow","hidden");
-                $(".testLdiv").children(0).css("opacity",1);
+                $(".testLdiv").css("overflow", "hidden");
+                $(".testLdiv").children(0).css("opacity", 1);
                 $(".text").removeClass("activeEleman");
-                $("#imagesDiv").css("display","none");
+                $("#imagesDiv").css("display", "none");
 
                 common.deactiveAllResizable();
-            }
-            ,
-            deactiveAllResizable:function() {
-                try{  $(".testLdiv").resizable('destroy');   }catch(e){}
-                try{  $(".testLdiv").children(0).draggable('destroy');}catch(e){}
-                try{  $(".text").resizable('destroy');       }catch(e){}
-                try{  $().resizable('destroy');       }catch(e){}
+            },
+            deactiveAllResizable: function() {
+                try {
+                    $(".testLdiv").resizable('destroy');
+                } catch (e) {
+                }
+                try {
+                    $(".testLdiv").children(0).draggable('destroy');
+                } catch (e) {
+                }
+                try {
+                    $(".text").resizable('destroy');
+                } catch (e) {
+                }
+                try {
+                    $().resizable('destroy');
+                } catch (e) {
+                }
 
 
                 $(".ui-resizable-ne").remove();
@@ -101,166 +108,166 @@
                 $(".ui-resizable-w").remove();
                 $(".ui-resizable-e").remove();
                 $(".ui-resizable-s").remove();
-            }
-            ,
-            setActiveTab:function (tabId) {
+            },
+            setActiveTab: function(tabId) {
                 $(".nav.nav-tabs > li ").removeClass('active');
-                $("a[data-target='#"+tabId+"']").parent().addClass('active');
+                $("a[data-target='#" + tabId + "']").parent().addClass('active');
 
                 $(".tab-content > div").removeClass('active').removeClass('in');
-                $("#"+tabId).addClass('active').addClass('in');
+                $("#" + tabId).addClass('active').addClass('in');
 
-            }
-            ,
-            colorSelectEvent:function(){
-                $(document).on('click',".color",function () {
-                    var bg=$(this).css("background-color");
-                    //var forColor=$(this).attr("data-font-color");
+            },
+            colorSelectEvent: function() {
+                $(document).on('click',
+                    ".color",
+                    function() {
+                        var bg = $(this).css("background-color");
+                        //var forColor=$(this).attr("data-font-color");
 
-                    if( sharedObject.selectedelement.hasClass('text') && sharedObject. colorMustChange=="background-color")
-                        bg=(bg.substring(0, bg.length-1)+",0.74)").replace("rgb","rgba");
+                        if (sharedObject.selectedelement.hasClass('text') && sharedObject.colorMustChange == "background-color")
+                            bg = (bg.substring(0, bg.length - 1) + ",0.74)").replace("rgb", "rgba");
 
-                    history2.add(sharedObject. colorMustChange,$(sharedObject.selectedelement),$(sharedObject.selectedelement).css(sharedObject. colorMustChange),bg  );
-                    $(sharedObject.selectedelement).css(sharedObject. colorMustChange,bg);
+                        history2.add(sharedObject.colorMustChange, $(sharedObject.selectedelement), $(sharedObject.selectedelement).css(sharedObject.colorMustChange), bg);
+                        $(sharedObject.selectedelement).css(sharedObject.colorMustChange, bg);
 
-                    //// $(sharedObject.selectedelement).css("color",forColor);
-                    if(sharedObject.selectedelement.attr('id')=='mainPnl')
-                    {
-                        $('[data-terget="mainPnl"][data-action="changeBg"][data-prop="background-color"]').css('background-color',bg);
+                        //// $(sharedObject.selectedelement).css("color",forColor);
+                        if (sharedObject.selectedelement.attr('id') == 'mainPnl') {
+                            $('[data-terget="mainPnl"][data-action="changeBg"][data-prop="background-color"]').css('background-color', bg);
 
-                    }
-                    else{
+                        } else {
 
-                        sharedObject.elementOfColorPopOverId.css("background-color", bg);
-                    }
-                });
-            }
-            ,
-            showLoading:function () {
-                $("#loadingPnl").css("display","block");
-            }
-            ,
-            hideLoading:function () {
-                $("#loadingPnl").css("display","none");
-            }
-            ,
+                            sharedObject.elementOfColorPopOverId.css("background-color", bg);
+                        }
+                    });
+            },
+            showLoading: function() {
+                $("#loadingPnl").css("display", "block");
+            },
+            hideLoading: function() {
+                $("#loadingPnl").css("display", "none");
+            },
             getMaxIdOfElements: function() {
-                var min=null, max=1;
+                var min = null, max = 1;
                 $("#imagesDiv").each(function() {
                     var id = parseInt(this.id, 10);
-                    if ((min===null) || (id < min)) { min = id; }
-                    if ((max===null) || (id > max)) { max = id; }
+                    if ((min === null) || (id < min)) {
+                        min = id;
+                    }
+                    if ((max === null) || (id > max)) {
+                        max = id;
+                    }
                 });
-                return max+1;//  return {min:min, max:max};
-            }
-            ,
+                return max + 1; //  return {min:min, max:max};
+            },
             sendToBack: function(elm) {
                 var e = elm != undefined ? elm : sharedObject.selectedelement;
 
                 var zIndex = $(e).css("z-index");
                 zIndex--;
                 $(e).css("z-index", zIndex);
-            }
-            ,
+            },
             bringFront: function(elm) {
                 var e = elm != undefined ? elm : sharedObject.selectedelement;
 
                 var zIndex = $(e).css("z-index");
                 zIndex++;
                 $(e).css("z-index", zIndex);
-            }
-            ,
+            },
             remove: function(elm) {
                 var e = elm != undefined ? elm : sharedObject.selectedelement;
-                history2.add("del",$(e));
+                history2.add("del", $(e));
                 $(e).remove();
                 common.removeAllSelected();
-            }
-            ,
+            },
             textAlign: function() {
                 $("[data-prop='text-align'").click(function() {
 
                     $(sharedObject.selectedelement).css("text-align", $(this).attr("data-value"));
                 });
-            }
-            ,
+            },
             backgroundPosition: function() {
-                $("[data-prop='background-position-x']").on('change input',( function() {
-                    // $(sharedObject.selectedelement).removeClass("fitBg");
+                $("[data-prop='background-position-x']").on('change input',
+                    (function() {
+                        // $(sharedObject.selectedelement).removeClass("fitBg");
 
 
-                    $(sharedObject.selectedelement).css("background-position-x",$(this).val()+"%");
-                    $(sharedObject.selectedelement).children(0).css("margin-left",-$(this).val()+"%");
-                    $('[data-label="background-position-x"]').text($(this).val() + "%");
-                }));
-                $("[data-prop='background-position-y']").on('change input',( function() {
-                    // $(sharedObject.selectedelement).removeClass("fitBg ");
+                        $(sharedObject.selectedelement).css("background-position-x", $(this).val() + "%");
+                        $(sharedObject.selectedelement).children(0).css("margin-left", -$(this).val() + "%");
+                        $('[data-label="background-position-x"]').text($(this).val() + "%");
+                    }));
+                $("[data-prop='background-position-y']").on('change input',
+                    (function() {
+                        // $(sharedObject.selectedelement).removeClass("fitBg ");
 
-                    $(sharedObject.selectedelement).css("background-position-y",$(this).val()+"%");
-                    $(sharedObject.selectedelement).children(0).css("margin-top",-$(this).val()+"%");
-                    $('[data-label="background-position-y"]').text($(this).val() + "%");
-                }));
-            }
-            ,
+                        $(sharedObject.selectedelement).css("background-position-y", $(this).val() + "%");
+                        $(sharedObject.selectedelement).children(0).css("margin-top", -$(this).val() + "%");
+                        $('[data-label="background-position-y"]').text($(this).val() + "%");
+                    }));
+            },
             fitBgOrNot: function() {
-                $("[data-action='fitBg']").on('click',( function() {
-                    // var target =  $(this).attr('data-terget');
+                $("[data-action='fitBg']").on('click',
+                    (function() {
+                        // var target =  $(this).attr('data-terget');
 
-                    $(sharedObject.selectedelement).addClass("fitBg ");
-                }));
+                        $(sharedObject.selectedelement).addClass("fitBg ");
+                    }));
 
-                $("[data-action='orginalBg']").on('click',( function() {
-                    //var target =  $(this).attr('data-terget');
+                $("[data-action='orginalBg']").on('click',
+                    (function() {
+                        //var target =  $(this).attr('data-terget');
 
-                    $(sharedObject.selectedelement).removeClass("fitBg ");
-                }));
-            }
-            ,
+                        $(sharedObject.selectedelement).removeClass("fitBg ");
+                    }));
+            },
             backgroundZoom: function() {
 
-                $("[data-prop='background-size']").on('change',( function() {
+                $("[data-prop='background-size']").on('change',
+                    (function() {
 
 
-                    //card2.makeSelected($(sharedObject.selectedelement));
+                        //card2.makeSelected($(sharedObject.selectedelement));
 
-                }));
+                    }));
 
 
-                $("[data-prop='background-size']").on('input',( function() {
+                $("[data-prop='background-size']").on('input',
+                    (function() {
 
-                    // common.removeAllSelected();
-                    try{  $(".testLdiv").resizable('destroy');   }catch(e){}
+                        // common.removeAllSelected();
+                        try {
+                            $(".testLdiv").resizable('destroy');
+                        } catch (e) {
+                        }
 
-                    $(sharedObject.selectedelement).addClass("activeEleman");
-                    $(sharedObject.selectedelement).css("overflow","visible");
-                    $(sharedObject.selectedelement).children(0).css("opacity",.5);
-                    //$(sharedObject.selectedelement).children(0).css("opacity", ".3");
-                    //var e= $(sharedObject.selectedelement).css("background-size");
+                        $(sharedObject.selectedelement).addClass("activeEleman");
+                        $(sharedObject.selectedelement).css("overflow", "visible");
+                        $(sharedObject.selectedelement).children(0).css("opacity", .5);
+                        //$(sharedObject.selectedelement).children(0).css("opacity", ".3");
+                        //var e= $(sharedObject.selectedelement).css("background-size");
 
-                    // e =parseFloat( e.replace("%", ""));
-                    var naturalWidth=  $(sharedObject.selectedelement).attr("data-naturalWidth");
-                    var naturalHeight=  $(sharedObject.selectedelement).attr("data-naturalHeight");
-                    var width = $(sharedObject.selectedelement).css("width").replace("px","");
-                    var height = $(sharedObject.selectedelement).css("height").replace("px","");
+                        // e =parseFloat( e.replace("%", ""));
+                        var naturalWidth = $(sharedObject.selectedelement).attr("data-naturalWidth");
+                        var naturalHeight = $(sharedObject.selectedelement).attr("data-naturalHeight");
+                        var width = $(sharedObject.selectedelement).css("width").replace("px", "");
+                        var height = $(sharedObject.selectedelement).css("height").replace("px", "");
 
-                    var e=(naturalWidth/width);
-                    // $("[data-prop='background-size']").attr("min", e);
-                    e= parseFloat($(this).val());
+                        var e = (naturalWidth / width);
+                        // $("[data-prop='background-size']").attr("min", e);
+                        e = parseFloat($(this).val());
 
-                    e = parseInt(e);
-                    if (e < 100) e += 100;
+                        e = parseInt(e);
+                        if (e < 100) e += 100;
 
-                    $(sharedObject.selectedelement).css("background-size",e+"%");
-                    $(sharedObject.selectedelement).children(0).css("width",e+"%");
-                    $('[data-label="background-size"]').text("% "+e+" زوم :");
+                        $(sharedObject.selectedelement).css("background-size", e + "%");
+                        $(sharedObject.selectedelement).children(0).css("width", e + "%");
+                        $('[data-label="background-size"]').text("% " + e + " زوم :");
 
-                    $(sharedObject.selectedelement).attr("data-zoom",e);
-                }));
+                        $(sharedObject.selectedelement).attr("data-zoom", e);
+                    }));
 
-            }
-            ,
-            GetAngle:function(elm) {
-                var el =$(elm);// document.getElementById(elm);
+            },
+            GetAngle: function(elm) {
+                var el = $(elm); // document.getElementById(elm);
                 //var st = window.getComputedStyle(el, null);
                 //var cur = st.getPropertyValue("-webkit-transform") ||
                 //         st.getPropertyValue("-moz-transform") ||
@@ -295,154 +302,150 @@
 
         }
 
-        var text={
-
-            _tempStartLocation:null
-            ,
-            makeSelected:function (elm) {
-                common.makeSelected( elm);
-                $("#fontColorBtn").css("background-color",elm.css("color"));
-                $("#bgColorBtn").css("background-color",elm.css("background-color"));
+        var text = {
+            _tempStartLocation: null,
+            makeSelected: function(elm) {
+                common.makeSelected(elm);
+                $("#fontColorBtn").css("background-color", elm.css("color"));
+                $("#bgColorBtn").css("background-color", elm.css("background-color"));
                 $("#fontSizeBtn").text(elm.css("font-size"));
 
                 common.setActiveTab('menu2');
-            }
-            ,
-            makeNewText:function() {
-                var div = document.createElement("div");  // Create with DOM
-                var txt3 = document.createElement("label");  // Create with DOM
+            },
+            makeNewText: function() {
+                var div = document.createElement("div"); // Create with DOM
+                var txt3 = document.createElement("label"); // Create with DOM
 
                 $(div).attr('id', common.getMaxIdOfElements());
 
                 txt3.innerHTML = "برای تغییر متن دابل کلیک کنید.";
                 div.appendChild(txt3);
-                $("#mainPnl").append(div);      // Append the new elements
+                $("#mainPnl").append(div); // Append the new elements
                 // sharedObject.selectedelement =txt3;
-                text.init(  $(div));
-                text.makeSelected( $(div));
-                history2.add("add",$(div));
-            }
-            ,
-            init:function (txt) {
+                text.init($(div));
+                text.makeSelected($(div));
+                history2.add("add", $(div));
+            },
+            init: function(txt) {
 
-                txt.addClass('text').addClass('draggable') .addClass("contextMenu")
-                        .draggable({
-                            start: function() {
-                                text.makeSelected( $(this));
-                                txt._tempStartLocation=$(this).css("left")+"**"+$(this).css("top");
-                            },
-                            stop:function () {
+                txt.addClass('text').addClass('draggable').addClass("contextMenu")
+                    .draggable({
+                        start: function() {
+                            text.makeSelected($(this));
+                            txt._tempStartLocation = $(this).css("left") + "**" + $(this).css("top");
+                        },
+                        stop: function() {
 
-                                history2.add("dragged",$(this),txt._tempStartLocation,$(this).css("left")+"**"+$(this).css("top"));
-                                txt. _tempStartLocation=null;
-                            }
-                            ,
-                            containment: "#mainPnl" })
-                ;
+                            history2.add("dragged", $(this), txt._tempStartLocation, $(this).css("left") + "**" + $(this).css("top"));
+                            txt._tempStartLocation = null;
+                        },
+                        containment: "#mainPnl"
+                    });
 
-                $(document).on("dblclick", ".text" , function() {
-                    var txt = $(this).text();
-                    sharedObject.selectedelement =  $(this);
-                    $("#labelTextInput").val(txt);
-                    $("#labelTextModal").modal("show");
+                $(document).on("dblclick",
+                    ".text",
+                    function() {
+                        var txt = $(this).text();
+                        sharedObject.selectedelement = $(this);
+                        $("#labelTextInput").val(txt);
+                        $("#labelTextModal").modal("show");
 
-                    text.makeSelected($(this));
-                });
+                        text.makeSelected($(this));
+                    });
 
-                $(document).on("click", ".text" , function() {
+                $(document).on("click",
+                    ".text",
+                    function() {
 
-                    window.sharedObject.selectedelement = $(this);
-                    text.makeSelected( $(this));
+                        window.sharedObject.selectedelement = $(this);
+                        text.makeSelected($(this));
 
 
-                });
+                    });
 
                 $("#labelTextChangeBtn").click(function() {
 
                     var text = $("#labelTextInput").val();
-                    $( sharedObject.selectedelement).children(0).text(text);
+                    $(sharedObject.selectedelement).children(0).text(text);
                     $("#labelTextModal").modal("hide");
 
                 });
 
 
-            }
-            ,
-            initSetting:function () {
+            },
+            initSetting: function() {
 
 
-
-                $(document).on('click',"[ data-font-size]",function () {
-                    var bg=$(this).attr("data-font-size");
-                    //alert(bg);
-                    $(sharedObject.selectedelement).css("font-size",bg+"px");
-                    sharedObject.elementOfColorPopOverId.text( bg +"px");
-                });
+                $(document).on('click',
+                    "[ data-font-size]",
+                    function() {
+                        var bg = $(this).attr("data-font-size");
+                        //alert(bg);
+                        $(sharedObject.selectedelement).css("font-size", bg + "px");
+                        sharedObject.elementOfColorPopOverId.text(bg + "px");
+                    });
 
 
                 $("#fontColorBtn").popover({
-                    html : true,
-                    trigger:'focus',
+                    html: true,
+                    trigger: 'focus',
                     content: function() {
-                        sharedObject. colorMustChange="color";
-                        sharedObject.elementOfColorPopOverId=$("#fontColorBtn");
-                        return   "<div  style='width:255px;height:345px;overflow-y: scroll;' >"+$('.colors-page').html()+"<div/>";
+                        sharedObject.colorMustChange = "color";
+                        sharedObject.elementOfColorPopOverId = $("#fontColorBtn");
+                        return "<div  style='width:255px;height:345px;overflow-y: scroll;' >" + $('.colors-page').html() + "<div/>";
                     }
 
                 });
                 $("#bgColorBtn").popover({
-                    html : true,
-                    trigger:'focus',
+                    html: true,
+                    trigger: 'focus',
                     content: function() {
-                        sharedObject.  colorMustChange="background-color";
-                        sharedObject.elementOfColorPopOverId=$("#bgColorBtn");
-                        return   "<div  style='width:255px;height:345px;overflow-y: scroll;' >"+$('.colors-page').html()+"<div/>";
+                        sharedObject.colorMustChange = "background-color";
+                        sharedObject.elementOfColorPopOverId = $("#bgColorBtn");
+                        return "<div  style='width:255px;height:345px;overflow-y: scroll;' >" + $('.colors-page').html() + "<div/>";
                     }
 
                 });
 
                 $("#fontSizeBtn").popover({
-                    html : true,
-                    trigger:'focus',
+                    html: true,
+                    trigger: 'focus',
                     content: function() {
                         //sharedObject.  colorMustChange="background-color";
-                        sharedObject.elementOfColorPopOverId=$("#fontSizeBtn");
-                        return   "<div  style='width:55px;height:345px;overflow-y: auto;' >"+$('#fontSize').html()+"<div/>";
+                        sharedObject.elementOfColorPopOverId = $("#fontSizeBtn");
+                        return "<div  style='width:55px;height:345px;overflow-y: auto;' >" + $('#fontSize').html() + "<div/>";
                     }
 
                 });
 
 
                 text.contextMenu();
-            }
-            ,
-            contextMenu:function () {
+            },
+            contextMenu: function() {
                 $.contextMenu({
                     selector: '.text',
                     items: {
-                        "sendToBack": {name: "برو عقب", icon: ""},
-                        "bringFront": {name: "بیا جلو", icon: ""},
+                        "sendToBack": { name: "برو عقب", icon: "" },
+                        "bringFront": { name: "بیا جلو", icon: "" },
                         "sep2": "---------",
-                        "delete": {name: "حذف", icon: "delete"},
+                        "delete": { name: "حذف", icon: "delete" },
                     },
                     callback: function(key, options) {
                         var m = "clicked: " + key;
                         //  window.console && console.log(m) || alert(m);
-                        if(key==="sendToBack"){
+                        if (key === "sendToBack") {
 
                             var zIndex = $(this).css("z-index");
                             zIndex--;
                             $(this).css("z-index", zIndex);
-                        }
-                        else  if(key==="bringFront"){
+                        } else if (key === "bringFront") {
 
                             var zIndex = $(this).css("z-index");
                             zIndex++;
                             $(this).css("z-index", zIndex);
-                        }
-                        else   if(key==="delete"){
+                        } else if (key === "delete") {
 
-                            history2.add("del",$(this),card2);
+                            history2.add("del", $(this), card2);
                             $(this).remove();
 
                         }
@@ -454,30 +457,28 @@
 
         }
 
-        var card2={
-
-            makeSelected:function (elm) {
-                common.makeSelected( elm);
+        var card2 = {
+            makeSelected: function(elm) {
+                common.makeSelected(elm);
                 common.setActiveTab('menu3');
 
 
                 //$(elm).css("overflow",'visible');
                 ////$(elm).children(0).css("opacity", ".3");
 
-                var naturalWidth =parseFloat($(elm).children(0).css("width").replace("px",""));//  $(elm).attr("data-naturalWidth");
-                var naturalHeight=parseFloat($(elm).children(0).css("height").replace("px",""));//  $(elm).attr("data-naturalHeight");
-                var width =parseFloat( $(elm).css("width").replace("px",""));
-                var height =parseFloat( $(elm).css("height").replace("px",""));
-                var max =naturalWidth > width? (naturalWidth / width)*100:0;
-                var max2 =naturalHeight >height? ((naturalHeight / height)*100):0;
+                var naturalWidth = parseFloat($(elm).children(0).css("width").replace("px", "")); //  $(elm).attr("data-naturalWidth");
+                var naturalHeight = parseFloat($(elm).children(0).css("height").replace("px", "")); //  $(elm).attr("data-naturalHeight");
+                var width = parseFloat($(elm).css("width").replace("px", ""));
+                var height = parseFloat($(elm).css("height").replace("px", ""));
+                var max = naturalWidth > width ? (naturalWidth / width) * 100 : 0;
+                var max2 = naturalHeight > height ? ((naturalHeight / height) * 100) : 0;
 
-                var zoom = parseFloat($(elm).attr("data-zoom"))|| 100;
+                var zoom = parseFloat($(elm).attr("data-zoom")) || 100;
                 $('[data-prop="background-size"]').val(zoom);
-                $('[data-label="background-size"]').text("% "+zoom+" زوم :");
+                $('[data-label="background-size"]').text("% " + zoom + " زوم :");
 
-                $("[data-prop='background-position-x']").attr("max",Math.max(0, max-100));
-                $("[data-prop='background-position-y']").attr("max", Math.max(0,max2));
-
+                $("[data-prop='background-position-x']").attr("max", Math.max(0, max - 100));
+                $("[data-prop='background-position-y']").attr("max", Math.max(0, max2));
 
 
                 var s1 = parseFloat($(elm).children(0).css("margin-left").replace("%", ""));
@@ -489,9 +490,8 @@
 
                 //$("[data-prop='background-position-x']").attr("min",-naturalWidth-(s1/100*width));
                 //$("[data-prop='background-position-y']").attr("min", -naturalHeight-(s2/100*height));
-            }
-            ,
-            makeNewCard:function(img) {
+            },
+            makeNewCard: function(img) {
 
 
                 var naturalWidth = img.context.naturalWidth;
@@ -500,16 +500,16 @@
 
                 var div = document.createElement("div");
                 var txt3 = document.createElement("div");
-                $( txt3).attr("data-naturalWidth", naturalWidth);
-                $( txt3).attr("data-naturalHeight", naturalHeight);
+                $(txt3).attr("data-naturalWidth", naturalWidth);
+                $(txt3).attr("data-naturalHeight", naturalHeight);
 
                 var imgReal = document.createElement("img");
                 $(imgReal)
-                    .css('width',"100%") //naturalWidth
-                   // .css('height',naturalHeight)
-                   // .css("opacity",".3")
+                    .css('width', "100%") //naturalWidth
+                    // .css('height',naturalHeight)
+                    // .css("opacity",".3")
                     //.css("margin","-50% -50%")
-                    .attr("src",bg);
+                    .attr("src", bg);
 
                 var id = common.getMaxIdOfElements();
                 $(txt3).attr('id', id);
@@ -522,17 +522,15 @@
                 $(txt3).append(imgReal);
                 $(div).append(txt3);
                 $("#mainPnl").append(div);
-                card2.init(  $(div));
-                history2.add("add",$(div));
+                card2.init($(div));
+                history2.add("add", $(div));
 
                 card2.makeSelected($(txt3));
-            }
-            ,
-            _tempStartLocation:null
-            ,
-            init:function (card) {
+            },
+            _tempStartLocation: null,
+            init: function(card) {
 
-                card.children(0).addClass('testLdiv').addClass('fitBg')//.css("width", "250px");
+                card.children(0).addClass('testLdiv').addClass('fitBg') //.css("width", "250px");
                 card
                     .addClass('draggable')
                     .addClass("contextMenu")
@@ -563,68 +561,74 @@
                 //        }
 
                 //    }});
-                $(document).on("dblclick", ".testLdiv", function(e) {
+                $(document).on("dblclick",
+                    ".testLdiv",
+                    function(e) {
 
-                    common.deactiveAllResizable();
-                    $(this).addClass("activeEleman");
-                    $(this).css("overflow","visible");
-                    $(this).children(0).css("opacity",.5);
+                        common.deactiveAllResizable();
+                        $(this).addClass("activeEleman");
+                        $(this).css("overflow", "visible");
+                        $(this).children(0).css("opacity", .5);
 
-                    $(this).children(0).draggable({
-                        drag: function() {
-                            //if($(this).css("left"))
-                            var left = $(this).css("left").replace("px","");
-                            var top = $(this).css("top").replace("px","");
-                            $('[data-prop="background-position-x"]').val(parseFloat(left));
-                            $('[data-prop="background-position-y"]').val(parseFloat(top));
+                        $(this).children(0).draggable({
+                            drag: function() {
+                                //if($(this).css("left"))
+                                var left = $(this).css("left").replace("px", "");
+                                var top = $(this).css("top").replace("px", "");
+                                $('[data-prop="background-position-x"]').val(parseFloat(left));
+                                $('[data-prop="background-position-y"]').val(parseFloat(top));
 
-                            $('[data-label="background-position-x"]').text(left + "%");
-                            $('[data-label="background-position-y"]').text(top + "%");
-                        }
+                                $('[data-label="background-position-x"]').text(left + "%");
+                                $('[data-label="background-position-y"]').text(top + "%");
+                            }
+                        });
+
+                        sharedObject.selectedelement = $(this); //.children(0);
                     });
 
-                    sharedObject.selectedelement = $(this);//.children(0);
-                });
-
-                $(document).on("click", ".testLdiv" , function(e) {
-                    //if (sharedObject.selectedelement!=undefined)
-                    //$("#" + sharedObject.selectedelement).resizable('disable').draggable('disable');
-
-
-                    //if (e.target !== this)
-                    //    return;
-
-                    try{   $(this).children(0).draggable('destroy');}catch(e){}
-
-                    sharedObject.selectedelement = $(this);//.children(0);
-                    $(this).css("overflow","hidden");
-                    // $(this).resizable();
-                    card2.makeSelected($(this));
-
-                    var top=parseInt($(this).parent().css("top").replace("px",""))+40;
-                    var left=parseInt($(this).parent().css("left").replace("px",""))+173;
-                    $("#imagesDiv").css("top",top+"px").css("left",left+"px").css("display", "block");
-                    var angle =common.GetAngle(sharedObject.selectedelement);
-                    $('[data-label="currentRotate"]').text(" درجه "+angle + "چرخش:");
-                    $("#rotateBar").val(angle);
+                $(document).on("click",
+                    ".testLdiv",
+                    function(e) {
+                        //if (sharedObject.selectedelement!=undefined)
+                        //$("#" + sharedObject.selectedelement).resizable('disable').draggable('disable');
 
 
-                });
+                        //if (e.target !== this)
+                        //    return;
+
+                        try {
+                            $(this).children(0).draggable('destroy');
+                        } catch (e) {
+                        }
+
+                        sharedObject.selectedelement = $(this); //.children(0);
+                        $(this).css("overflow", "hidden");
+                        // $(this).resizable();
+                        card2.makeSelected($(this));
+
+                        var top = parseInt($(this).parent().css("top").replace("px", "")) + 40;
+                        var left = parseInt($(this).parent().css("left").replace("px", "")) + 173;
+                        $("#imagesDiv").css("top", top + "px").css("left", left + "px").css("display", "block");
+                        var angle = common.GetAngle(sharedObject.selectedelement);
+                        $('[data-label="currentRotate"]').text(" درجه " + angle + "چرخش:");
+                        $("#rotateBar").val(angle);
+
+
+                    });
                 card2.contextMenu();
-            }
-            ,
+            },
 
-            contextMenu:function () {
+            contextMenu: function() {
                 $.contextMenu({
                     selector: '.testLdiv',
                     items: {
-                        "fitBg": {name: "پسزمینه استرج", icon: ""},
-                        "orginalBg": {name: "پسزمینه به اندازه واقعی", icon: ""},
+                        "fitBg": { name: "پسزمینه استرج", icon: "" },
+                        "orginalBg": { name: "پسزمینه به اندازه واقعی", icon: "" },
                         "sep2": "---------",
-                        "sendToBack": {name: "برو عقب", icon: ""},
-                        "bringFront": {name: "بیا جلو", icon: ""},
+                        "sendToBack": { name: "برو عقب", icon: "" },
+                        "bringFront": { name: "بیا جلو", icon: "" },
                         "sep2": "---------",
-                        "delete": {name: "حذف", icon: "delete"},
+                        "delete": { name: "حذف", icon: "delete" },
                         //"quit": {name: "<input type='radio' />", icon: function(){
                         //    return 'context-menu-icon context-menu-icon-quit';
                         //}}
@@ -632,62 +636,56 @@
                     callback: function(key, options) {
                         var m = "clicked: " + key;
                         //  window.console && console.log(m) || alert(m);
-                        if(key==="sendToBack"){
+                        if (key === "sendToBack") {
 
-                            common.sendToBack( $(this));
-                        }
-                        else  if(key==="bringFront"){
+                            common.sendToBack($(this));
+                        } else if (key === "bringFront") {
 
-                            common.bringFront( $(this));
-                        }
-                        else   if(key==="delete"){
+                            common.bringFront($(this));
+                        } else if (key === "delete") {
 
-                            history2.add("del",$(this).parent());
+                            history2.add("del", $(this).parent());
                             $(this).parent().remove();
                             common.removeAllSelected();
-                        }
-                        else if(key==="fitBg"){
+                        } else if (key === "fitBg") {
                             $(this).addClass("fitBg");
-                        }
-                        else if(key==="orginalBg"){
+                        } else if (key === "orginalBg") {
                             $(this).removeClass("fitBg");
                         }
                     }
                 });
 
-                $('.contextMenu').on('click', function(e) {
-                    //console.log('clicked', this);
-                });
+                $('.contextMenu').on('click',
+                    function(e) {
+                        //console.log('clicked', this);
+                    });
             }
 
         }
 
-        var mainPnl={
-            makeSelected:function (elm) {
+        var mainPnl = {
+            makeSelected: function(elm) {
                 // common.removeAllSelected();
-                common.makeSelected( );
+                common.makeSelected();
                 // common.setActiveTab('menu1');
-            }
-       ,
-            initEvent:function () {
+            },
+            initEvent: function() {
 
-                $("#mainPnl").draggable({/*containment: "#mainPnl2"*/
-                    start:function () {
+                $("#mainPnl").draggable({ /*containment: "#mainPnl2"*/
+                    start: function() {
                         mainPnl.makeSelected();
                     }
                 });
 
                 $("#mainPnl").droppable({
-                    drop: function (event, ui) {
+                    drop: function(event, ui) {
 
-                        if($(ui.draggable.context).hasClass("testLdiv")){}
-                        else if($(ui.draggable.context).parent().hasClass("testLdiv")){}
-                        else if (ui.draggable.context.parentNode.id === $(this).attr("id")) {
+                        if ($(ui.draggable.context).hasClass("testLdiv")) {
+                        } else if ($(ui.draggable.context).parent().hasClass("testLdiv")) {
+                        } else if (ui.draggable.context.parentNode.id === $(this).attr("id")) {
 
-                        }
-                        else
-                        {
-                            var bg=ui.draggable.context.src;
+                        } else {
+                            var bg = ui.draggable.context.src;
                             var img = $(ui.draggable.context);
 
 
@@ -698,7 +696,7 @@
 
                 $("#mainPnl").click(function(e) {
 
-                    if($(e.target).parent().hasClass("testLdiv"))
+                    if ($(e.target).parent().hasClass("testLdiv"))
                         mainPnl.makeSelected();
 
                     if (e.target !== this)
@@ -715,223 +713,197 @@
                     common.setActiveTab("menu1");
                 });
 
-                $('[data-terget="mainPnl"]').on("input change",function () {
+                $('[data-terget="mainPnl"]').on("input change",
+                    function() {
 
-                    var action=$(this).attr("data-action");
-                    var prop=$(this).attr("data-prop");
-                    var target=$(this).attr("data-terget");
-                    switch (action) {
+                        var action = $(this).attr("data-action");
+                        var prop = $(this).attr("data-prop");
+                        var target = $(this).attr("data-terget");
+                        switch (action) {
                         case "resize":
-                            $("#"+target).css(prop,$(this).val());
+                            $("#" + target).css(prop, $(this).val());
                             break;
 
 
-                    }
+                        }
 
-                });
+                    });
 
-                $('[data-action="changeBg"]').popover( {
-                    html : true,
-                    trigger:'focus',
+                $('[data-action="changeBg"]').popover({
+                    html: true,
+                    trigger: 'focus',
                     content: function() {
 
-                        var action=$(this).attr("data-action");
-                        var prop=$(this).attr("data-prop");
-                        var target=$(this).attr("data-terget");
+                        var action = $(this).attr("data-action");
+                        var prop = $(this).attr("data-prop");
+                        var target = $(this).attr("data-terget");
 
-                        sharedObject.selectedelement=$("#"+target);
-                        sharedObject.colorMustChange="background-color";
+                        sharedObject.selectedelement = $("#" + target);
+                        sharedObject.colorMustChange = "background-color";
 
 
                         // var bg=$("#"+target).css("background-color");
-                        return   "<div  style='width:255px;height:345px;overflow-y: scroll;' >"+$('.colors-page').html()+"<div/>";
+                        return "<div  style='width:255px;height:345px;overflow-y: scroll;' >" + $('.colors-page').html() + "<div/>";
                     }
 
 
                 });
 
 
+            },
+            currZoom: 1,
+            ZoomIn: function() {
 
-            }
-       ,
-            currZoom : 1
-       ,
-            ZoomIn:function() {
-
-                mainPnl. currZoom+=.05;
+                mainPnl.currZoom += .05;
                 $("#mainPnl").css("zoom", mainPnl.currZoom);
-                $("#mainPnl").css("-moz-transform","scale("+ mainPnl.currZoom+")");
+                $("#mainPnl").css("-moz-transform", "scale(" + mainPnl.currZoom + ")");
 
-            }
-       ,
-            ZoomOut:function() {
-                mainPnl.currZoom-=.05;
+            },
+            ZoomOut: function() {
+                mainPnl.currZoom -= .05;
                 $("#mainPnl").css("zoom", mainPnl.currZoom);
-                $("#mainPnl").css("-moz-transform","scale("+ mainPnl.currZoom+")");
+                $("#mainPnl").css("-moz-transform", "scale(" + mainPnl.currZoom + ")");
             }
 
         }
 
 
-        var history2={
-            _items:[]
-            ,
-            _undoItems:[]
-            ,
-            add:function (actionOrPropChanged,elment,fromValue,toValue) {
+        var history2 = {
+            _items: [],
+            _undoItems: [],
+            add: function(actionOrPropChanged, elment, fromValue, toValue) {
 
                 history2._items.push(
-                {
-                    actionOrPropChanged:actionOrPropChanged,
-                    element:elment,
-                    fromValue:fromValue,
-                    toValue:toValue
-                });
+                    {
+                        actionOrPropChanged: actionOrPropChanged,
+                        element: elment,
+                        fromValue: fromValue,
+                        toValue: toValue
+                    });
 
                 $('[data-action="undo"]').removeAttr('disabled');
-            }
-            ,
-            undo:function () {
-                if(history2._items.length==0) return;
-                var last=history2._items[history2._items.length-1];
+            },
+            undo: function() {
+                if (history2._items.length == 0) return;
+                var last = history2._items[history2._items.length - 1];
 
                 history2._undoItems.push(last);
 
-                switch(last.actionOrPropChanged){
+                switch (last.actionOrPropChanged) {
+                case "add":
+                    last.element.remove();
 
-                    case "add":
-                        last.element.remove();
+                    break;
+                case "del":
 
-                        break;
-                    case "del":
+                    $("#mainPnl").append($(last.element));
+                    if ($(last.element).hasClass('testLdiv'))
+                        card2.init($(last.element));
+                    if ($(last.element).hasClass('text'))
+                        text.init($(last.element));
 
-                        $("#mainPnl").append(  $(last.element));
-                        if($(last.element).hasClass('testLdiv'))
-                            card2.init($(last.element));
-                        if($(last.element).hasClass('text'))
-                            text.init($(last.element));
+                    break;
+                case "dragged":
 
-                        break;
-                    case "dragged":
+                    var start = last.fromValue.split("**");
+                    var left = parseFloat(start[0]);
+                    var top = parseFloat(start[1]);
+                    $(last.element).css("left", left);
+                    $(last.element).css("top", top);
 
-                        var start=     last.fromValue.split("**");
-                        var left=parseFloat(start[0]);
-                        var top=parseFloat(start[1]);
-                        $(last.element).css("left",left);
-                        $(last.element).css("top",top);
+                    break;
+                case "resized":
+                    var start1 = last.fromValue.split("**");
+                    var width = parseFloat(start1[0]);
+                    var height = parseFloat(start1[1]);
+                    var left1 = parseFloat(start1[2]);
+                    var top1 = parseFloat(start1[3]);
+                    $(last.element).css("width", width);
+                    $(last.element).css("height", height);
+                    $(last.element).css("left", left1);
+                    $(last.element).css("top", top1);
+                    break;
+                case "background-color":
+                case "background-image":
+                case "color":
 
-                        break;
-                    case "resized":
-                        var start1=     last.fromValue.split("**");
-                        var width=parseFloat(start1[0]);
-                        var height=parseFloat(start1[1]);
-                        var left1=parseFloat(start1[2]);
-                        var top1=parseFloat(start1[3]);
-                        $(last.element).css("width",width);
-                        $(last.element).css("height",height);
-                        $(last.element).css("left",left1);
-                        $(last.element).css("top",top1);
-                        break;
-                    case "background-color":
-                    case "background-image":
-                    case "color":
+                    $(last.element).css(last.actionOrPropChanged, last.fromValue);
 
-                        $(last.element).css(last.actionOrPropChanged,last.fromValue);
-
-                        break;
+                    break;
                 }
-                history2._items.splice(history2._items.length-1,1);
+                history2._items.splice(history2._items.length - 1, 1);
                 $('[data-action="redo"]').removeAttr('disabled');
-                if(history2._items.length==0)        $('[data-action="undo"]').attr('disabled','disabled');
-            }
-            ,
-            redo:function () {
-                if(history2._undoItems.length==0) return;
-                var last=history2._undoItems[history2._undoItems.length-1];
+                if (history2._items.length == 0) $('[data-action="undo"]').attr('disabled', 'disabled');
+            },
+            redo: function() {
+                if (history2._undoItems.length == 0) return;
+                var last = history2._undoItems[history2._undoItems.length - 1];
 
                 history2._items.push(last)
-                switch(last.actionOrPropChanged){
+                switch (last.actionOrPropChanged) {
+                case "add":
 
-                    case "add":
+                    $("#mainPnl").append($(last.element));
+                    if ($(last.element).hasClass('testLdiv'))
+                        card2.init($(last.element));
+                    if ($(last.element).hasClass('text'))
+                        text.init($(last.element));
 
-                        $("#mainPnl").append(  $(last.element));
-                        if($(last.element).hasClass('testLdiv'))
-                            card2.init($(last.element));
-                        if($(last.element).hasClass('text'))
-                            text.init($(last.element));
+                    break;
+                case "del":
+                    last.element.remove();
+                    break;
+                case "dragged":
+                    var start = last.toValue.split("**");
+                    var left = parseFloat(start[0]);
+                    var top = parseFloat(start[1]);
+                    $(last.element).css("left", left);
+                    $(last.element).css("top", top);
+                    break;
+                case "resized":
+                    var start1 = last.toValue.split("**");
+                    var width = parseFloat(start1[0]);
+                    var height = parseFloat(start1[1]);
+                    $(last.element).css("width", width);
+                    $(last.element).css("height", height);
+                    break;
+                case "background-color":
+                case "background-image":
+                case "color":
+                    $(last.element).css(last.actionOrPropChanged, last.toValue);
 
-                        break;
-                    case "del":
-                        last.element.remove();
-                        break;
-                    case "dragged":
-                        var start=     last.toValue.split("**");
-                        var left=parseFloat(start[0]);
-                        var top=parseFloat(start[1]);
-                        $(last.element).css("left",left);
-                        $(last.element).css("top",top);
-                        break;
-                    case "resized":
-                        var start1=     last.toValue.split("**");
-                        var width=parseFloat(start1[0]);
-                        var height=parseFloat(start1[1]);
-                        $(last.element).css("width",width);
-                        $(last.element).css("height",height);
-                        break;
-                    case "background-color":
-                    case "background-image":
-                    case "color":
-                        $(last.element).css(last.actionOrPropChanged,last.toValue);
-
-                        break;
+                    break;
 
                 }
-                history2._undoItems.splice(history2._undoItems.length-1,1);
+                history2._undoItems.splice(history2._undoItems.length - 1, 1);
                 $('[data-action="undo"]').removeAttr('disabled');
-                if(history2._undoItems.length==0)        $('[data-action="redo"]').attr('disabled','disabled');
+                if (history2._undoItems.length == 0) $('[data-action="redo"]').attr('disabled', 'disabled');
             }
         }
 
 
-        var api=
+        var api =
         {
-
-            removeProj:function(id) {
-
-                $.ajax({
-                    url: '/Home/RemoveProj',
-                    data: { id: id },
-                    method: 'post',
-                    success: function(res) {
-                        $("#proj_" + id).remove();
-
-                        if (@Model.Id === id) {
-                            window.location.href = "/Home";
-                        }
-                    }
-                });
-
-            }
-            ,
-            saveToServer:function(){
+            saveToServer: function() {
 
 
                 // $(".draggable").resizable('destroy');
                 common.removeAllSelected();
 
 
-
-                var name=("@Model.Id"==0)?$("#projName").val():"@Model.Name";
+                var name = ("@Model.Id" == 0) ? $("#projName").val() : "@Model.Name";
                 $.ajax({
                     url: '/Gallery/SaveLayout',
                     method: 'POST',
-                    data: {id:"@Model.Id", htmlString: $('#mainPnl').html(),Name:name },
-                    success:function (res) {
+                    data: { id: "@Model.Id", htmlString: $('#mainPnl').html(), Name: name },
+                    success: function(res) {
                         //  $(".draggable").resizable({handles: 'n, e, s, w, ne, se, sw, nw'});
                         $("#projectNameModal").modal("hide");
 
-                        if(@Model.Id==0)
-                            $("#projectUlList").append('<li class="list-group-item"><a href="/Home/Index/'+res.Id+'">'+res.Name+' </a></li>');
+                        if (@Model.Id == 0) {
+                            window.location.href = "/Gallery/Index/" + res.Id;
+                            //$("#projectUlList").append('<li class="list-group-item"><a href="/Home/Index/' + res.Id + '">' + res.Name + ' </a></li>');
+                        }
                     }
                 });
             }
@@ -942,22 +914,22 @@
         //-------------------------------------------------------------------
         function ConvertToCanvas(btnExporttoimage) {
             common.removeAllSelected();
-            html2canvas($("#mainPnl")[0], {
-                onrendered: function(canvas) {
-                    //$("#mainPnl").css('overflow','visible');//.parentNode.style.overflow = 'hidden';
-                    //// var dataUrl = canvas.toDataURL();
-                    ////  window.open(dataUrl, "toDataURL() image", "width=800, height=800");
-                    //////Canvas2Image.saveAsPNG(canvas);
+            html2canvas($("#mainPnl")[0],
+                {
+                    onrendered: function(canvas) {
+                        //$("#mainPnl").css('overflow','visible');//.parentNode.style.overflow = 'hidden';
+                        //// var dataUrl = canvas.toDataURL();
+                        ////  window.open(dataUrl, "toDataURL() image", "width=800, height=800");
+                        //////Canvas2Image.saveAsPNG(canvas);
 
-                    $(".txt").css('text-align', 'left');
-                    canvas.toBlob(function(blob) {
-                        saveAs(blob, "Untitled.png");
-                    });
-                }
+                        $(".txt").css('text-align', 'left');
+                        canvas.toBlob(function(blob) {
+                            saveAs(blob, "Untitled.png");
+                        });
+                    }
 
-            });
+                });
             //.then(function (canvas) {
-
 
 
             //    //var base64 = canvas.toDataURL();
@@ -977,29 +949,18 @@
         }
 
 
-        function Save()
-        {
-            if(@Model.Id==0){
+        function Save() {
+            if (@Model.Id == 0) {
 
                 $("#projectNameModal").modal("show");
-            }
-            else
-            {
-                api.  saveToServer();
+            } else {
+                api.saveToServer();
             }
 
         }
 
 
-
-
-
-
-
-
-
-        $(function()
-        {
+        $(function() {
 
             text.init($(".text"));
             text.initSetting();
@@ -1011,40 +972,46 @@
             common.fitBgOrNot();
             common.backgroundZoom();
 
-            $(".uploadedImgs").draggable({  helper: 'clone',  revert: 'invalid', // revert: true,
+            $(".uploadedImgs").draggable({
+                helper: 'clone',
+                revert: 'invalid', // revert: true,
             });
-            $(document).on('click',".uploadedImgs",function() {
+            $(document).on('click',
+                ".uploadedImgs",
+                function() {
 
-                var newBg = $(this).attr("src");
+                    var newBg = $(this).attr("src");
 
-                history2.add("background-image",sharedObject.selectedelement, $( sharedObject.selectedelement).css("background-image"),"url('" + newBg + "')" );
+                    history2.add("background-image", sharedObject.selectedelement, $(sharedObject.selectedelement).css("background-image"), "url('" + newBg + "')");
 
-                $( sharedObject.selectedelement).css("background-image", "url('" + newBg + "')");
+                    $(sharedObject.selectedelement).css("background-image", "url('" + newBg + "')");
 
-                // $("#imagesDiv").css("display", "none");
-                // $("#" + sharedObject.selectedelement).resizable('disable').draggable('disable');
+                    // $("#imagesDiv").css("display", "none");
+                    // $("#" + sharedObject.selectedelement).resizable('disable').draggable('disable');
 
-            });
+                });
             $('.uploadedImgs').popover({
-                html : true,
+                html: true,
                 content: function() {
-                    var bg=$(this).attr("src");
-                    return "<img src='"+bg+"' style='width:450px;' />";
-                }});
-
-
-            $("#rotateBar").on("input change",function () {
-                var angle = $("#rotateBar").val();
-
-                $(sharedObject.selectedelement).css("-ms-transform", "rotate(" + angle + "deg)");
-                $(sharedObject.selectedelement).css("-webkit-transform", "rotate(" + angle + "deg)");
-                $(sharedObject.selectedelement).css("transform", "rotate(" + angle + "deg)");
-                $('[data-label="currentRotate"]').text(" درجه "+angle + "چرخش:");
-
+                    var bg = $(this).attr("src");
+                    return "<img src='" + bg + "' style='width:450px;' />";
+                }
             });
 
 
-            $("#changeProjectNameAndSave").click(function () {
+            $("#rotateBar").on("input change",
+                function() {
+                    var angle = $("#rotateBar").val();
+
+                    $(sharedObject.selectedelement).css("-ms-transform", "rotate(" + angle + "deg)");
+                    $(sharedObject.selectedelement).css("-webkit-transform", "rotate(" + angle + "deg)");
+                    $(sharedObject.selectedelement).css("transform", "rotate(" + angle + "deg)");
+                    $('[data-label="currentRotate"]').text(" درجه " + angle + "چرخش:");
+
+                });
+
+
+            $("#changeProjectNameAndSave").click(function() {
 
                 api.saveToServer();
 
@@ -1084,9 +1051,9 @@
     /*--------------------------------------------------------------------- */
     .text {
         z-index: 100;
-        -webkit-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
+     /*   -webkit-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
-        box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
+        box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);*/
         /*direction: rtl;*/
         position: absolute;
     }
@@ -1127,10 +1094,8 @@
 
 
         .text:hover, .testLdiv:hover {
-             /*border:3px white dashed;*/
-            -webkit-box-shadow: inset 0px 0px 0px 2px #f00;
-            -moz-box-shadow: inset 0px 0px 0px 2px #f00;
-            box-shadow: inset 0px 0px 0px 2px #f00;
+             /*border:1px white dashed;*/
+            cursor: pointer;
         }
 
     .fitBg {
@@ -1173,9 +1138,10 @@
         width: 17%;
         left: 0px;
         bottom: 0px;
-        top: 50px;
+        top: 39px;
         min-width: 236px;
         max-width: 236px;
+        border-right: 2px solid black;
     }
 
     .draw-pnl {
@@ -1183,7 +1149,7 @@
         background: lightgray;
         left: 234px;
         bottom: 0px;
-        top: 50px;
+        top: 39px;
         right: 0px;
         overflow: hidden;
     }
@@ -1202,9 +1168,9 @@
     }
 
     .activeEleman {
-        -webkit-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
+   /*     -webkit-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
         -moz-box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
-        box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);
+        box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75);*/
     }
 
         .activeEleman img {
@@ -1215,7 +1181,7 @@
     /**/
     /**/
      .activeEleman::before {
-            margin-left: 16px;
+      /*      margin-left: 16px;
             margin-top: 16px;
             border-radius: 50px;
             display: block;
@@ -1227,7 +1193,7 @@
             background: white;
             -moz-box-shadow: inset 0px -1px 2px #000000;
             -webkit-box-shadow: inset 0px -1px 2px #000000;
-            box-shadow: inset 0px -1px 2px #000000;
+            box-shadow: inset 0px -1px 2px #000000;*/
         }
 </style>
 <style>
@@ -1397,8 +1363,8 @@
         right: 0px;
            border-radius: 0px;
         border: 0px solid #bababa;
-        border-top: 8px solid white;
-        border-right: 8px solid white;
+        border-top: 5px solid white;
+        border-right: 5px solid white;
                 background: transparent;
                 border-style: groove;
                  -moz-box-shadow: none;
@@ -1411,8 +1377,8 @@
         left: 0px;
         border-radius: 0px;
         border: 0px solid #bababa;
-        border-top: 8px solid white;
-        border-left: 8px solid white;
+        border-top: 5px solid white;
+        border-left: 5px solid white;
                 background: transparent;
                 border-style: groove;
                 -moz-box-shadow: none;
@@ -1427,8 +1393,8 @@
         right: 0px;
              border-radius: 0px;
         border: 0px solid #bababa;
-        border-bottom: 8px solid white;
-        border-right: 8px solid white;
+        border-bottom: 5px solid white;
+        border-right: 5px solid white;
                 background: transparent;
                 border-style: groove;
                 -moz-box-shadow: none;
@@ -1441,8 +1407,8 @@
         left: 0px;
           border-radius: 0px;
         border: 0px solid #bababa;
-        border-bottom: 8px solid white;
-        border-left: 8px solid white;
+        border-bottom: 5px solid white;
+        border-left: 5px solid white;
                 background: transparent;
                 border-style: groove;
                 -moz-box-shadow: none;
@@ -1478,7 +1444,7 @@
 
 
     .ui-resizable-w, .ui-resizable-e {
-        width: 10px;
+        width: 5px;
         height: 16px;
         border: 1px solid #bababa;
         /*-ms-transform: rotate(45deg);
@@ -1488,7 +1454,7 @@
 
     .ui-resizable-s, .ui-resizable-n {
         width: 16px;
-        height: 10px;
+        height: 5px;
         border: 1px solid #bababa;
         /*-ms-transform: rotate(45deg);
         -webkit-transform: rotate(45deg);
@@ -1505,7 +1471,17 @@
 
        
 </style>
-<div id="loadingPnl" style="position:fixed;left:0px;top:0px;bottom:0px;right:0px;background:lightgray;padding-top:20%;color:red; z-index: 1000;">کمی صبر کنید. در حال بارگذاری</div>
+<div id="loadingPnl" style="text-align: center;
+        position: fixed;
+        left: 0px;
+        top: 0px;
+        bottom: 0px;
+        right: 0px;
+        background: #f6f6f6f7;
+        padding-top: 20%;
+        color: red;
+        z-index: 1030;
+    ">کمی صبر کنید. در حال بارگذاری</div>
 <div id="mainContainer">
 
 
@@ -1515,26 +1491,13 @@
             <ul class="nav nav-tabs">
                 <li class="active"><a data-toggle="tab" data-target="#home">عکسها</a></li>
                 <li><a data-toggle="tab" data-target="#menu1">پسزمینه</a></li>
-                <li><a data-toggle="tab" data-target="#menu2">متن</a></li>
                 <li><a data-toggle="tab" data-target="#menu3">کارت</a></li>
                 @*<li><a data-toggle="tab" data-target="#menu3">طرح ها</a></li>*@
             </ul>
 
             <div class="tab-content">
                 <div id="home" class="tab-pane fade in active">
-                    <div id="qunit-fixture">
-                        <form id="upload" method="post" action="/Home/UploadImages" enctype="multipart/form-data" style="width: 100%; margin: 0px;">
-                            <div id="drop">
-                                فایلها را بکشید اینجا و رها کنید
-                                <br />
-                                <a>انتخاب فایل</a>
-                                <input type="file" name="files" multiple accept="image/*" />
-                            </div>
-                            <ul>
-                                <!-- The file uploads will be shown here -->
-                            </ul>
-                        </form>
-                    </div>
+                    @{Html.RenderPartial("ImageUploader");}
                     <ul class="list-group" id="projectUlList">
                         @*<li class="list-group-item text-center"> عکسها <i class="glyphicon glyphicon-circle-arrow-down"></i> </li>*@
                         <li class="list-group-item text-center">
@@ -1570,49 +1533,6 @@
 
                         </li>
                     </ul>
-                </div>
-                <div id="menu2" class="tab-pane fade " style="padding: 5px; text-align: center;">
-
-
-
-                    <button onclick="text.makeNewText()" class="btn btn-sm text-center btn-block btn-warning btn-round">
-                        <span class="glyphicon glyphicon-plus"></span> <label>متن</label>
-                    </button>
-
-                    <button class="btn btn-md text-center btn-block btn-default" id="fontColorBtn" style="text-shadow: white 0px 1px 1px;">
-                        رنگ متن <span class="glyphicon glyphicon-play-circle"></span>
-                    </button>
-
-                    <button class="btn btn-md text-center btn-block btn-default" id="bgColorBtn" style="text-shadow: white 0px 1px 1px;">
-                        رنگ پسزمینه <span class="glyphicon glyphicon-play-circle"></span>
-                    </button>
-
-                    <button class="btn btn-md text-center btn-block btn-default" id="fontSizeBtn" style="text-shadow: white 0px 1px 1px;">
-                        اندازه فونت متن <span class="glyphicon glyphicon-play-circle"></span>
-                    </button>
-
-
-                    <div class="btn-group btn-group-justified" style="margin-top: 5px;">
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary" data-prop="text-align" data-value="left">
-                                <span class="glyphicon glyphicon-align-left"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary" data-prop="text-align" data-value="center">
-                                <span class="glyphicon glyphicon-align-center"></span>
-                            </button>
-                        </div>
-                        <div class="btn-group">
-                            <button type="button" class="btn btn-primary" data-prop="text-align" data-value="right">
-                                <span class="glyphicon glyphicon-align-right"></span>
-                            </button>
-                        </div>
-                    </div>
-
-
-
-
                 </div>
                 <div id="menu3" class="tab-pane fade " style="padding: 5px;">
 
@@ -1684,16 +1604,20 @@
 
         <div class="draw-pnl">
 
-            <div style="background: gray; padding: 0px 5px; text-align: left; width: 100%; z-index: 5; position: absolute;">
+            <div class="text-center" style="background: gray; padding: 0px 5px; text-align: left; width: 100%; z-index: 5; position: absolute;">
+                
+                <div class="pull-left">
+                    <button onclick="Save()" class="btn btn-sm text-center" title="ذخیره">
+                        <span class="glyphicon glyphicon-floppy-disk"></span>
+                    </button>
 
-                <button onclick="Save()" class="btn btn-xs text-center" title="دخیره">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                    <br />دخیره
-                </button>
+                    <button onclick="ConvertToCanvas()" class="btn btn-sm text-center" title="خروجی عکس">
+                        <span class="glyphicon glyphicon glyphicon-save-file"></span>
+                    </button>
+                </div>
 
-                <button onclick="ConvertToCanvas()" class="btn btn-xs text-center" title="خروجی عکس">
-                    <span class="glyphicon glyphicon glyphicon-save-file"></span>
-                    <br />خروجی عکس
+                <button onclick="text.makeNewText()" class="btn btn-sm  btn-warning btn-round">
+                    <span class="glyphicon glyphicon-plus"></span> متن
                 </button>
 
                 <div class="pull-right">
@@ -1782,7 +1706,39 @@
                 <h4 class="modal-title">  &nbsp;</h4>
             </div>
             <div class="modal-body">
-                <input type="text" id="labelTextInput" class="form-control" style="direction:rtl;" />
+                متن:
+                <input type="text" id="labelTextInput" class="form-control" style="direction: rtl;"/>
+                <hr/>
+                <button class="btn btn-md text-center btn-block btn-default" id="fontColorBtn" style="text-shadow: white 0px 1px 1px;">
+                    رنگ متن <span class="glyphicon glyphicon-play-circle"></span>
+                </button>
+
+                <button class="btn btn-md text-center btn-block btn-default" id="bgColorBtn" style="text-shadow: white 0px 1px 1px;">
+                    رنگ پسزمینه <span class="glyphicon glyphicon-play-circle"></span>
+                </button>
+
+                <button class="btn btn-md text-center btn-block btn-default" id="fontSizeBtn" style="text-shadow: white 0px 1px 1px;">
+                    اندازه فونت متن <span class="glyphicon glyphicon-play-circle"></span>
+                </button>
+
+
+                <div class="btn-group btn-group-justified" style="margin-top: 5px;">
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" data-prop="text-align" data-value="left">
+                            <span class="glyphicon glyphicon-align-left"></span>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" data-prop="text-align" data-value="center">
+                            <span class="glyphicon glyphicon-align-center"></span>
+                        </button>
+                    </div>
+                    <div class="btn-group">
+                        <button type="button" class="btn btn-primary" data-prop="text-align" data-value="right">
+                            <span class="glyphicon glyphicon-align-right"></span>
+                        </button>
+                    </div>
+                </div>
 
 
 

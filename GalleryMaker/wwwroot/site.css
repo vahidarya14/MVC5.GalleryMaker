@@ -1,6 +1,10 @@
 ﻿.body-content {
-    margin-top: 55px;
+    margin-top: 40px;
     /*min-height: 80vh;*/
+}
+.body-content>.row {
+    margin-right: 0;
+    margin-left: 0;
 }
 
 
@@ -14,4 +18,30 @@
     font-family: IRANsans !important;
     /*direction: rtl !important;*/
     /*font-size: 12px;*/
+}
+
+#imagesShow img {
+    max-width: 100%;
+    max-height: 130px;
+    min-height: 50px;
+}
+
+#imagesShow .btn-danger {
+    position: absolute;
+    top: 0px;
+    left: 0px;
+    width: 25px;
+    height: 25px;
+    padding: 0;
+    background: red;
+    color: white;
+    font-family: tahoma !important;
+}
+
+#imagesShow .card {
+    text-align: center;
+    min-height: 190px;
+    display: table;
+    border: 1px solid #c7c7c7;
+    padding: 16px 0 0 0;
 }

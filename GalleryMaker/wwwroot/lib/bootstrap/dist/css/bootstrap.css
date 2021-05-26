@@ -1084,7 +1084,7 @@ html {
 body {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif;
   font-size: 14px;
-  line-height: 1.42857143;
+  line-height: 1.0;
   color: #333;
   background-color: #fff;
 }
@@ -4167,10 +4167,11 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
   border-top-right-radius: 0;
 }
 .navbar {
-  position: relative;
-  min-height: 50px;
-  margin-bottom: 20px;
-  border: 1px solid transparent;
+    position: relative;
+    min-height: 39px;
+    height: 39px;
+    margin-bottom: 20px;
+    border: 1px solid transparent;
 }
 @media (min-width: 768px) {
   .navbar {
@@ -4363,8 +4364,8 @@ select[multiple].input-group-sm > .input-group-btn > .btn {
     float: left;
   }
   .navbar-nav > li > a {
-    padding-top: 15px;
-    padding-bottom: 15px;
+    padding-top: 10px;
+    padding-bottom: 10px;
   }
 }
 .navbar-form {
