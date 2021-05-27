@@ -1,6 +1,6 @@
 # MVC5.GalleryMaker
 
-a simple sample card postal designer . an old project 
+a simple sample card postal designer . an old project  :wink: :zany_face:
 ![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/logo.png)
 * zoom in
 * zoom out
@@ -10,19 +10,19 @@ a simple sample card postal designer . an old project
 * add photo
 * management of uploaded photo
 * management of made cards
-
+* save to database
 
 ## cards
-![](/wwwroot/images/readme/cards.png)
+![](GalleryMaker/wwwroot/images/readme/cards.png)
 
 ## uploaded photos 
-![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/readme/photoMgmr.png)
+![](/GalleryMaker/wwwroot/images/readme/photoMgmr.png)
 
 ## show design card
-![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/readme/cardView.png)
+![](GalleryMaker/wwwroot/images/readme/cardView.png)
 
 ## properties of added text to card
-![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/readme/text_properties.png)
+![](GalleryMaker/wwwroot/images/readme/text_properties.png)
 
 ## properties of added images to card
-![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/readme/photo_control.png)
+![](GalleryMaker/wwwroot/images/readme/photo_control.png)
