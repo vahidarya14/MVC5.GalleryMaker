@@ -171,6 +171,11 @@
     <Content Include="favicon.ico" />
     <Content Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="wwwroot\images\readme\cards.png" />
+    <Content Include="wwwroot\images\readme\cardView.png" />
+    <Content Include="wwwroot\images\readme\photo control.png" />
+    <Content Include="wwwroot\images\readme\photoMgmr.png" />
+    <Content Include="wwwroot\images\readme\text properties.png" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.css" />
     <Content Include="wwwroot\lib\bootstrap\dist\css\bootstrap-theme.min.css">
       <DependentUpon>bootstrap-theme.css</DependentUpon>
