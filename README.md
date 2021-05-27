@@ -1,6 +1,6 @@
 # MVC5.GalleryMaker
 
-design beatiful card postal
+a simple sample card postal designer . an old project 
 ![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/logo.png)
 * zoom in
 * zoom out
@@ -13,7 +13,7 @@ design beatiful card postal
 
 
 ## cards
-![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/readme/cards.png)
+![](/wwwroot/images/readme/cards.png)
 
 ## uploaded photos 
 ![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/readme/photoMgmr.png)
