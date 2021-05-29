@@ -17,7 +17,6 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @*@Html.ActionLink("App", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })*@
             </div>
             <div class="navbar-collapse collapse">
                 @using Microsoft.AspNet.Identity
@@ -40,7 +39,7 @@
                                         @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm" }))
                                         {
                                             @Html.AntiForgeryToken()
-                                            <span><i class="fa fa-fw fa-power-off"></i> خروج </span>
+                                            <span><i class="fa fa-fw fa-power-off"></i> Log Out </span>
                                         }
                                     </a>
                                 </li>
@@ -55,10 +54,9 @@
                             var acti = ViewContext.RouteData.Values["action"].ToString();
                             if (!(ctrl == "Home" && acti == "Index"))
                             {
-                                <li><a href="/Home">کارتها</a></li>
-                                <li><a href="/Gallery">کارت جدید</a></li>
+                                <li><a href="/Home">Cards</a></li>
                             }
-                            <li><a href="/Gallery/PhotoMgmt">عکسها</a></li>
+                            <li><a href="/Gallery/PhotoMgmt">Photos</a></li>
                         }
 
                     </ul>

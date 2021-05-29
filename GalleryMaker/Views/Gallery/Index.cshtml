@@ -23,47 +23,15 @@
     <script src="~/wwwroot/gallery_index.js"></script>
     <script>
 
-        var textRotator = $("#textRotator").roundSlider({
-            radius: 40,
-            width: 10,
-            handleSize: "20,5",
-            sliderType: "min-range",
-            value: 0,
-            min: -180,
-            max: 180,
-            valueChange: function(e) {
-                let angle = $("#textRotator").data("roundSlider").getValue();
-                $(sharedObject.selectedelement).css("-ms-transform", "rotate(" + angle + "deg)");
-                $(sharedObject.selectedelement).css("-webkit-transform", "rotate(" + angle + "deg)");
-                $(sharedObject.selectedelement).css("transform", "rotate(" + angle + "deg)");
-
-            }
-        });
-
-        var textRotator = $("#imgRotator").roundSlider({
-            radius: 40,
-            width: 10,
-            handleSize: "20,5",
-            sliderType: "min-range",
-            value: 0,
-            min: -180,
-            max: 180,
-            valueChange: function(e) {
-                let angle = $("#imgRotator").data("roundSlider").getValue();
-                $(sharedObject.selectedelement).css("-ms-transform", "rotate(" + angle + "deg)");
-                $(sharedObject.selectedelement).css("-webkit-transform", "rotate(" + angle + "deg)");
-                $(sharedObject.selectedelement).css("transform", "rotate(" + angle + "deg)");
-
-            }
-        });
-        
 
         var api =
         {
+            modalIsShown:false,
             saveToServer: function() {
-                if (@Model.Id == 0) {
+                if (@Model.Id == 0 && !api.modalIsShown ) {
 
                     $("#projectNameModal").modal("show");
+                    api.modalIsShown = true;
                 } else {
                     common.showLoading();
                     // $(".draggable").resizable('destroy');
@@ -103,90 +71,24 @@
         padding-top: 20%;
         color: red;
         z-index: 1030;
-    ">کمی صبر کنید. در حال بارگذاری</div>
+    ">Please wait...</div>
 <div id="mainContainer">
 
+    <div class="tools">
 
-    <div class="row" style="min-height: 90vh; margin-right: 0px;">
+        <div class="text-center" style="text-align:-webkit-center;display: table; background: gray; padding:5px;width: 100%;">
 
-        <aside class="control-aside" style="">
-            <ul class="nav nav-tabs">
-                <li class="active"><a data-toggle="tab" data-target="#menu1">پسزمینه</a></li>
-            </ul>
+            <div class="pull-left">
+                <button onclick="api.saveToServer()" class="btn btn-sm text-center" title="Save">
+                    <span class="glyphicon glyphicon-floppy-disk"></span>
+                </button>
 
-            <div class="tab-content">
-                <div id="menu1" class="tab-pane fade active in show">
-                    <ul class="list-group" id="projectUlList">
-
-                        <li class="list-group-item text-center">
-
-                            رنگ پسزمینه
-                            <input type="color" oninput="$('#mainPnl').css('background-color',$(this).val())" data-terget="mainPnl-bgColor" />
-
-                        </li>
-                        @*<li class="list-group-item text-center">
-
-                                <input type="range" max="1000" min="100" value="958" data-terget="mainPnl" data-action="resize" data-prop="width" />
-                                <input type="range" max="500" min="100" value="448" data-terget="mainPnl" data-action="resize" data-prop="height" />
-
-                            </li>*@
-                    </ul>
-
-                    @*<div class="panel-group" id="accordion">
-
-                            @{
-                                var i = 1;
-                                foreach (var c in ((List<CatGroupedModel>)ViewData["AllLayout"]))
-                                {
-
-                                    <div class="panel panel-default">
-                                        <div class="panel-heading" data-toggle="collapse" data-parent="#accordion" href="#collapse_@i">
-                                            <h4 class="panel-title">
-
-                                                @c.CatName <i class="glyphicon glyphicon-circle-arrow-down"></i>
-
-                                            </h4>
-                                        </div>
-                                        <div id="collapse_@i" class="panel-collapse collapse">
-                                            <div class="panel-body">
-                                                <ul class="list-group">
-                                                    @foreach (var l in c.Layouts)
-                                                    {
-                                                        <li class="list-group-item">
-                                                            <a href="/Ninjas/Home/LoadLayOut/@l.Id"> @l.Name </a>
-                                                        </li>
-                                                    }
-                                                </ul>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    i++;
-                                }
-                            }
-                        </div>*@
-
-                </div>
+                <button onclick="helper.convertToCanvas()" class="btn btn-sm text-center" title="Export Image">
+                    <span class="glyphicon glyphicon glyphicon-save-file"></span>
+                </button>
             </div>
-
-
-
-
-        </aside>
-
-        <div class="draw-pnl">
-
-            <div class="text-center" style="background: gray; padding: 0px 5px; text-align: left; width: 100%; z-index: 5; position: absolute;">
-
-                <div class="pull-left">
-                    <button onclick="api.saveToServer()" class="btn btn-sm text-center" title="Save">
-                        <span class="glyphicon glyphicon-floppy-disk"></span>
-                    </button>
-
-                    <button onclick="helper.convertToCanvas()" class="btn btn-sm text-center" title="Export Image">
-                        <span class="glyphicon glyphicon glyphicon-save-file"></span>
-                    </button>
-                </div>
-
+            
+            <div  style="display: inline-flex;">
                 <button onclick="text.makeNewText()" class="btn btn-sm  btn-warning btn-round">
                     <span class="glyphicon glyphicon-plus"></span> Text
                 </button>
@@ -194,47 +96,132 @@
                 <button data-toggle="modal" data-target="#imgSelectModal" class="btn btn-sm  btn-warning btn-round">
                     <span class="glyphicon glyphicon-plus"></span> Image
                 </button>
-
-                <div class="pull-right">
-
-                    <button onclick="history2.undo()" class="btn btn-sm text-center" title="undo"
-                            data-action="undo" disabled>
-                        <span class="glyphicon  glyphicon-arrow-left"></span>
-                    </button>
-
-                    <button onclick="history2.redo()" class="btn btn-sm text-center" title="redo"
-                            data-action="redo" disabled>
-                        <span class="glyphicon  glyphicon-arrow-right"></span>
-                    </button>
-
-                    <div class="seperator btn"></div>
-
-                    <button onclick="mainPnl.ZoomIn()" class="btn btn-sm text-center ">
-                        <span class="glyphicon  glyphicon-zoom-in"></span>
-                    </button>
-
-                    <button onclick="mainPnl.ZoomOut()" class="btn btn-sm text-center">
-                        <span class="glyphicon  glyphicon-zoom-out"></span>
-                    </button>
-
-                </div>
-
-
             </div>
 
-            <div style="background: gray; padding: 5px; text-align: left; width: 100%;" id="mainPnl2">
-                @*<div style="position: relative; top: 10px;">*@
+            <div class="pull-right">
 
-                <div class="row" id="mainPnl"
-                     style="position: absolute; overflow: hidden; background: white; width: 958px; z-index: 0; height: 448px; box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75); left: 24px; top: 50px;@Model.MainPnlCss">
-                    @Html.Raw(Model.HtmlString)
-                </div>
+                <button onclick="history2.undo()" class="btn btn-sm text-center" title="undo"
+                        data-action="undo" disabled>
+                    <span class="glyphicon  glyphicon-arrow-left"></span>
+                </button>
 
-                @*</div>*@
+                <button onclick="history2.redo()" class="btn btn-sm text-center" title="redo"
+                        data-action="redo" disabled>
+                    <span class="glyphicon  glyphicon-arrow-right"></span>
+                </button>
+
+                <div class="seperator btn"></div>
+
+                <button onclick="mainPnl.ZoomIn()" class="btn btn-sm text-center ">
+                    <span class="glyphicon  glyphicon-zoom-in"></span>
+                </button>
+
+                <button onclick="mainPnl.ZoomOut()" class="btn btn-sm text-center">
+                    <span class="glyphicon  glyphicon-zoom-out"></span>
+                </button>
+
             </div>
 
         </div>
 
+        <div id="selectedElmConfigDiv" style="overflow: auto; height: 42px; background: #cccccc; padding: 0 5px; text-align: left; width: 100%; ">
+            <!--mainpnl control-->
+            <div id="menu1" style="">
+                <ul >
+                    <li class="text-center">
+                        Background
+                        <input type="color" oninput="$('#mainPnl').css('background-color',$(this).val())" data-terget="mainPnl-bgColor" />
+                    </li>
+                </ul>
+            </div>
+
+            <!--image control-->
+            <div id="imageCtrlDiv" style="display: none;">
+
+                <ul>
+                    <li>
+                        <button onclick="common.bringFront()" class="btn btn-sm text-center no-radius">
+                            <span class="glyphicon  glyphicon glyphicon-oil"></span>
+                            به جلو
+                        </button>
+                    </li>
+                    <li>
+                        <button onclick="common.sendToBack()" class="btn btn-sm text-center ">
+                            <span class="glyphicon glyphicon-sort-by-attributes"></span>
+                            به عقب
+                        </button>
+                    </li>
+                    <li><div class="pull-right" id="imgRotator"></div></li>
+                    <li>
+                        <label class="pull-left badge" data-label="background-size">Zoom: 100</label>
+                        <br />
+                        <input type="range" min="50" max="250" step="1" value="100" data-prop='background-size' class="pull-left" style="margin: -4px 0 0 0; width: 240px;">
+
+                    </li>
+                </ul>
+            </div>
+
+            <!--text control-->
+            <div id="textCtrlDiv" class="text-center" style="display: none; text-align: -webkit-center;">
+                <ul id="ulTextControl">
+                    <li style="float: left;">
+                        <div id="textRotator"></div>
+                    </li>
+                    <li style="float: left;">
+                        ForeColor<br />
+                        <input type="color" id="fontColorBtn" oninput="$(sharedObject.selectedelement).css('color',$(this).val())" />
+                    </li>
+                    <li style="">
+                        Background Color<br />
+                        <input type="color" id="bgColorBtn" oninput="$(sharedObject.selectedelement).css('background-color',$(this).val())" />
+
+                    </li>
+                    <li style="float: left;">
+                        <select class="btn text-center btn-block btn-default" id="fontSizeBtn">
+                            <option value="10px">10px</option>
+                            <option value="11px">11px</option>
+                            <option value="12px">12px</option>
+                            <option value="13px">13px</option>
+                            <option value="14px">14px</option>
+                            <option value="15px">15px</option>
+                            <option value="16px">16px</option>
+                            <option value="17px">17px</option>
+                        </select>
+                    </li>
+                    <li style="float: left;">
+                        <div class="btn-group btn-group-sm">
+                      
+                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="left">
+                                    <span class="glyphicon glyphicon-align-left"></span>
+                                </button>
+                      
+                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="center">
+                                    <span class="glyphicon glyphicon-align-center"></span>
+                                </button>
+                          
+                       
+                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="right">
+                                    <span class="glyphicon glyphicon-align-right"></span>
+                                </button>
+                           
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="row " id="drawingPnl" style="border:1px solid greenyellow; background: white; min-height: 80vh; margin: 0px;">
+
+         
+                <div class="row" id="mainPnl"
+                     style="position: absolute; overflow: hidden; background: white; width: 958px; z-index: 0; height: 448px; box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75); left: 24px; top: 50px;@Model.MainPnlCss">
+                    @Html.Raw(Model.HtmlString)
+                </div>
+          
+
+  
     </div>
 
 
@@ -252,13 +239,12 @@
                 <h4 class="modal-title">  &nbsp;</h4>
             </div>
             <div class="modal-body">
-                <label for="projName">نام پروژه </label>
+                <label for="projName">Card Name </label>
                 <input type="text" id="projName" class="form-control" />
             </div>
             <div class="modal-footer">
-
-                <button type="button" class="btn btn-primary " id="changeProjectNameAndSave">انجام</button>
-                <button type="button" class="btn btn-default " data-dismiss="modal">انصراف</button>
+                <button type="button" class="btn btn-default " data-dismiss="modal">cancle</button>
+                <button type="button" class="btn btn-success " id="changeProjectNameAndSave" >OK</button>
 
             </div>
         </div>
@@ -312,55 +298,8 @@
                 <h4 class="modal-title">  &nbsp;</h4>
             </div>
             <div class="modal-body">
-                متن:
+                Text:
                 <textarea id="labelTextInput" class="form-control" style="direction: rtl;"></textarea>
-                <hr />
-                <div id="textRotator"></div>
-                <div class="text-center" style="text-align: -webkit-center;">
-                    <div style="width: 40%">
-                        <button class="btn btn-md text-center btn-block btn-default" id="fontColorBtn" style="text-shadow: white 0px 1px 1px;">
-                            رنگ متن <span class="glyphicon glyphicon-play-circle"></span>
-                        </button>
-
-                        <button class="btn btn-md text-center btn-block btn-default" id="bgColorBtn" style="text-shadow: white 0px 1px 1px;">
-                            رنگ پسزمینه <span class="glyphicon glyphicon-play-circle"></span>
-                        </button>
-
-                        <select class="btn btn-md text-center btn-block btn-default" id="fontSizeBtn">
-                            <option value="10px">10px</option>
-                            <option value="11px">11px</option>
-                            <option value="12px">12px</option>
-                            <option value="13px">13px</option>
-                            <option value="14px">14px</option>
-                            <option value="15px">15px</option>
-                            <option value="16px">16px</option>
-                            <option value="17px">17px</option>
-                        </select>
-
-                        <div class="btn-group btn-group-justified" style="margin-top: 5px;">
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="left">
-                                    <span class="glyphicon glyphicon-align-left"></span>
-                                </button>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="center">
-                                    <span class="glyphicon glyphicon-align-center"></span>
-                                </button>
-                            </div>
-                            <div class="btn-group">
-                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="right">
-                                    <span class="glyphicon glyphicon-align-right"></span>
-                                </button>
-                            </div>
-                        </div>
-
-                    </div>
-                </div>
-
-
-
-
             </div>
             <div class="modal-footer">
 
@@ -373,41 +312,6 @@
     </div>
 </div>
 
-
-<!--floating control image div-->
-<div id="imagesDiv" style="display: none; position: fixed; z-index: 1111; width: 324px;">
-
-
-    <div class="col-lg-12" style="background:white;border:2px solid;padding:5px; text-align:left; border-radius: 8px;">
-        <button onclick="common.bringFront()" class="btn btn-sm text-center no-radius">
-            <span class="glyphicon  glyphicon glyphicon-oil"></span>
-            <br />   به جلو
-        </button>
-        <button onclick="common.sendToBack()" class="btn btn-sm text-center ">
-            <span class="glyphicon glyphicon-sort-by-attributes"></span>
-            <br />   به عقب
-        </button>
-        <button onclick="common.remove()" class="btn btn-sm text-center ">
-            <span class="glyphicon  glyphicon-trash"></span>
-            <br /> حذف
-        </button>
-        <div class="pull-right" id="imgRotator"></div>
-
-        <div>
-            <label class="pull-left badge" data-label="background-size">Zoom: 100</label>
-            <input type="range" min="50" max="250" step="1" value="100" data-prop='background-size' class="pull-left" style="margin: -15px 0 0 0; width: 240px;">
-        </div>
-    </div>
-    <div class="col-lg-12" style="padding: 3px 0 0 0;">
-
-    </div>
-</div>
-
-
-<section id="" style="display:none">
-    <ul class="colors-page"><li class="color glyphicon glyphicon-ban-circle" data-font-color="#000000" style="background-color:rgba(0,0,0,0)"></li><li class="color" data-font-color="#000000" style="background-color:#000000"></li><li class="color" data-font-color="#FFFFFF" style="background-color:#FFFFFF"></li><li class="color" data-font-color="#DCD7D7" style="background-color:#DCD7D7"></li><li class="color" data-font-color="#C8C8C8" style="background-color:#C8C8C8"></li><li class="color" data-font-color="#B4AFAF" style="background-color:#B4AFAF"></li><li class="color" data-font-color="#9B9B9B" style="background-color:#9B9B9B"></li><li class="color" data-font-color="#787878" style="background-color:#787878"></li><li class="color" data-font-color="#55555A" style="background-color:#55555A"></li><li class="color" data-font-color="#3C3C41" style="background-color:#3C3C41"></li><li class="color" data-font-color="#28282D" style="background-color:#28282D"></li><li class="color" data-font-color="#D7D2C8" style="background-color:#D7D2C8"></li><li class="color" data-font-color="#C3B9AF" style="background-color:#C3B9AF"></li><li class="color" data-font-color="#AFA09B" style="background-color:#AFA09B"></li><li class="color" data-font-color="#968C82" style="background-color:#968C82"></li><li class="color" data-font-color="#87786E" style="background-color:#87786E"></li><li class="color" data-font-color="#6E645A" style="background-color:#6E645A"></li><li class="color" data-font-color="#D7D2C3" style="background-color:#D7D2C3"></li><li class="color" data-font-color="#C8B9AA" style="background-color:#C8B9AA"></li><li class="color" data-font-color="#B9AA9B" style="background-color:#B9AA9B"></li><li class="color" data-font-color="#A59682" style="background-color:#A59682"></li><li class="color" data-font-color="#7D6955" style="background-color:#7D6955"></li><li class="color" data-font-color="#64503C" style="background-color:#64503C"></li><li class="color" data-font-color="#4B3728" style="background-color:#4B3728"></li><li class="color" data-font-color="#A57D73" style="background-color:#A57D73"></li><li class="color" data-font-color="#8C695F" style="background-color:#8C695F"></li><li class="color" data-font-color="#6E4B4B" style="background-color:#6E4B4B"></li><li class="color" data-font-color="#5A3C3C" style="background-color:#5A3C3C"></li><li class="color" data-font-color="#FFB4B9" style="background-color:#FFB4B9"></li><li class="color" data-font-color="#FF8287" style="background-color:#FF8287"></li><li class="color" data-font-color="#FF5A5A" style="background-color:#FF5A5A"></li><li class="color" data-font-color="#E63C2D" style="background-color:#E63C2D"></li><li class="color active-option" data-font-color="#C33C32" style="background-color:#C33C32"></li><li class="color" data-font-color="#87322D" style="background-color:#87322D"></li><li class="color" data-font-color="#FFBECD" style="background-color:#FFBECD"></li><li class="color" data-font-color="#FF9BAF" style="background-color:#FF9BAF"></li><li class="color" data-font-color="#FF5573" style="background-color:#FF5573"></li><li class="color" data-font-color="#EB0028" style="background-color:#EB0028"></li><li class="color" data-font-color="#CD0A2D" style="background-color:#CD0A2D"></li><li class="color" data-font-color="#AA142D" style="background-color:#AA142D"></li><li class="color" data-font-color="#78232D" style="background-color:#78232D"></li><li class="color" data-font-color="#F0C8CD" style="background-color:#F0C8CD"></li><li class="color" data-font-color="#F09BAA" style="background-color:#F09BAA"></li><li class="color" data-font-color="#E6415F" style="background-color:#E6415F"></li><li class="color" data-font-color="#DC0032" style="background-color:#DC0032"></li><li class="color" data-font-color="#C3002D" style="background-color:#C3002D"></li><li class="color" data-font-color="#A51E37" style="background-color:#A51E37"></li><li class="color" data-font-color="#8C2332" style="background-color:#8C2332"></li><li class="color" data-font-color="#FFA0C8" style="background-color:#FFA0C8"></li><li class="color" data-font-color="#FA7DB4" style="background-color:#FA7DB4"></li><li class="color" data-font-color="#F55096" style="background-color:#F55096"></li><li class="color" data-font-color="#EB1E78" style="background-color:#EB1E78"></li><li class="color" data-font-color="#D70F69" style="background-color:#D70F69"></li><li class="color" data-font-color="#AF1455" style="background-color:#AF1455"></li><li class="color" data-font-color="#822346" style="background-color:#822346"></li><li class="color" data-font-color="#EBB9E6" style="background-color:#EBB9E6"></li><li class="color" data-font-color="#E19BE1" style="background-color:#E19BE1"></li><li class="color" data-font-color="#D264CD" style="background-color:#D264CD"></li><li class="color" data-font-color="#B419AA" style="background-color:#B419AA"></li><li class="color" data-font-color="#A01996" style="background-color:#A01996"></li><li class="color" data-font-color="#78236E" style="background-color:#78236E"></li><li class="color" data-font-color="#DCC3E6" style="background-color:#DCC3E6"></li><li class="color" data-font-color="#C8A5E1" style="background-color:#C8A5E1"></li><li class="color" data-font-color="#9164CD" style="background-color:#9164CD"></li><li class="color" data-font-color="#783CBE" style="background-color:#783CBE"></li><li class="color" data-font-color="#6428A0" style="background-color:#6428A0"></li><li class="color" data-font-color="#5A2D82" style="background-color:#5A2D82"></li><li class="color" data-font-color="#552D6E" style="background-color:#552D6E"></li><li class="color" data-font-color="#B9D7EB" style="background-color:#B9D7EB"></li><li class="color" data-font-color="#9BC8EB" style="background-color:#9BC8EB"></li><li class="color" data-font-color="#69B4E6" style="background-color:#69B4E6"></li><li class="color" data-font-color="#003CA5" style="background-color:#003CA5"></li><li class="color" data-font-color="#002D6E" style="background-color:#002D6E"></li><li class="color" data-font-color="#002855" style="background-color:#002855"></li><li class="color" data-font-color="#051E2D" style="background-color:#051E2D"></li><li class="color" data-font-color="#6EC3EB" style="background-color:#6EC3EB"></li><li class="color" data-font-color="#41B4E6" style="background-color:#41B4E6"></li><li class="color" data-font-color="#00A0E1" style="background-color:#00A0E1"></li><li class="color" data-font-color="#005AB9" style="background-color:#005AB9"></li><li class="color" data-font-color="#004B87" style="background-color:#004B87"></li><li class="color" data-font-color="#003C5F" style="background-color:#003C5F"></li><li class="color" data-font-color="#00283C" style="background-color:#00283C"></li><li class="color" data-font-color="#87DCE1" style="background-color:#87DCE1"></li><li class="color" data-font-color="#28C8D2" style="background-color:#28C8D2"></li><li class="color" data-font-color="#009BAA" style="background-color:#009BAA"></li><li class="color" data-font-color="#008796" style="background-color:#008796"></li><li class="color" data-font-color="#006E78" style="background-color:#006E78"></li><li class="color" data-font-color="#005F64" style="background-color:#005F64"></li><li class="color" data-font-color="#004650" style="background-color:#004650"></li><li class="color" data-font-color="#9BDCD7" style="background-color:#9BDCD7"></li><li class="color" data-font-color="#64CDC8" style="background-color:#64CDC8"></li><li class="color" data-font-color="#00AFAA" style="background-color:#00AFAA"></li><li class="color" data-font-color="#008273" style="background-color:#008273"></li><li class="color" data-font-color="#007364" style="background-color:#007364"></li><li class="color" data-font-color="#00645F" style="background-color:#00645F"></li><li class="color" data-font-color="#005A4B" style="background-color:#005A4B"></li><li class="color" data-font-color="#A5E6D7" style="background-color:#A5E6D7"></li><li class="color" data-font-color="#8CE1D2" style="background-color:#8CE1D2"></li><li class="color" data-font-color="#32D7C3" style="background-color:#32D7C3"></li><li class="color" data-font-color="#009678" style="background-color:#009678"></li><li class="color" data-font-color="#00785F" style="background-color:#00785F"></li><li class="color" data-font-color="#006450" style="background-color:#006450"></li><li class="color" data-font-color="#A0E1B9" style="background-color:#A0E1B9"></li><li class="color" data-font-color="#96E1AF" style="background-color:#96E1AF"></li><li class="color" data-font-color="#7DE1AA" style="background-color:#7DE1AA"></li><li class="color" data-font-color="#00AF41" style="background-color:#00AF41"></li><li class="color" data-font-color="#00963C" style="background-color:#00963C"></li><li class="color" data-font-color="#007832" style="background-color:#007832"></li><li class="color" data-font-color="#1E5532" style="background-color:#1E5532"></li><li class="color" data-font-color="#C3E187" style="background-color:#C3E187"></li><li class="color" data-font-color="#B9DC78" style="background-color:#B9DC78"></li><li class="color" data-font-color="#A5D75F" style="background-color:#A5D75F"></li><li class="color" data-font-color="#78BE1E" style="background-color:#78BE1E"></li><li class="color" data-font-color="#64A50A" style="background-color:#64A50A"></li><li class="color" data-font-color="#648C19" style="background-color:#648C19"></li><li class="color" data-font-color="#556423" style="background-color:#556423"></li><li class="color" data-font-color="#FFFACD" style="background-color:#FFFACD"></li><li class="color" data-font-color="#FAF5B4" style="background-color:#FAF5B4"></li><li class="color" data-font-color="#FAEB6E" style="background-color:#FAEB6E"></li><li class="color" data-font-color="#FAEB46" style="background-color:#FAEB46"></li><li class="color" data-font-color="#FFE100" style="background-color:#FFE100"></li><li class="color" data-font-color="#C8AA00" style="background-color:#C8AA00"></li><li class="color" data-font-color="#FFDC64" style="background-color:#FFDC64"></li><li class="color" data-font-color="#FFD755" style="background-color:#FFD755"></li><li class="color" data-font-color="#FFD241" style="background-color:#FFD241"></li><li class="color" data-font-color="#FFC828" style="background-color:#FFC828"></li><li class="color" data-font-color="#EBAA00" style="background-color:#EBAA00"></li><li class="color" data-font-color="#B98200" style="background-color:#B98200"></li><li class="color" data-font-color="#A0780F" style="background-color:#A0780F"></li><li class="color" data-font-color="#F5C85A" style="background-color:#F5C85A"></li><li class="color" data-font-color="#F5BE46" style="background-color:#F5BE46"></li><li class="color" data-font-color="#F5B432" style="background-color:#F5B432"></li><li class="color" data-font-color="#F58C00" style="background-color:#F58C00"></li><li class="color" data-font-color="#D77D00" style="background-color:#D77D00"></li><li class="color" data-font-color="#AA6E0F" style="background-color:#AA6E0F"></li><li class="color" data-font-color="#735A28" style="background-color:#735A28"></li><li class="color" data-font-color="#F5D2A0" style="background-color:#F5D2A0"></li><li class="color" data-font-color="#F5BE7D" style="background-color:#F5BE7D"></li><li class="color" data-font-color="#F0A055" style="background-color:#F0A055"></li><li class="color" data-font-color="#F07823" style="background-color:#F07823"></li><li class="color" data-font-color="#D25F14" style="background-color:#D25F14"></li><li class="color" data-font-color="#A55519" style="background-color:#A55519"></li><li class="color" data-font-color="#643C1E" style="background-color:#643C1E"></li><li class="color" data-font-color="#FFBEA0" style="background-color:#FFBEA0"></li><li class="color" data-font-color="#FFA06E" style="background-color:#FFA06E"></li><li class="color" data-font-color="#FF7D41" style="background-color:#FF7D41"></li><li class="color" data-font-color="#FF6919" style="background-color:#FF6919"></li><li class="color" data-font-color="#E65500" style="background-color:#E65500"></li><li class="color" data-font-color="#C35519" style="background-color:#C35519"></li><li class="color" data-font-color="#783719" style="background-color:#783719"></li></ul>
-
-</section>
 
 
 
@@ -435,7 +339,7 @@
         cursor: move !important;
     }
 
-    .testLdiv {
+    .imgCard {
         height: 200px;
         width: 250px;
         -moz-min-width: 50px;
@@ -460,7 +364,7 @@
 
 
 
-        .text:hover, .testLdiv:hover {
+        .text:hover, .imgCard:hover {
             /*border:1px white dashed;*/
             cursor: pointer;
         }
@@ -514,7 +418,7 @@
     .draw-pnl {
         position: absolute;
         background: lightgray;
-        left: 234px;
+        left: 0;
         bottom: 0px;
         top: 39px;
         right: 0px;
@@ -524,7 +428,7 @@
     .seperator {
         background: white;
         width: 1px;
-        height: 39px;
+        height: 29px;
         margin-bottom: 0px;
         margin-top: 0px;
         padding: 0px;

@@ -24,33 +24,37 @@
                 }
             };
         </script>
-    }
+}
 
-@{Html.RenderPartial("ImageUploader");}
+<div style="margin-top: 14px;">
 
-<div class="row">
+    @{Html.RenderPartial("ImageUploader");}
 
-    <div class="col-xs-10 col-xs-offset-1" id="imagesShow">
-        @{
-            var slidShowImages = ViewData["SlidShowImages"] as List<string>;
-            var i = 0;
+    <div class="row">
 
-            foreach (var img in slidShowImages)
-            {
-                <div class="col-xs-4 col-sm-3 col-md-2 card">
-                    @using (Html.BeginForm("RemoveImage", "Gallery", FormMethod.Post, new { id = "logoutForm" }))
-                    {
-                        @Html.AntiForgeryToken()
-                        <button class="btn pull-left btn-danger" name="name" value="@img">X</button>
-                    }
+        <div class="col-xs-10 col-xs-offset-1" id="imagesShow">
+            @{
+                var slidShowImages = ViewData["SlidShowImages"] as List<string>;
+                var i = 0;
 
-                    <img src="@img" />
-                </div>
+                foreach (var img in slidShowImages)
+                {
+                    <div class="col-xs-4 col-sm-3 col-md-2 card">
+                        @using (Html.BeginForm("RemoveImage", "Gallery", FormMethod.Post, new { id = "logoutForm" }))
+                        {
+                            @Html.AntiForgeryToken()
+                            <button class="btn pull-left btn-danger" name="name" value="@img">X</button>
+                        }
 
+                        <img src="@img" />
+                    </div>
+
+                }
             }
-        }
-    </div>
+        </div>
 
+    </div>
 </div>
+
 
 

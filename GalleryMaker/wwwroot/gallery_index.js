@@ -2,8 +2,8 @@
 var sharedObject = {
     selectedelement: null,
     colorMustChange: "background-color",
-    elementOfColorPopOverId: ""
-
+    elementOfColorPopOverId: "",
+    lastControlDivId:''
 }
 
 
@@ -52,21 +52,20 @@ var common = {
         sharedObject.selectedelement = el;
     },
     removeAllSelected: function () {
-        $(".testLdiv").removeClass("activeEleman");
-        $(".testLdiv").css("overflow", "hidden");
-        $(".testLdiv").children(0).css("opacity", 1);
-        $(".text").removeClass("activeEleman");
-        $("#imagesDiv").css("display", "none");
+        $("*").removeClass("activeEleman");
+        $(".imgCard").css("overflow", "hidden");
+        $(".imgCard").children(0).css("opacity", 1);
+        //$("#imageCtrlDiv").css("display", "none");
 
         common.deactiveAllResizable();
     },
     deactiveAllResizable: function () {
         try {
-            $(".testLdiv").resizable('destroy');
+            $(".imgCard").resizable('destroy');
         } catch (e) {
         }
         try {
-            $(".testLdiv").children(0).draggable('destroy');
+            $(".imgCard").children(0).draggable('destroy');
         } catch (e) {
         }
         try {
@@ -89,12 +88,14 @@ var common = {
         $(".ui-resizable-s").remove();
     },
     setActiveTab: function (tabId) {
-        $(".nav.nav-tabs > li ").removeClass('active');
-        $("a[data-target='#" + tabId + "']").parent().addClass('active');
+        //$(".nav.nav-tabs > li ").removeClass('active');
+        //$("a[data-target='#" + tabId + "']").parent().addClass('active');
 
-        $(".tab-content > div").removeClass('active').removeClass('in');
-        $("#" + tabId).addClass('active').addClass('in');
+        //$(".tab-content > div").removeClass('active').removeClass('in');
+        //$("#" + tabId).addClass('active').addClass('in');
 
+        $(`#selectedElmConfigDiv>div`).css('display','none');
+        $(`#${tabId}`).css('display', '');
     },
     colorSelectEvent: function () {
         $(document).on('click',
@@ -127,7 +128,7 @@ var common = {
     },
     getMaxIdOfElements: function () {
         var min = null, max = 1;
-        $("#imagesDiv").each(function () {
+        $("#imageCtrlDiv").each(function () {
             var id = parseInt(this.id, 10);
             if ((min === null) || (id < min)) {
                 min = id;
@@ -214,7 +215,7 @@ var common = {
 
                 // common.removeAllSelected();
                 try {
-                    $(".testLdiv").resizable('destroy');
+                    $(".imgCard").resizable('destroy');
                 } catch (e) {
                 }
 
@@ -287,11 +288,11 @@ var text = {
     _tempStartLocation: null,
     makeSelected: function (elm) {
         common.makeSelected(elm);
-        $("#fontColorBtn").css("background-color", elm.css("color"));
-        $("#bgColorBtn").css("background-color", elm.css("background-color"));
+        $("#fontColorBtn").val(helper.RGBToHex( elm.css("color")));
+        $("#bgColorBtn").val(helper.RGBToHex(elm.css("background-color")));
         $("#fontSizeBtn").val(elm.css("font-size"));
 
-        /*common.setActiveTab('menu2');*/
+        common.setActiveTab('textCtrlDiv');
     },
     makeNewText: function () {
         var div = document.createElement("div"); // Create with DOM
@@ -299,7 +300,7 @@ var text = {
 
         $(div).attr('id', common.getMaxIdOfElements());
 
-        txt3.innerHTML = "برای تغییر متن دابل کلیک کنید.";
+        txt3.innerHTML = "double click on me to change props.";
         div.appendChild(txt3);
         $("#mainPnl").append(div); // Append the new elements
         // sharedObject.selectedelement =txt3;
@@ -355,36 +356,15 @@ var text = {
     initSetting: function () {
 
 
-        $(document).on('click',
-            "[ data-font-size]",
-            function () {
-                var bg = $(this).attr("data-font-size");
-                //alert(bg);
-                $(sharedObject.selectedelement).css("font-size", bg + "px");
-                sharedObject.elementOfColorPopOverId.text(bg + "px");
-            });
-
-
-        $("#fontColorBtn").popover({
-            html: true,
-            trigger: 'focus',
-            content: function () {
-                sharedObject.colorMustChange = "color";
-                sharedObject.elementOfColorPopOverId = $("#fontColorBtn");
-                return "<div  style='width:255px;height:345px;overflow-y: scroll;' >" + $('.colors-page').html() + "<div/>";
-            }
-
-        });
-        $("#bgColorBtn").popover({
-            html: true,
-            trigger: 'focus',
-            content: function () {
-                sharedObject.colorMustChange = "background-color";
-                sharedObject.elementOfColorPopOverId = $("#bgColorBtn");
-                return "<div  style='width:255px;height:345px;overflow-y: scroll;' >" + $('.colors-page').html() + "<div/>";
-            }
-
-        });
+        $("#fontSizeBtn").change(function () { sharedObject.selectedelement.css("font-size", $(this).val()) });
+        //$(document).on('click',
+        //    "[ data-font-size]",
+        //    function () {
+        //        var bg = $(this).attr("data-font-size");
+        //        //alert(bg);
+        //        $(sharedObject.selectedelement).css("font-size", bg + "px");
+        //        sharedObject.elementOfColorPopOverId.text(bg + "px");
+        //    });
 
 
         text.contextMenu();
@@ -393,10 +373,10 @@ var text = {
         $.contextMenu({
             selector: '.text',
             items: {
-                "sendToBack": { name: "برو عقب", icon: "" },
-                "bringFront": { name: "بیا جلو", icon: "" },
+                "sendToBack": { name: "Go Back", icon: "" },
+                "bringFront": { name: "Bring Front", icon: "" },
                 "sep2": "---------",
-                "delete": { name: "حذف", icon: "delete" },
+                "delete": { name: "Delete", icon: "delete" },
             },
             callback: function (key, options) {
                 var m = "clicked: " + key;
@@ -428,22 +408,20 @@ var text = {
 var card2 = {
     makeSelected: function (elm) {
         common.makeSelected(elm);
-        common.setActiveTab('menu3');
-
-
+        common.setActiveTab("imageCtrlDiv");
         //$(elm).css("overflow",'visible');
         ////$(elm).children(0).css("opacity", ".3");
 
-        var naturalWidth = parseFloat($(elm).children(0).css("width").replace("px", "")); //  $(elm).attr("data-naturalWidth");
-        var naturalHeight = parseFloat($(elm).children(0).css("height").replace("px", "")); //  $(elm).attr("data-naturalHeight");
-        var width = parseFloat($(elm).css("width").replace("px", ""));
-        var height = parseFloat($(elm).css("height").replace("px", ""));
-        var max = naturalWidth > width ? (naturalWidth / width) * 100 : 0;
-        var max2 = naturalHeight > height ? ((naturalHeight / height) * 100) : 0;
+        const naturalWidth = parseFloat($(elm).children(0).css("width").replace("px", "")); //  $(elm).attr("data-naturalWidth");
+        const naturalHeight = parseFloat($(elm).children(0).css("height").replace("px", "")); //  $(elm).attr("data-naturalHeight");
+        const width = parseFloat($(elm).css("width").replace("px", ""));
+        const height = parseFloat($(elm).css("height").replace("px", ""));
+        const max = naturalWidth > width ? (naturalWidth / width) * 100 : 0;
+        const max2 = naturalHeight > height ? ((naturalHeight / height) * 100) : 0;
 
         var zoom = parseFloat($(elm).attr("data-zoom")) || 100;
         $('[data-prop="background-size"]').val(zoom);
-        $('[data-label="background-size"]').text("% " + zoom + " زوم :");
+        $('[data-label="background-size"]').text("Zoom:" + zoom + "% "  );
 
         $("[data-prop='background-position-x']").attr("max", Math.max(0, max - 100));
         $("[data-prop='background-position-y']").attr("max", Math.max(0, max2));
@@ -456,22 +434,22 @@ var card2 = {
         $('[data-label="background-position-x"]').text(s1);
         $('[data-label="background-position-y"]').text(s2);
 
-        //$("[data-prop='background-position-x']").attr("min",-naturalWidth-(s1/100*width));
-        //$("[data-prop='background-position-y']").attr("min", -naturalHeight-(s2/100*height));
+        ////$("[data-prop='background-position-x']").attr("min",-naturalWidth-(s1/100*width));
+        ////$("[data-prop='background-position-y']").attr("min", -naturalHeight-(s2/100*height));
     },
     makeNewCard: function (img) {
 
 
-        var naturalWidth = img.context.naturalWidth;
-        var naturalHeight = img.context.naturalHeight;
-        var bg = img.context.src;
+        let naturalWidth = img.context.naturalWidth;
+        let naturalHeight = img.context.naturalHeight;
+        let bg = img.context.src;
 
-        var div = document.createElement("div");
-        var txt3 = document.createElement("div");
-        $(txt3).attr("data-naturalWidth", naturalWidth);
-        $(txt3).attr("data-naturalHeight", naturalHeight);
+        let div = document.createElement("div");
+        let imgCard = document.createElement("div");
+        $(imgCard).attr("data-naturalWidth", naturalWidth);
+        $(imgCard).attr("data-naturalHeight", naturalHeight);
 
-        var imgReal = document.createElement("img");
+        let imgReal = document.createElement("img");
         $(imgReal)
             .css('width', "100%") //naturalWidth
             //.css('height',"100%;")
@@ -479,26 +457,26 @@ var card2 = {
             //.css("margin","-50% -50%")
             .attr("src", bg);
 
-        var id = common.getMaxIdOfElements();
-        $(txt3).attr('id', id);
+        let id = common.getMaxIdOfElements();
+        $(imgCard).attr('id', id);
 
         if (bg != undefined) {
             // $( txt3).css("background-image", "url('" + bg + "')");
 
         }
 
-        $(txt3).append(imgReal);
-        $(div).append(txt3);
+        $(imgCard).append(imgReal);
+        $(div).append(imgCard);
         $("#mainPnl").append(div);
         card2.init($(div));
         history2.add("add", $(div));
 
-        card2.makeSelected($(txt3));
+        card2.makeSelected($(imgCard));
     },
     _tempStartLocation: null,
     init: function (card) {
 
-        card.children(0).addClass('testLdiv').addClass('fitBg'); //.css("width", "250px");
+        card.children(0).addClass('imgCard').addClass('fitBg'); //.css("width", "250px");
         card
             .addClass('draggable')
             .addClass("contextMenu")
@@ -522,7 +500,7 @@ var card2 = {
         //.droppable({
         //    drop: function (event, ui) {
 
-        //        var elm=$(ui.draggable).hasClass("testLdiv");
+        //        var elm=$(ui.draggable).hasClass("imgCard");
         //        if(!elm){
         //            //var src=ui.draggable.context.src;
         //            //$( this).css("background-image", "url(" + src + ")");
@@ -530,7 +508,7 @@ var card2 = {
 
         //    }});
         $(document).on("dblclick",
-            ".testLdiv",
+            ".imgCard",
             function (e) {
 
                 common.deactiveAllResizable();
@@ -541,8 +519,8 @@ var card2 = {
                 $(this).children(0).draggable({
                     drag: function () {
                         //if($(this).css("left"))
-                        var left = $(this).css("left").replace("px", "");
-                        var top = $(this).css("top").replace("px", "");
+                        let left = $(this).css("left").replace("px", "");
+                        let top = $(this).css("top").replace("px", "");
                         $('[data-prop="background-position-x"]').val(parseFloat(left));
                         $('[data-prop="background-position-y"]').val(parseFloat(top));
 
@@ -554,29 +532,19 @@ var card2 = {
                 sharedObject.selectedelement = $(this); //.children(0);
             });
 
-        $(document).on("click", ".testLdiv",
+        $(document).on("click", ".imgCard",
             function (e) {
-                //if (sharedObject.selectedelement!=undefined)
-                //$("#" + sharedObject.selectedelement).resizable('disable').draggable('disable');
 
+                try { $(this).children(0).draggable('destroy'); } catch (e) {}
 
-                //if (e.target !== this)
-                //    return;
-
-                try {
-                    $(this).children(0).draggable('destroy');
-                } catch (e) {
-                }
-
-                //sharedObject.selectedelement = $(this); //.children(0);
                 $(this).css("overflow", "hidden");
                 // $(this).resizable();
                 card2.makeSelected($(this));
 
-                var top = parseInt($(this).parent().css("top").replace("px", "")) -30;
-                var left = parseInt($(this).parent().css("left").replace("px", "")) + 173;
-                $("#imagesDiv").css("top", top + "px").css("left", left + "px").css("display", "block");
-                var angle = common.GetAngle(sharedObject.selectedelement);
+                const top = parseInt($(this).parent().css("top").replace("px", "")) -5;
+                const left = parseInt($(this).parent().css("left").replace("px", "")) + 173;
+                $("#imageCtrlDiv").css("top", top + "px").css("left", left + "px");//.css("display", "block");
+                const angle = common.GetAngle(sharedObject.selectedelement);
                  $("#imgRotator").roundSlider({ value: angle });
                 //$("#imgRotator").data("roundSlider").setValue(angle);
 
@@ -586,10 +554,10 @@ var card2 = {
 
     contextMenu: function () {
         $.contextMenu({
-            selector: '.testLdiv',
+            selector: '.imgCard',
             items: {
-                "fitBg": { name: "پسزمینه استرج", icon: "" },
-                "orginalBg": { name: "پسزمینه به اندازه واقعی", icon: "" },
+                "fitBg": { name: "عکس استرچ قاب شود", icon: "" },
+                "orginalBg": { name: "عکس به اندازه اصلیش شود", icon: "" },
                 "sep2": "---------",
                 "sendToBack": { name: "برو عقب", icon: "" },
                 "bringFront": { name: "بیا جلو", icon: "" },
@@ -637,7 +605,7 @@ var mainPnl = {
     },
     initEvent: function () {
 
-        $("#mainPnl").draggable({ /*containment: "#mainPnl2"*/
+        $("#mainPnl").draggable({ containment: "#drawingPnl",
             start: function () {
                 //mainPnl.makeSelected();
             }
@@ -646,8 +614,8 @@ var mainPnl = {
         $("#mainPnl").droppable({
             drop: function (event, ui) {
 
-                if ($(ui.draggable.context).hasClass("testLdiv")) {
-                } else if ($(ui.draggable.context).parent().hasClass("testLdiv")) {
+                if ($(ui.draggable.context).hasClass("imgCard")) {
+                } else if ($(ui.draggable.context).parent().hasClass("imgCard")) {
                 } else if (ui.draggable.context.parentNode.id === $(this).attr("id")) {
 
                 } else {
@@ -662,7 +630,7 @@ var mainPnl = {
 
         $("#mainPnl").click(function (e) {
             common.removeAllSelected();
-            //if ($(e.target).parent().hasClass("testLdiv"))
+            //if ($(e.target).parent().hasClass("imgCard"))
             //    mainPnl.makeSelected();
 
             if (e.target !== this)
@@ -677,6 +645,7 @@ var mainPnl = {
 
             mainPnl.makeSelected();
             common.setActiveTab("menu1");
+         /*   $("#selectedElmConfigDiv").html($('#menu1').html());*/
         });
 
         $('[data-terget="mainPnl"]').on("input change",
@@ -762,7 +731,7 @@ var history2 = {
             case "del":
 
                 $("#mainPnl").append($(last.element));
-                if ($(last.element).hasClass('testLdiv'))
+                if ($(last.element).hasClass('imgCard'))
                     card2.init($(last.element));
                 if ($(last.element).hasClass('text'))
                     text.init($(last.element));
@@ -809,7 +778,7 @@ var history2 = {
             case "add":
 
                 $("#mainPnl").append($(last.element));
-                if ($(last.element).hasClass('testLdiv'))
+                if ($(last.element).hasClass('imgCard'))
                     card2.init($(last.element));
                 if ($(last.element).hasClass('text'))
                     text.init($(last.element));
@@ -941,8 +910,8 @@ $(function () {
 
             $(sharedObject.selectedelement).css("background-image", "url('" + newBg + "')");
 
-            // $("#imagesDiv").css("display", "none");
-            // $("#" + sharedObject.selectedelement).resizable('disable').draggable('disable');
+            //// $("#imageCtrlDiv").css("display", "none");
+            //// $("#" + sharedObject.selectedelement).resizable('disable').draggable('disable');
 
         });
     //$('.uploadedImgs').popover({
@@ -959,7 +928,7 @@ $(function () {
 
     text.init($(".text"));
     text.initSetting();
-    card2.init($(".testLdiv").parent());
+    card2.init($(".imgCard").parent());
     mainPnl.initEvent();
     common.colorSelectEvent();
     common.textAlign();
@@ -967,40 +936,49 @@ $(function () {
     common.fitBgOrNot();
     common.backgroundZoom();
 
-    $("#rotateBar").on("input change",
-        function () {
-            var angle = $("#rotateBar").val();
+    $("#changeProjectNameAndSave").click(function () { api.saveToServer(); });
 
+    $("#textRotator").roundSlider({
+        radius: 20,
+        width: 5,
+        handleSize: "12,5",
+        sliderType: "min-range",
+        value: 0,
+        min: -180,
+        max: 180,
+        valueChange: function (e) {
+            let angle = $("#textRotator").data("roundSlider").getValue();
             $(sharedObject.selectedelement).css("-ms-transform", "rotate(" + angle + "deg)");
             $(sharedObject.selectedelement).css("-webkit-transform", "rotate(" + angle + "deg)");
             $(sharedObject.selectedelement).css("transform", "rotate(" + angle + "deg)");
-            $('[data-label=currentRotate]').text("Rotate:" + angle + "°");
-           
-        });
 
-    $("#changeProjectNameAndSave").click(function () { api.saveToServer(); });
+        }
+    });
+
+    $("#imgRotator").roundSlider({
+        radius: 20,
+        width: 5,
+        handleSize: "12,5",
+        sliderType: "min-range",
+        value: 0,
+        min: -180,
+        max: 180,
+        valueChange: function (e) {
+            let angle = $("#imgRotator").data("roundSlider").getValue();
+            $(sharedObject.selectedelement).css("-ms-transform", "rotate(" + angle + "deg)");
+            $(sharedObject.selectedelement).css("-webkit-transform", "rotate(" + angle + "deg)");
+            $(sharedObject.selectedelement).css("transform", "rotate(" + angle + "deg)");
+
+        }
+    });
 
     common.hideLoading();
 
-    $('#drag').draggable();
-
-    $('#resize').resizable({ handles: 'ne, nw, se, sw, n, w, s, e' });
+    ////$('#drag').draggable();
+    ////$('#resize').resizable({ handles: 'ne, nw, se, sw, n, w, s, e' });
 
     $('[data-terget=mainPnl-bgColor]').val(helper.RGBToHex($('#mainPnl').css('background-color')));
 
-    $("#fontSizeBtn").change(function () { sharedObject.selectedelement.css("font-size", $(this).val()) });
-    //$(document).ready(function() {
-    //    html2canvas($("#wrapper"), {
-    //        onrendered: function (canvas) {
-    //            theCanvas = canvas;
 
-    //            document.body.appendChild(canvas);
-
-    //            canvas.toBlob(function (blob) {
-    //                saveAs(blob, "Dashboard.png");
-    //            });
-    //        }
-    //    });
-    //});
 
 });
