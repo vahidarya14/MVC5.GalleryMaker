@@ -171,6 +171,7 @@
     <Content Include="favicon.ico" />
     <Content Include="wwwroot\fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
+    <Content Include="wwwroot\gallery_index.js" />
     <Content Include="wwwroot\images\readme\cards.png" />
     <Content Include="wwwroot\images\readme\cardView.png" />
     <Content Include="wwwroot\images\readme\photo control.png" />
@@ -294,6 +295,8 @@
     <Content Include="wwwroot\lib\mini-upload-form\assets\js\script.js" />
     <Content Include="wwwroot\lib\mini-upload-form\index.html" />
     <Content Include="wwwroot\lib\resizable-rotation.patch.js" />
+    <Content Include="wwwroot\lib\roundSlider\roundslider.css" />
+    <Content Include="wwwroot\lib\roundSlider\roundslider.js" />
     <Content Include="wwwroot\site.css" />
     <Content Include="wwwroot\images\banner1.svg" />
     <Content Include="wwwroot\images\banner2.svg" />
