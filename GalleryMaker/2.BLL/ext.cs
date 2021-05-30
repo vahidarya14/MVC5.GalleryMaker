@@ -1,7 +1,7 @@
 ﻿using System.Security.Cryptography;
 using System.Text;
 
-namespace GalleryMaker._2.BLL
+namespace PostcardMaker._2.BLL
 {
     public static class Ext
     {

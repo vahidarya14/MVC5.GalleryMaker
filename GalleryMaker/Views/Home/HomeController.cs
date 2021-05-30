@@ -5,13 +5,13 @@ using System.Security.Claims;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using GalleryMaker._1.DAL;
-using GalleryMaker._2.BLL;
-using GalleryMaker.Models;
 using Microsoft.AspNet.Identity;
 using Microsoft.Owin.Security;
+using PostcardMaker._1.DAL;
+using PostcardMaker._2.BLL;
+using PostcardMaker.Models;
 
-namespace GalleryMaker.Views.Home
+namespace PostcardMaker.Views.Home
 {
     [Authorize]
     public class HomeController : Controller

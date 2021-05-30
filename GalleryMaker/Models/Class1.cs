@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace GalleryMaker.Models
+namespace PostcardMaker.Models
 {
     public class Cat
     {

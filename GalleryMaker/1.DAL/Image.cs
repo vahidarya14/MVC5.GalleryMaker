@@ -1,4 +1,4 @@
-﻿namespace GalleryMaker._1.DAL
+﻿namespace PostcardMaker._1.DAL
 {
     public class Image
     {

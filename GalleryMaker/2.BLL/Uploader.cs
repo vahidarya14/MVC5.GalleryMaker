@@ -5,9 +5,9 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Hosting;
-using GalleryMaker._1.DAL;
+using PostcardMaker._1.DAL;
 
-namespace GalleryMaker._2.BLL
+namespace PostcardMaker._2.BLL
 {
     public class Uploader
     {

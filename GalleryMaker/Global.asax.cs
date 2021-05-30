@@ -3,10 +3,10 @@ using System.Web;
 using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
-using GalleryMaker;
+using PostcardMaker;
 
 [assembly:PreApplicationStartMethod(typeof(MvcApplication), "RegisterCustomModule")]
-namespace GalleryMaker
+namespace PostcardMaker
 {
    
     public class MvcApplication : HttpApplication

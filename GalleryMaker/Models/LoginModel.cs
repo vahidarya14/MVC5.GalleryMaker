@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace GalleryMaker.Models
+namespace PostcardMaker.Models
 {
     public class LoginModel
     {

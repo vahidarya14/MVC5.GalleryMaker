@@ -3,12 +3,12 @@ using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
-using GalleryMaker._1.DAL;
-using GalleryMaker._2.BLL;
-using GalleryMaker.Models;
 using Microsoft.AspNet.Identity;
+using PostcardMaker._1.DAL;
+using PostcardMaker._2.BLL;
+using PostcardMaker.Models;
 
-namespace GalleryMaker.Views.Gallery
+namespace PostcardMaker.Views.Gallery
 { 
     [Authorize]
     public class GalleryController : Controller
