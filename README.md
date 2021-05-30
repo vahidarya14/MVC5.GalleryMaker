@@ -1,4 +1,4 @@
-# MVC5.GalleryMaker
+# MVC5.PostcardMaker
 
 a simple sample card postal designer . an old project  :wink: :zany_face:
 ![](https://github.com/vahidarya14/MVC5.GalleryMaker/blob/master/GalleryMaker/wwwroot/images/logo.png)
