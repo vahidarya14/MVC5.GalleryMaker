@@ -87,8 +87,8 @@
                     <span class="glyphicon glyphicon glyphicon-save-file"></span>
                 </button>
             </div>
-            
-            <div  style="display: inline-flex;">
+
+            <div style="display: inline-flex;">
                 <button onclick="text.makeNewText()" class="btn btn-sm  btn-warning btn-round">
                     <span class="glyphicon glyphicon-plus"></span> Text
                 </button>
@@ -127,9 +127,9 @@
         <div id="selectedElmConfigDiv" style="overflow: auto; height: 42px; background: #cccccc; padding: 0 5px; text-align: left; width: 100%; ">
             <!--mainpnl control-->
             <div id="menu1" style="">
-                <ul >
+                <ul>
                     <li class="text-center">
-                        Background
+                        Background<br />
                         <input type="color" oninput="$('#mainPnl').css('background-color',$(this).val())" data-terget="mainPnl-bgColor" />
                     </li>
                 </ul>
@@ -139,25 +139,24 @@
             <div id="imageCtrlDiv" style="display: none;">
 
                 <ul>
-                    <li>
-                        <button onclick="common.bringFront()" class="btn btn-sm text-center no-radius">
-                            <span class="glyphicon  glyphicon glyphicon-oil"></span>
-                            به جلو
-                        </button>
-                    </li>
-                    <li>
-                        <button onclick="common.sendToBack()" class="btn btn-sm text-center ">
-                            <span class="glyphicon glyphicon-sort-by-attributes"></span>
-                            به عقب
-                        </button>
-                    </li>
                     <li><div class="pull-right" id="imgRotator"></div></li>
                     <li>
-                        <label class="pull-left badge" data-label="background-size">Zoom: 100</label>
+                        <span>border-width<label class="badge" data-label="border-width">0</label></span>
                         <br />
-                        <input type="range" min="50" max="250" step="1" value="100" data-prop='background-size' class="pull-left" style="margin: -4px 0 0 0; width: 240px;">
-
+                        <input type="range" min="0" max="5" step="1" value="0" data-prop='border-width' class="pull-left" style="margin:-4px 0 0 0; width: 40px;">
                     </li>
+                    <li>
+                        border-radius<label class="badge" data-label="border-radius">0</label>
+                        <br />
+                        <input type="range" min="0" max="50" step="1" value="0" data-prop='border-radius' class="pull-left" style="margin:-4px 0 0 0; width:50px;">
+                    </li>
+                    <li><div class="seperator btn"></div></li>
+                    <li>
+                        image zoom<label class="badge" data-label="background-size">100</label>
+                        <br />
+                        <input type="range" min="50" max="250" step="1" value="100" data-prop='background-size' class="pull-left" style="margin: -4px 0 0 0; width:180px;">
+                    </li>
+
                 </ul>
             </div>
 
@@ -168,16 +167,17 @@
                         <div id="textRotator"></div>
                     </li>
                     <li style="float: left;">
-                        ForeColor<br />
+                        font-color<br />
                         <input type="color" id="fontColorBtn" oninput="$(sharedObject.selectedelement).css('color',$(this).val())" />
                     </li>
                     <li style="">
-                        Background Color<br />
+                        bg-color<br />
                         <input type="color" id="bgColorBtn" oninput="$(sharedObject.selectedelement).css('background-color',$(this).val())" />
 
                     </li>
                     <li style="float: left;">
-                        <select class="btn text-center btn-block btn-default" id="fontSizeBtn">
+                        font-size
+                        <select class="btn btn-sm btn-block btn-default" id="fontSizeBtn">
                             <option value="10px">10px</option>
                             <option value="11px">11px</option>
                             <option value="12px">12px</option>
@@ -186,24 +186,22 @@
                             <option value="15px">15px</option>
                             <option value="16px">16px</option>
                             <option value="17px">17px</option>
+                            <option value="18px">18px</option>
+                            <option value="19px">19px</option>
+                            <option value="20px">20px</option>
                         </select>
                     </li>
                     <li style="float: left;">
                         <div class="btn-group btn-group-sm">
-                      
-                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="left">
-                                    <span class="glyphicon glyphicon-align-left"></span>
-                                </button>
-                      
-                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="center">
-                                    <span class="glyphicon glyphicon-align-center"></span>
-                                </button>
-                          
-                       
-                                <button type="button" class="btn btn-primary" data-prop="text-align" data-value="right">
-                                    <span class="glyphicon glyphicon-align-right"></span>
-                                </button>
-                           
+                            <button type="button" class="btn btn-default" data-prop="text-align" data-value="left">
+                                <span class="glyphicon glyphicon-align-left"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" data-prop="text-align" data-value="center">
+                                <span class="glyphicon glyphicon-align-center"></span>
+                            </button>
+                            <button type="button" class="btn btn-default" data-prop="text-align" data-value="right">
+                                <span class="glyphicon glyphicon-align-right"></span>
+                            </button>
                         </div>
                     </li>
                 </ul>
@@ -214,14 +212,14 @@
 
     <div class="row " id="drawingPnl" style="border:1px solid greenyellow; background: white; min-height: 80vh; margin: 0px;">
 
-         
-                <div class="row" id="mainPnl"
-                     style="position: absolute; overflow: hidden; background: white; width: 958px; z-index: 0; height: 448px; box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75); left: 24px; top: 50px;@Model.MainPnlCss">
-                    @Html.Raw(Model.HtmlString)
-                </div>
-          
 
-  
+        <div class="row" id="mainPnl"
+             style="position: absolute; overflow: hidden; background: white; width: 958px; z-index: 0; height: 448px; box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75); left: 24px; top: 50px;@Model.MainPnlCss">
+            @Html.Raw(Model.HtmlString)
+        </div>
+
+
+
     </div>
 
 
@@ -244,7 +242,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-default " data-dismiss="modal">cancle</button>
-                <button type="button" class="btn btn-success " id="changeProjectNameAndSave" >OK</button>
+                <button type="button" class="btn btn-success " id="changeProjectNameAndSave">OK</button>
 
             </div>
         </div>

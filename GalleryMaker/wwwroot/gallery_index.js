@@ -97,29 +97,29 @@ var common = {
         $(`#selectedElmConfigDiv>div`).css('display','none');
         $(`#${tabId}`).css('display', '');
     },
-    colorSelectEvent: function () {
-        $(document).on('click',
-            ".color",
-            function () {
-                var bg = $(this).css("background-color");
-                //var forColor=$(this).attr("data-font-color");
+    //colorSelectEvent: function () {
+    //    $(document).on('click',
+    //        ".color",
+    //        function () {
+    //            var bg = $(this).css("background-color");
+    //            //var forColor=$(this).attr("data-font-color");
 
-                if (sharedObject.selectedelement.hasClass('text') && sharedObject.colorMustChange == "background-color")
-                    bg = (bg.substring(0, bg.length - 1) + ",0.74)").replace("rgb", "rgba");
+    //            if (sharedObject.selectedelement.hasClass('text') && sharedObject.colorMustChange == "background-color")
+    //                bg = (bg.substring(0, bg.length - 1) + ",0.74)").replace("rgb", "rgba");
 
-                history2.add(sharedObject.colorMustChange, $(sharedObject.selectedelement), $(sharedObject.selectedelement).css(sharedObject.colorMustChange), bg);
-                $(sharedObject.selectedelement).css(sharedObject.colorMustChange, bg);
+    //            history2.add(sharedObject.colorMustChange, $(sharedObject.selectedelement), $(sharedObject.selectedelement).css(sharedObject.colorMustChange), bg);
+    //            $(sharedObject.selectedelement).css(sharedObject.colorMustChange, bg);
 
-                //// $(sharedObject.selectedelement).css("color",forColor);
-                if (sharedObject.selectedelement.attr('id') == 'mainPnl') {
-                    $('[data-terget="mainPnl"][data-action="changeBg"][data-prop="background-color"]').css('background-color', bg);
+    //            //// $(sharedObject.selectedelement).css("color",forColor);
+    //            if (sharedObject.selectedelement.attr('id') == 'mainPnl') {
+    //                $('[data-terget="mainPnl"][data-action="changeBg"][data-prop="background-color"]').css('background-color', bg);
 
-                } else {
+    //            } else {
 
-                    sharedObject.elementOfColorPopOverId.css("background-color", bg);
-                }
-            });
-    },
+    //                sharedObject.elementOfColorPopOverId.css("background-color", bg);
+    //            }
+    //        });
+    //},
     showLoading: function () {
         $("#loadingPnl").css("display", "block");
     },
@@ -201,8 +201,7 @@ var common = {
     },
     backgroundZoom: function () {
 
-        $("[data-prop='background-size']").on('change',
-            (function () {
+        $("[data-prop='background-size']").on('change', (function () {
 
 
                 //card2.makeSelected($(sharedObject.selectedelement));
@@ -210,8 +209,7 @@ var common = {
             }));
 
 
-        $("[data-prop='background-size']").on('input',
-            (function () {
+        $("[data-prop='background-size']").on('input', (function () {
 
                 // common.removeAllSelected();
                 try {
@@ -245,6 +243,32 @@ var common = {
                 $(sharedObject.selectedelement).attr("data-zoom", e);
             }));
 
+    },
+    borderWidth:function() {
+        $("[data-prop='border-width']").on('change', (function () {
+            //card2.makeSelected($(sharedObject.selectedelement));
+        }));
+
+
+        $("[data-prop='border-width']").on('input', (function () {
+            //var width = $(sharedObject.selectedelement).css("border-width").replace("px", "");
+            var e = parseInt($(this).val());
+            $(sharedObject.selectedelement).css("border-width", e + "px");
+            $(sharedObject.selectedelement).css("border-style",  "solid");
+            $('[data-label="border-width"]').text( e + "px");
+        }));
+    },
+    borderRadius: function() {
+        $("[data-prop='border-width']").on('change', (function () {
+            //card2.makeSelected($(sharedObject.selectedelement));
+        }));
+
+
+        $("[data-prop='border-radius']").on('input', (function () {
+            var e = parseInt($(this).val());
+            $(sharedObject.selectedelement).css("border-radius", e + "px");
+            $('[data-label="border-radius"]').text(e + "px");
+        }));
     },
     GetAngle: function (elm) {
         var el = $(elm); // document.getElementById(elm);
@@ -421,7 +445,7 @@ var card2 = {
 
         var zoom = parseFloat($(elm).attr("data-zoom")) || 100;
         $('[data-prop="background-size"]').val(zoom);
-        $('[data-label="background-size"]').text("Zoom:" + zoom + "% "  );
+        $('[data-label="background-size"]').text( zoom + "% "  );
 
         $("[data-prop='background-position-x']").attr("max", Math.max(0, max - 100));
         $("[data-prop='background-position-y']").attr("max", Math.max(0, max2));
@@ -556,13 +580,13 @@ var card2 = {
         $.contextMenu({
             selector: '.imgCard',
             items: {
-                "fitBg": { name: "عکس استرچ قاب شود", icon: "" },
-                "orginalBg": { name: "عکس به اندازه اصلیش شود", icon: "" },
+                "fitBg": { name: "Strech Picture to frame", icon: "" },
+                "orginalBg": { name: "Picture to Original Size", icon: "" },
                 "sep2": "---------",
-                "sendToBack": { name: "برو عقب", icon: "" },
-                "bringFront": { name: "بیا جلو", icon: "" },
+                "sendToBack": { name: "Go back", icon: "" },
+                "bringFront": { name: "Bring To Front", icon: "" },
                 "sep2": "---------",
-                "delete": { name: "حذف", icon: "delete" },
+                "delete": { name: "Delete", icon: "delete" },
                 //"quit": {name: "<input type='radio' />", icon: function(){
                 //    return 'context-menu-icon context-menu-icon-quit';
                 //}}
@@ -636,6 +660,7 @@ var mainPnl = {
             if (e.target !== this)
                 return;
 
+ common.setActiveTab("menu1");
             //mainPnl.makeSelected();
         });
 
@@ -644,7 +669,7 @@ var mainPnl = {
                 return;
 
             mainPnl.makeSelected();
-            common.setActiveTab("menu1");
+           
          /*   $("#selectedElmConfigDiv").html($('#menu1').html());*/
         });
 
@@ -930,11 +955,13 @@ $(function () {
     text.initSetting();
     card2.init($(".imgCard").parent());
     mainPnl.initEvent();
-    common.colorSelectEvent();
+    //common.colorSelectEvent();
     common.textAlign();
     common.backgroundPosition();
     common.fitBgOrNot();
     common.backgroundZoom();
+    common.borderWidth();
+    common.borderRadius();
 
     $("#changeProjectNameAndSave").click(function () { api.saveToServer(); });
 
