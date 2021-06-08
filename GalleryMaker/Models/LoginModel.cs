@@ -6,29 +6,29 @@ namespace PostcardMaker.Models
     public class LoginModel
     {
         [Required]
-        [DisplayName("نام کاربری")]
+        [DisplayName("User Name")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("رمز")]
+        [DisplayName("Password")]
         public string Password { get; set; }
 
     }
     public class RegisterModel
     {
         [Required]
-        [DisplayName("نام کاربری")]
+        [DisplayName("User Name")]
         public string UserName { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("رمز")]
+        [DisplayName("Password")]
         public string Password { get; set; }
 
         [Required]
         [DataType(DataType.Password)]
-        [DisplayName("تکرار رمز")]
+        [DisplayName("Confirm Password")]
         [Compare("Password", ErrorMessage = "رمز و تکرار رمز  یکی نیست.")]
         public string ConfirmPassword { get; set; }
     }
