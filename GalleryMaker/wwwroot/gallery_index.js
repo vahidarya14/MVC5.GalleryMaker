@@ -324,13 +324,17 @@ var text = {
 
         $(div).attr('id', common.getMaxIdOfElements());
 
-        txt3.innerHTML = "double click on me to change props.";
+        txt3.innerHTML = "double click on me to change text.";
         div.appendChild(txt3);
         $("#mainPnl").append(div); // Append the new elements
-        // sharedObject.selectedelement =txt3;
+        
         text.init($(div));
         text.makeSelected($(div));
         history2.add("add", $(div));
+
+        $("#labelTextInput").val('Enter text');
+        $("#labelTextModal").modal("show");
+
     },
     init: function (txt) {
 
@@ -442,6 +446,8 @@ var card2 = {
         const height = parseFloat($(elm).css("height").replace("px", ""));
         const max = naturalWidth > width ? (naturalWidth / width) * 100 : 0;
         const max2 = naturalHeight > height ? ((naturalHeight / height) * 100) : 0;
+        const borderRadius = parseFloat($(elm).css("border-radius").replace("px", "")) || 0;
+        const borderWidth = parseFloat($(elm).css("border-width").replace("px", ""));
 
         var zoom = parseFloat($(elm).attr("data-zoom")) || 100;
         $('[data-prop="background-size"]').val(zoom);
@@ -450,6 +456,11 @@ var card2 = {
         $("[data-prop='background-position-x']").attr("max", Math.max(0, max - 100));
         $("[data-prop='background-position-y']").attr("max", Math.max(0, max2));
 
+        $('[data-prop="border-radius"]').val(borderRadius);
+        $('[data-label="border-radius"]').text(`${borderRadius}px`);
+
+        $('[data-prop="border-width"]').val(borderWidth);
+        $('[data-label="border-width"]').text(`${borderWidth}px`);
 
         var s1 = parseFloat($(elm).children(0).css("margin-left").replace("%", ""));
         var s2 = parseFloat($(elm).children(0).css("margin-top").replace("%", ""));
@@ -573,6 +584,7 @@ var card2 = {
                 //$("#imgRotator").data("roundSlider").setValue(angle);
 
             });
+
         card2.contextMenu();
     },
 

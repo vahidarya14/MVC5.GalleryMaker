@@ -6,10 +6,9 @@ using System.Web.Mvc;
 using Microsoft.AspNet.Identity;
 using PostcardMaker._1.DAL;
 using PostcardMaker._2.BLL;
-using PostcardMaker.Models;
 
 namespace PostcardMaker.Views.Gallery
-{ 
+{
     [Authorize]
     public class GalleryController : Controller
     {
@@ -45,14 +44,14 @@ namespace PostcardMaker.Views.Gallery
             return View(model);
         }
 
-        public ActionResult LoadLayOut(int id)
-        {
-            InitViews();
+        //public ActionResult LoadLayOut(int id)
+        //{
+        //    InitViews();
 
-            var model = new Project();
-            model.HtmlString = TempLists.Layouts.First(a => a.Id == id).HtmlString;
-            return View("Index", model);
-        }
+        //    var model = new Project();
+        //    model.HtmlString = TempLists.Layouts.First(a => a.Id == id).HtmlString;
+        //    return View("Index", model);
+        //}
 
  
         [Route("PhotoMgmt")]

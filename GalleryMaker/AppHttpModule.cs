@@ -4,8 +4,7 @@ using System.Web;
 
 namespace PostcardMaker
 {
-
-    public class UrlPath : IHttpModule
+    public class AppHttpModule : IHttpModule
     {
         public void Init(HttpApplication app)
         {
@@ -40,44 +39,11 @@ namespace PostcardMaker
             HttpApplication app = (HttpApplication)sender;
             if (app.Context.Items.Contains("start"))
             {
-string log = (DateTime.Now - DateTime.Parse(app.Context.Items["start"].ToString())).ToString();
-            Debugger.Log(0, "duration", "request took " + log + Environment.NewLine);
+                string log = (DateTime.Now - DateTime.Parse(app.Context.Items["start"].ToString())).ToString();
+                Debugger.Log(0, "duration", "request took " + log + Environment.NewLine);
             }
                 
 
         }
     }
-
-    public class AlsHandler : IHttpHandler
-    {
-        //Notice ProcessRequest is the only method
-        //exposed by the IHttpHandler
-        public void ProcessRequest(HttpContext context)
-        {
-            HttpResponse response = context.Response;
-            HttpRequest request = context.Request;
-
-            response.Write("Every Page has a some text like this");
-        }
-
-        //By calling IsReusable, an HTTP factory can query a handler to 
-        //determine whether the same instance can be used to service 
-        //multiple requests 
-        public bool IsReusable
-        {
-            get
-            {
-                return false;
-            }
-        }
-
-    }
-
-    //public class NewHandler : IRouteHandler
-    //{
-    //    public IHttpHandler GetHttpHandler(RequestContext requestContext)
-    //    {
-
-    //    }
-    //}
 }

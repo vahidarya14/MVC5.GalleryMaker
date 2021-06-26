@@ -13,7 +13,7 @@ namespace PostcardMaker
     {
         public static void RegisterCustomModule()
         {
-            RegisterModule(typeof(UrlPath));
+            RegisterModule(typeof(AppHttpModule));
         }
 
         protected void Application_Start()

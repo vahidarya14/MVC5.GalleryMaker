@@ -26,12 +26,12 @@
 
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                @User.Identity.GetUserName()  
+                                @User.Identity.GetUserName()
                                 <i class="glyphicon glyphicon-user"></i><b class="caret"></b>
                             </a>
                             <ul class="dropdown-menu" style="width: 223px;">
                                 <li onclick="user.changePasswordForm($('#chgPassForm'));">
-                                    <span><i class="glyphicon glyphicon-cog"></i> Chage Password</span>
+                                    <a><i class="glyphicon glyphicon-cog"></i> Chage Password</a>
                                 </li>
                                 <li class="divider"></li>
                                 <li onclick="javascript:document.getElementById('logoutForm').submit()">
@@ -39,7 +39,7 @@
                                         @using (Html.BeginForm("LogOut", "Home", FormMethod.Post, new { id = "logoutForm" }))
                                         {
                                             @Html.AntiForgeryToken()
-                                            <span><i class="fa fa-fw fa-power-off"></i> Log Out </span>
+                                            <span><i class="glyphicon glyphicon-log-out"></i> Log Out </span>
                                         }
                                     </a>
                                 </li>
@@ -48,17 +48,73 @@
                     </ul>
 
                     <ul class="nav navbar-nav">
-
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                File
+                            </a>
+                            <ul class="dropdown-menu" style="width: 223px;">
+                                <li>
+                                    <a onclick="api.saveToServer()">
+                                        <span class="glyphicon glyphicon-floppy-disk"></span> Save
+                                    </a>
+                                </li>
+                                <li>
+                                    <a onclick="helper.convertToCanvas()">
+                                        <span class="glyphicon glyphicon glyphicon-save-file"></span> Export As Picture
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="/Gallery"> <i class="glyphicon glyphicon-unchecked"></i> New Card</a>
+                                </li>
+                                <li class="divider"></li>
+                                <li>
+                                    <a href="/Home"><i class="glyphicon glyphicon-th-large"></i> Cards</a>
+                                </li>
+                                <li>
+                                    <a href="//Gallery/PhotoMgmt"><i class="glyphicon glyphicon-th"></i> Photos</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Current Card
+                            </a>
+                            <ul class="dropdown-menu" style="width: 223px;">
+                                <li >
+                                    <a data-toggle="modal" data-target="#imgSelectModal">
+                                         <i class="	glyphicon glyphicon-picture"></i> Add Image
+                                    </a>
+                                </li>
+                                <li class="divider"></li>
+                                <li >
+                                    <a onclick="makeNewText()">
+                                        <i class="	glyphicon glyphicon-text-width"></i> Add Text
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
                         @{
                             var ctrl = ViewContext.RouteData.Values["controller"].ToString();
                             var acti = ViewContext.RouteData.Values["action"].ToString();
                             if (!(ctrl == "Home" && acti == "Index"))
                             {
-                                <li><a href="/Home">Cards</a></li>
-                            }
-                            <li><a href="/Gallery/PhotoMgmt">Photos</a></li>
-                        }
+                         
 
+                            }
+                        }
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                Help
+                            </a>
+                            <ul class="dropdown-menu" style="width: 223px;">
+                                <li>
+                                    <a >Help</a>
+                                </li>
+                                <li>
+                                    <a >About</a>
+                                </li>
+                            </ul>
+                        </li>
                     </ul>
                 }
                 <div style="display: table; margin-left: auto; margin-right: auto;">
@@ -93,5 +149,11 @@
     @*@Scripts.Render("~/bundles/jquery")
         @Scripts.Render("~/bundles/bootstrap")*@
     @RenderSection("scripts", required: false)
+
+<script>
+   function makeNewText() {
+       text.makeNewText();
+   }
+</script>
 </body>
 </html>

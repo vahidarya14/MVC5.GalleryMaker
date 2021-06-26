@@ -22,8 +22,6 @@
     <script src="~/wwwroot/lib/roundSlider/roundslider.js"></script>
     <script src="~/wwwroot/gallery_index.js"></script>
     <script>
-
-
         var api =
         {
             modalIsShown:false,
@@ -75,54 +73,6 @@
 <div id="mainContainer">
 
     <div class="tools">
-
-        <div class="text-center" style="text-align:-webkit-center;display: table; background: gray; padding:5px;width: 100%;">
-
-            <div class="pull-left">
-                <button onclick="api.saveToServer()" class="btn btn-sm text-center" title="Save">
-                    <span class="glyphicon glyphicon-floppy-disk"></span>
-                </button>
-
-                <button onclick="helper.convertToCanvas()" class="btn btn-sm text-center" title="Export Image">
-                    <span class="glyphicon glyphicon glyphicon-save-file"></span>
-                </button>
-            </div>
-
-            <div style="display: inline-flex;">
-                <button onclick="text.makeNewText()" class="btn btn-sm  btn-warning btn-round">
-                    <span class="glyphicon glyphicon-plus"></span> Text
-                </button>
-
-                <button data-toggle="modal" data-target="#imgSelectModal" class="btn btn-sm  btn-warning btn-round">
-                    <span class="glyphicon glyphicon-plus"></span> Image
-                </button>
-            </div>
-
-            <div class="pull-right">
-
-                <button onclick="history2.undo()" class="btn btn-sm text-center" title="undo"
-                        data-action="undo" disabled>
-                    <span class="glyphicon  glyphicon-arrow-left"></span>
-                </button>
-
-                <button onclick="history2.redo()" class="btn btn-sm text-center" title="redo"
-                        data-action="redo" disabled>
-                    <span class="glyphicon  glyphicon-arrow-right"></span>
-                </button>
-
-                <div class="seperator btn"></div>
-
-                <button onclick="mainPnl.ZoomIn()" class="btn btn-sm text-center ">
-                    <span class="glyphicon  glyphicon-zoom-in"></span>
-                </button>
-
-                <button onclick="mainPnl.ZoomOut()" class="btn btn-sm text-center">
-                    <span class="glyphicon  glyphicon-zoom-out"></span>
-                </button>
-
-            </div>
-
-        </div>
 
         <div id="selectedElmConfigDiv" style="overflow: auto; height: 42px; background: #cccccc; padding: 0 5px; text-align: left; width: 100%; ">
             <!--mainpnl control-->
@@ -209,18 +159,39 @@
         </div>
 
     </div>
+    <div>
+        <div class="pull-right" style="background: #6d6d6d8f; z-index: 55; position: absolute; right: 0; padding: 4px 4px;">
 
-    <div class="row " id="drawingPnl" style="border:1px solid greenyellow; background: white; min-height: 80vh; margin: 0px;">
+            <button onclick="history2.undo()" class="btn btn-sm text-center" title="undo"
+                    data-action="undo" disabled>
+                <span class="glyphicon  glyphicon-arrow-left"></span>
+            </button>
 
+            <button onclick="history2.redo()" class="btn btn-sm text-center" title="redo"
+                    data-action="redo" disabled>
+                <span class="glyphicon  glyphicon-arrow-right"></span>
+            </button>
 
-        <div class="row" id="mainPnl"
-             style="position: absolute; overflow: hidden; background: white; width: 958px; z-index: 0; height: 448px; box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75); left: 24px; top: 50px;@Model.MainPnlCss">
-            @Html.Raw(Model.HtmlString)
+            <div class="seperator btn"></div>
+
+            <button onclick="mainPnl.ZoomIn()" class="btn btn-sm text-center ">
+                <span class="glyphicon  glyphicon-zoom-in"></span>
+            </button>
+
+            <button onclick="mainPnl.ZoomOut()" class="btn btn-sm text-center">
+                <span class="glyphicon  glyphicon-zoom-out"></span>
+            </button>
+
         </div>
+        <div class="row " id="drawingPnl" style="border:1px solid greenyellow; background: white; min-height: 80vh; margin: 0px;">
+            <div class="row" id="mainPnl"
+                 style="position: absolute; overflow: hidden; background: white; width: 958px; z-index: 0; height: 448px; box-shadow: -3px 1px 35px -3px rgba(0, 0, 0, 0.75); left: 24px; top: 50px;@Model.MainPnlCss">
+                @Html.Raw(Model.HtmlString)
+            </div>
 
-
-
+        </div>
     </div>
+
 
 
 
@@ -252,7 +223,7 @@
 
 <!--imgSelectModal text Modal -->
 <div id="imgSelectModal" class="modal fade" role="dialog">
-    <div class="modal-dialog">
+    <div class="modal-dialog  modal-lg">
 
         <div class="modal-content">
             <div class="modal-header">
