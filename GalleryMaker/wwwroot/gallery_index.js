@@ -892,6 +892,14 @@ var helper = {
 
     ,convertToCanvas(btnExporttoimage) {
         common.removeAllSelected();
+
+        //html2canvas(document.querySelector("#mainPnl"))
+        //    .then(canvas => {
+        //        debugger;
+        //    document.body.appendChild(canvas)
+        //});
+
+
         html2canvas($("#mainPnl")[0],
             {
                 onrendered: function (canvas) {

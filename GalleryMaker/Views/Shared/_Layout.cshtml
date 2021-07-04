@@ -71,35 +71,35 @@
                                     <a href="/Home"><i class="glyphicon glyphicon-th-large"></i> Cards</a>
                                 </li>
                                 <li>
-                                    <a href="//Gallery/PhotoMgmt"><i class="glyphicon glyphicon-th"></i> Photos</a>
+                                    <a href="/Gallery/PhotoMgmt"><i class="glyphicon glyphicon-th"></i> Photos</a>
                                 </li>
                             </ul>
                         </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                                Current Card
-                            </a>
-                            <ul class="dropdown-menu" style="width: 223px;">
-                                <li >
-                                    <a data-toggle="modal" data-target="#imgSelectModal">
-                                         <i class="	glyphicon glyphicon-picture"></i> Add Image
-                                    </a>
-                                </li>
-                                <li class="divider"></li>
-                                <li >
-                                    <a onclick="makeNewText()">
-                                        <i class="	glyphicon glyphicon-text-width"></i> Add Text
-                                    </a>
-                                </li>
-                            </ul>
-                        </li>
+
                         @{
                             var ctrl = ViewContext.RouteData.Values["controller"].ToString();
                             var acti = ViewContext.RouteData.Values["action"].ToString();
-                            if (!(ctrl == "Home" && acti == "Index"))
+                            if (ctrl == "Gallery" && acti == "Index")
                             {
-                         
 
+                                <li class="dropdown">
+                                    <a href="#" class="dropdown-toggle" data-toggle="dropdown">
+                                        Current Card
+                                    </a>
+                                    <ul class="dropdown-menu" style="width: 223px;">
+                                        <li>
+                                            <a data-toggle="modal" data-target="#imgSelectModal">
+                                                <i class="	glyphicon glyphicon-picture"></i> Add Image
+                                            </a>
+                                        </li>
+                                        <li class="divider"></li>
+                                        <li>
+                                            <a onclick="makeNewText()">
+                                                <i class="	glyphicon glyphicon-text-width"></i> Add Text
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
                             }
                         }
                         <li class="dropdown">
@@ -108,10 +108,10 @@
                             </a>
                             <ul class="dropdown-menu" style="width: 223px;">
                                 <li>
-                                    <a >Help</a>
+                                    <a>Help</a>
                                 </li>
                                 <li>
-                                    <a >About</a>
+                                    <a>About</a>
                                 </li>
                             </ul>
                         </li>
